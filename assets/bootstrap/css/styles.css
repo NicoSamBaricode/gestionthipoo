@@ -1,0 +1,16 @@
+.card_desplegable{
+    max-height: 10rem;
+    overflow-y: scroll;
+}
+
+.row_boton{
+    width: fit-content;
+    margin-left: auto;
+    margin-right: 0px;
+}  
+.row_boton_centro{
+    margin-top: 1rem;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}  
