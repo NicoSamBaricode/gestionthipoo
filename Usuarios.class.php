@@ -64,7 +64,7 @@ class Usuario extends conexionDb{
 		    }
 			 return $data;
 		    }else{
-			 echo "No found records";
+			 echo "Base de datos vacia";
 		    }
 		}
 
@@ -134,9 +134,23 @@ class Usuario extends conexionDb{
 		    }
 			
 		}
+  		 
+					public function mostrarDatosBusqueda($query)
+					{
+						
+						$result = $this->conexion->query($query);
+					if ($result->num_rows > 0) {
+						$data = array();
+						while ($row = $result->fetch_assoc()) {
+							   $data[] = $row;
+						}
+						 return $data;
+						}else{
 
-
-
-
+						 echo "No se encontraron datos";
+						 
+						 return array();
+						}
+					}
 		
 }

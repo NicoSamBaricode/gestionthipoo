@@ -6,7 +6,7 @@ if (!isset($_SESSION['user']) ||(trim ($_SESSION['user']) == '')){
 	header('location:index.php');
 }
 
-include_once('User.php');
+include_once('Usuarios.class.php');
 include_once('proyectos.class.php');
 
 $user = new Usuario();
@@ -59,14 +59,14 @@ echo $row['rol'];
             <?php if ( 'admin' == $row["rol"] ) {?>
                     <li class="nav-item" role="presentation"><a class="nav-link active" href="panel.php"><i class="fas fa-tachometer-alt"></i><span>Panel Principal</span></a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="Lista_Usuarios.php"><i class="fas fa-user"></i><span>Usuarios</span></a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="Proyectos.php"><i class="fas fa-table"></i><span>Proyectos</span></a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="Lista_Proyectos.php"><i class="fas fa-table"></i><span>Proyectos</span></a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="Lista_Recursos.php"><i class="fas fa-warehouse"></i><span>Recursos</span></a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="cerrar_sesion.php"><i class="fas fa-user-circle"></i><span>Cerrar Sesión</span></a></li>
                 <?php }?> <!-- termina admin -->
                  <!-- arranca jefe -->  
             <?php if ( 'jefe' == $row["rol"] ) {?>
                     <li class="nav-item" role="presentation"><a class="nav-link active" href="panel.php"><i class="fas fa-tachometer-alt"></i><span>Panel Principal</span></a></li>                    
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="Proyectos.php"><i class="fas fa-table"></i><span>Proyectos</span></a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="Lista_Proyectos.php"><i class="fas fa-table"></i><span>Proyectos</span></a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="Lista_Recursos.php"><i class="fas fa-warehouse"></i><span>Recursos</span></a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="cerrar_sesion.php"><i class="fas fa-user-circle"></i><span>Cerrar Sesión</span></a></li>
                 <?php }?> <!-- termina jefe -->
@@ -74,7 +74,7 @@ echo $row['rol'];
             <!-- arranca taller -->
             <?php if ( 'taller' == $row["rol"] ) {?>
                     <li class="nav-item" role="presentation"><a class="nav-link active" href="panel.php"><i class="fas fa-tachometer-alt"></i><span>Panel Principal</span></a></li>                    
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="Proyectos.php"><i class="fas fa-table"></i><span>Proyectos</span></a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="Lista_Proyectos.php"><i class="fas fa-table"></i><span>Proyectos</span></a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="Lista_Recursos.php"><i class="fas fa-warehouse"></i><span>Recursos</span></a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="cerrar_sesion.php"><i class="fas fa-user-circle"></i><span>Cerrar Sesión</span></a></li>
                 <?php }?> <!-- termina taller -->
@@ -82,7 +82,7 @@ echo $row['rol'];
                <!-- arranca agente -->
                 <?php if ( 'agente' == $row["rol"] ) {?>
                     <li class="nav-item" role="presentation"><a class="nav-link active" href="panel.php"><i class="fas fa-tachometer-alt"></i><span>Panel Principal</span></a></li>                    
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="Proyectos.php"><i class="fas fa-table"></i><span>Proyectos</span></a></li>                    
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="Lista_Proyectos.php"><i class="fas fa-table"></i><span>Proyectos</span></a></li>                    
                     <li class="nav-item" role="presentation"><a class="nav-link" href="cerrar_sesion.php"><i class="fas fa-user-circle"></i><span>Cerrar Sesión</span></a></li>
                 <?php }?> 
                 <!-- termina agente -->

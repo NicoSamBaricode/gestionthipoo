@@ -5,7 +5,7 @@ if (!isset($_SESSION['user']) ||(trim ($_SESSION['user']) == '')){
 	header('location:index.php');
 }
 
-include_once('Usuarios.class.php');
+include_once('User.php');
 include_once('proyectos.class.php');
 
 $user = new Usuario();
@@ -23,22 +23,6 @@ if(isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
     $borrarId = $_GET['borrarid'];
     $user->borrar_usuario($borrarId);
 }
-//carga los datos cuando recien entra a la pagina
-$query = "SELECT * FROM usuarios ";
-//bandera para que desaparezca boton volver a la lista
-$flag=false;
-
-//carga la consulta de busqueda
-if(isset($_POST['submit'])) {
-	$query = "SELECT * FROM usuarios WHERE nombre LIKE '%".$_POST['busqueda']."%'";
-	$flag=true;
-	
-  }
-  //es lo que imprime al inicio.
-  if(isset($_POST['volver'])) {
-	$query = "SELECT * FROM usuarios ";
-	$flag=false;
-  }
 
 ?>
 <!DOCTYPE html>
@@ -66,7 +50,7 @@ if(isset($_POST['submit'])) {
                 <ul class="nav navbar-nav text-light" id="accordionSidebar">
                     <li class="nav-item" role="presentation"><a class="nav-link active" href="panel.php"><i class="fas fa-tachometer-alt"></i><span>Panel Principal </span></a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="Lista_Usuarios.php"><i class="fas fa-user"></i><span>Usuarios</span></a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="Lista_Proyectos.php"><i class="fas fa-table"></i><span>Proyectos</span></a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="Proyectos.php"><i class="fas fa-table"></i><span>Proyectos</span></a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="stock.php"><i class="fas fa-warehouse"></i><span>Recursos</span></a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="cerrar_sesion.php"><i class="fas fa-user-circle"></i><span>Cerrar Sesión</span></a></li>
                 </ul>
@@ -140,25 +124,10 @@ if(isset($_POST['submit'])) {
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6 text-nowrap">
-                                <!-- <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label>Mostrar&nbsp;<select class="form-control form-control-sm custom-select custom-select-sm"><option value="10" selected="">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select>&nbsp;</label></div> -->
-                                <?php 
-				                if ($flag==true){ ?>
-			                        <form method="POST" action="Lista_Usuarios.php">
-				                        <input style="display: none;" type="text" name="busqueda" id="volver">
-				                        <input type="submit" name="volver" class="btn btn-info btn-sm" value="Volver a la lista completa"/>
-			
-			                        </form>
-			                    <?php } $flag=false; ?>
+                                <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label>Mostrar&nbsp;<select class="form-control form-control-sm custom-select custom-select-sm"><option value="10" selected="">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select>&nbsp;</label></div>
                             </div>
                             <div class="col-md-6">
-                            <form method="POST" action="Lista_Usuarios.php">
-                                <div class="row">
-                                         <div class="col" style="max-width: fit-content; margin-right: 0px; margin-left: auto;">
-			                                <input type="text" name="busqueda" id="busqueda" placeholder="Ingrese nombre"></div>
-                                         <div class="col" style="padding: 0px; max-width: fit-content;">
-			                                <input type="submit" name="submit" class="btn btn-primary btn-sm" value="Buscar"/></div>
-                                </div>
-		                    </form>
+                                <div class="text-md-right dataTables_filter" id="dataTable_filter"><label><input type="text" id="search" class="form-control" autocomplete="off" placeholder="Buscar"><br></label></div>
                             </div>
                         </div>
                         <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
@@ -179,7 +148,7 @@ if(isset($_POST['submit'])) {
                                 <tbody>
                                     
                                 <?php 
-									$filas = $user->mostrarDatosBusqueda($query); 
+											 $filas = $user->mostrarDatos(); 
 											 foreach ($filas as $fila) {
 										   ?>
 										   <tr>
@@ -196,11 +165,11 @@ if(isset($_POST['submit'])) {
                                              <td><a class="btn btn-danger mx-auto btn-circle ml-1" onclick="return confirmBorrar()" role="button" href="Lista_Usuarios.php?borrarid=<?php echo $fila['id_usuario'] ?>"><i class="fas fa-trash text-white"></i></a></td>
 
                                            </tr>
-                                            <?php }  ?>
+                                            <?php } ?>
                                    
                                     
                                 </tbody>
-                                <tfoot class="thead-dark">
+                                <tfoot>
                                     <tr>
                                     <th>Nombre</th>
                                         <th>Apellido</th>
@@ -216,10 +185,9 @@ if(isset($_POST['submit'])) {
                         </div>
                         <div class="row">
                             <div class="col-md-6 align-self-center">
-                                <!-- <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Mostrando 1 al 10 de 27</p> -->
-                               
+                                <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Mostrando 1 al 10 de 27</p>
                             </div>
-                            <!-- <div class="col-md-6"> 
+                            <div class="col-md-6">
                                 <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
                                     <ul class="pagination">
                                         <li class="page-item disabled"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
@@ -229,7 +197,7 @@ if(isset($_POST['submit'])) {
                                         <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
                                     </ul>
                                 </nav>
-                            </div>-->
+                            </div>
                         </div>
                     </div>
             </div>

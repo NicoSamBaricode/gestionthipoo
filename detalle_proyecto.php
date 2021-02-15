@@ -5,26 +5,25 @@ if (!isset($_SESSION['user']) ||(trim ($_SESSION['user']) == '')){
 	header('location:index.php');
 }
 
-include_once('Usuarios.Class.php');
+include_once('Usuarios.class.php');
 include_once('proyectos.class.php');
 
 $user = new Usuario();
-
+$proyecto = new Proyecto_class();
 
 //extrae datos de usuaio
 $sql = "SELECT * FROM usuarios WHERE id_usuario = '".$_SESSION['user']."'";
 $row = $user->detalle($sql);
 
- // funcion edita
- if(isset($_GET['editId']) && !empty($_GET['editId'])) {
-    $editId = $_GET['editId'];
-    $usuario = $user->mostrarFilaPorId($editId);
-  }
+//recibe el id de lista de proyectos
+$id_proy= $_GET["detalleid"];
+$fila_proy=$proyecto->mostrarFilaPorId($id_proy);
 
-  // actualiza
-  if(isset($_POST['update'])) {
-    $user->actualizarFila($_POST);
-  }  
+  //llama funcion borrar
+  if(isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
+    $borrarId = $_GET['borrarid'];
+    $proyecto->borrar_proyecto($borrarId);
+} 
 
 ?>
 
@@ -82,75 +81,82 @@ $row = $user->detalle($sql);
             </div>
             </nav>
             <div class="container-fluid">
-                <h3 class="text-dark mb-4">Editar Usuario</h3>
+                <h3 class="text-dark mb-4">Proyecto</h3>
                 <div class="row mb-3">
-                    <div class="col-lg-4">
-                        <div class="card mb-3">
-                       
-                            <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4" src="assets/img/dogs/image2.jpeg" width="160" height="160">
-                            
-
-                            </div>
-                      
-                        </div>
-                    </div>
-                    <div class="col-lg-8">
+                   
+                    <div class="col-lg-12">
                         
                         <div class="row">
                             <div class="col">
                                 <div class="card shadow mb-3">
                                     <div class="card-header py-3">
-                                        <p class="text-primary m-0 font-weight-bold">Usuario</p>
+                                        <p class="text-primary m-0 font-weight-bold">Detalles</p>
                                     </div>
                                     <div class="card-body">
-                                    <form action="actualizar.php" method="POST" >
-                                            <div class="form-row">
+                                    <form action="actualizar_proyecto.php" method="POST" >
+                                        
+                                    <div class="form-row">
                                                 <div class="col">
-                                                    <div class="form-group"><label for="nombre"><strong>Nombre&nbsp;</strong></label><input class="form-control" type="text" placeholder="Nombre " name="nombre" value="<?php echo $usuario['nombre']; ?>" required="Ingrese dato valido"></div>
+                                                    <div class="form-group"><label for="nombre"><strong>Nombre&nbsp;</strong></label><p><?php echo $fila_proy["nombre"] ?></p></div>
                                                 </div>
                                                 <div class="col">
-                                                    <div class="form-group"><label for="apellido"><strong>Apellido</strong></label><input class="form-control" type="text" placeholder="Apellido" value="<?php echo $usuario['apellido']; ?>" required="Ingrese dato valido"name="apellido"></div>
+                                                    <div class="form-group"><label for="fecha"><strong>Fecha de Inicio</strong></label><p><?php echo $fila_proy["fecha_inicio"] ?></p></div>
                                                 </div>
                                             </div>
-                                            
                                             <div class="form-row">
-
-                                            <div class="col">
-                                                    <div class="form-group"><label for="rol"><strong>Tipo de Usuario</strong></label><select class="form-control" required name="rol" placeholder="Tipo de usuario" id="rol" value="<?php echo $usuario['rol']; ?>">  <option selected><strong><?php echo $usuario['rol']; ?></strong></option> <option >Agente</option><option>Admin</option> <option>Taller</option> <option>Jefe</option></select></div>
+                                                <div class="col">
+                                                    <div class="form-group"><label for="identificador"><strong>Identificador&nbsp;</strong></label><p><?php echo $fila_proy["identificador"] ?></p></div>
                                                 </div>
                                                 <div class="col">
-                                                    <div class="form-group"><label for="pasword"><strong>Contraseña</strong></label><input class="form-control" type="pasword"required="Ingrese dato valido" placeholder="contraseña" value="<?php echo $usuario['pasword']; ?>" name="pasword"></div>
+                                                    <div class="form-group"><label for="tema"><strong>Tema</strong></label><p><?php echo $fila_proy["tema"] ?></p></div>
                                                 </div>
                                             </div>
-
-                                            
+                                            <div class="form-row">
+                                                <div class="col">
+                                                <div class="form-group"><label for="descripcion"><strong>Descripcion</strong><br></label><p><?php echo $fila_proy["descripcion"] ?></p></div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="form-group"><label for="sector"><strong>Sector</strong></label><p><?php echo $fila_proy["sector"] ?></p></div>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="col">
+                                                    <div class="form-group"><label for="resp"><strong>Responsable</strong><br></label><p><?php echo $fila_proy["responsable"] ?></p></div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="form-group"><label for="frealizacion"><strong>Fecha finalizacion</strong><br></label><p><?php echo $fila_proy["fecha_realizado"] ?></p></div>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="col">
+                                                    <div class="form-group"><label for="obs"><strong>Observaciones</strong><br></label><p><?php echo $fila_proy["observaciones"] ?></p></div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="form-group"><label for="estado"><strong>Estado</strong><br></label><p><?php echo $fila_proy["estado"] ?></p></div>
+                                                </div>
+                                            </div>
+                                            <input type="hidden" name="id_proyectos" value="<?php echo $fila_proy['id_proyectos']; ?>">
+                                            <!--  
+                                            <div class="form-row">
+                                                <div class="col">
+                                                    <div class="form-group"><label for="archivo"><strong>Subir archivo</strong><br></label><br><input type="file"  class="btn btn-secondary btn-sm" name="archivo" value="agregar archivo"/></div>
+                                                </div>
                                                 
-                                            
-                                            <div class="form-row">
-                                                <div class="col">
-                                                    <div class="form-group"><label for="alias"><strong>Nombre de Usuario</strong><br></label><input class="form-control" type="text"required="Ingrese dato valido" placeholder="Nombre de usuario" value="<?php echo $usuario['alias']; ?>" name="alias"></div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="form-group"><label for="mail"><strong>Email</strong><br></label><input class="form-control" type="email"required="Ingrese dato valido" placeholder="usuario@cab.cnea.gov.ar" name="mail" value="<?php echo $usuario['mail']; ?>"></div>
-                                                </div>
-                                            </div>
-                                            <div class="form-row">
-                                                <div class="col">
-                                                    <!-- <div class="form-group"><label for="imagen"><strong>Imagen de Perfil</strong><br></label><br><input type="file" required class="btn btn-secondary btn-sm" name="imagen" value="agregar imagen"/></div> -->
-                                                </div>
-                                                <input type="hidden" name="id_usuario" value="<?php echo $usuario['id_usuario']; ?>">
-                                            </div>
+                                            </div>-->
                                             <div class="form-row" style="margin-left:auto; right:0px; max-width:fit-content">
                                              
                                                 <div class="col" style="max-width:fit-content">
-                                                <a class="btn btn-secondary"  href="Lista_Usuarios.php">Volver</a>
-                                                
+                                                <a class="btn btn-secondary" href="Lista_proyectos.php">Volver</a>
                                                 </div>
                                                 <div class="col" style="max-width:fit-content">
-                                               
-                                                <input type="submit" name="update" class="btn btn-primary " value="Actualizar"/> 
+                                                 
+                                                
+                                                <a class="btn btn-info mx-auto  ml-1" role="button" href="actualizar_proyecto.php?editId=<?php echo $fila_proy['id_proyectos'] ?>" >Actualizar</a>
                                                 </div>
+                                                <div class="col" style="max-width:fit-content">
+                                                <a class="btn btn-danger mx-auto btn-circle ml-1" onclick="return confirmBorrar()" role="button" href="Lista_proyectos.php?borrarid=<?php echo $fila_proy['id_proyectos'] ?>"><i class="fas fa-trash text-white"></i></a>
                                             </div>
+                                        </div>
                                         </form>
                                     </div>
                                     

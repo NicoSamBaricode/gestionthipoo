@@ -42,4 +42,130 @@ class Proyecto_class extends conexionDb{
             
              
     }
+    public function detalle($sql){
+
+        $query = $this->conexion->query($sql);
+        
+        $row = $query->fetch_array();
+            
+        return $row;       
+    }
+    // cast
+    public function escape_string($value){
+        
+        return $this->conexion->real_escape_string($value);
+    }
+
+    // mostrar datos de la tabla de proyectos
+    public function mostrarDatos()
+		{
+		    $query = "SELECT * FROM proyectos";
+		    $result = $this->conexion->query($query);
+		if ($result->num_rows > 0) {
+		    $data = array();
+		    while ($row = $result->fetch_assoc()) {
+		           $data[] = $row;
+		    }
+			 return $data;
+		    }else{
+			 echo "Base de datos vacia";
+		    }
+		}
+
+    // Insertar datos a la tabla de usuarios
+		public function insertarDatos($post)
+		{
+			$nombre = $this->conexion->real_escape_string($_POST['nombre']);
+			$fecha_i = $this->conexion->real_escape_string($_POST['fecha']);
+			$identificador = $this->conexion->real_escape_string($_POST['identificador']);
+			$tema = $this->conexion->real_escape_string($_POST['tema']);
+            $descrip = $this->conexion->real_escape_string($_POST['descrip']);
+            $sector = $this->conexion->real_escape_string($_POST['sector']);
+            $resp = $this->conexion->real_escape_string($_POST['resp']);
+            $fecha_r = $this->conexion->real_escape_string($_POST['frealizado']);
+			$obs = $this->conexion->real_escape_string($_POST['obs']);
+            $estado = $this->conexion->real_escape_string($_POST['estado']);
+            $query="INSERT INTO proyectos(identificador,nombre,fecha_inicio,tema,descripcion,sector,responsable,fecha_realizado,observaciones,estado) 
+            VALUES ('$identificador','$nombre','$fecha_i','$tema','$descrip','$sector','$resp','$fecha_r','$obs','$estado')";
+			$sql = $this->conexion->query($query);
+			if ($sql==true) {
+			    echo"<script> alert('Se creo el proyecto con exito'); window.location='/test/Lista_proyectos.php'</script> ";
+			}else{
+			    echo"<script> alert('Fallo al insertar datos'); </script>";
+			}
+            
+		}
+        //borrar usuarios
+        public function borrar_proyecto($id)
+		{
+		    $query = "DELETE FROM proyectos WHERE id_proyectos = '$id'";
+		    $sql = $this->conexion->query($query);
+		if ($sql==true) {
+			echo"<script> alert('Se borraron los datos con exito'); window.location='/test/Lista_Proyectos.php'</script> ";
+		}else{
+			echo"<script> alert('Fallo al borrar datos'); </script>";
+		    }
+		}
+
+        // Saca datos de una sola fila filtrado por id
+		public function mostrarFilaPorId($id)
+		{
+		    $query = "SELECT * FROM proyectos WHERE id_proyectos = '$id'";
+		    $result = $this->conexion->query($query);
+		if ($result->num_rows > 0) {
+			$row = $result->fetch_assoc();
+			return $row;
+		    }else{
+                echo"<script> alert('No se encontro el registro'); </script>";
+		    }
+		}
+
+		// actualiza datos en la tabla
+		public function actualizarFila($postData)
+		
+		{   $id_p = $this->conexion->real_escape_string($_POST['id_proyectos']);
+            $nombre = $this->conexion->real_escape_string($_POST['nombre']);
+			$fecha_i = $this->conexion->real_escape_string($_POST['fecha']);
+			$identificador = $this->conexion->real_escape_string($_POST['identificador']);
+			$tema = $this->conexion->real_escape_string($_POST['tema']);
+            $descrip = $this->conexion->real_escape_string($_POST['descrip']);
+            $sector = $this->conexion->real_escape_string($_POST['sector']);
+            $resp = $this->conexion->real_escape_string($_POST['resp']);
+            $fecha_r = $this->conexion->real_escape_string($_POST['frealizado']);
+			$obs = $this->conexion->real_escape_string($_POST['obs']);
+            $estado = $this->conexion->real_escape_string($_POST['estado']);
+			
+		    
+		if (!empty($id_p) && !empty($postData)) {
+			
+			$query = "UPDATE proyectos SET nombre = '$nombre', identificador = '$identificador', id_proyectos = '$id_p',
+             fecha_inicio = '$fecha_i', tema = '$tema', descripcion = '$descrip', sector = '$sector', responsable = '$resp', fecha_realizado = '$fecha_r'
+             , observaciones = '$obs', estado = '$estado' WHERE id_proyectos = '$id_p'";
+			$sql = $this->conexion->query($query);
+			if ($sql==true) {
+			    echo"<script> alert('Se actualizaron los datos con exito'); window.location='/test/Lista_Proyectos.php'</script> ";
+			}else{
+			    echo"<script> alert('Fallo al actualizar datos');window.location='/test/Lista_Proyectos.php'</script>  </script>";
+			}
+		    }
+			
+		}
+  		 
+		public function mostrarDatosBusqueda($query)
+					{
+						
+						$result = $this->conexion->query($query);
+					if ($result->num_rows > 0) {
+						$data = array();
+						while ($row = $result->fetch_assoc()) {
+							   $data[] = $row;
+						}
+						 return $data;
+						}else{
+
+						 echo "No se encontraron datos";
+						 
+						 return array();
+						}
+					}
 }
