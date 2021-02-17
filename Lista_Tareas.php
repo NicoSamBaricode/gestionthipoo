@@ -11,18 +11,14 @@ include_once('tareas.class.php');
 
 $user = new Usuario();
 $proyecto = new Proyecto_class();
-$tareas=new Tarea_class();
+$tarea= new Tarea_class();
 
 //extrae datos de usuaio
 $sql = "SELECT * FROM usuarios WHERE id_usuario = '".$_SESSION['user']."'";
 $row = $user->detalle($sql);
 
-//contador proyectos
-$cont = $proyecto->cont_p();
-
 //contador tareas
-$cont_t = $tareas->cont_t();
-
+$cont = $tarea->cont_t();
 
 //llama funcion borrar
 if(isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
@@ -30,19 +26,19 @@ if(isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
     $proyecto->borrar_proyecto($borrarId);
 }
 //carga los datos cuando recien entra a la pagina
-$query = "SELECT * FROM proyectos ";
+$query = "SELECT * FROM tareas ";
 //bandera para que desaparezca boton volver a la lista
 $flag=false;
 
 //carga la consulta de busqueda
 if(isset($_POST['submit'])) {
-	$query = "SELECT * FROM proyectos WHERE nombre LIKE '%".$_POST['busqueda']."%'";
+	$query = "SELECT * FROM tareas WHERE nombre LIKE '%".$_POST['busqueda']."%'";
 	$flag=true;
 	
   }
   //es lo que imprime al inicio.
   if(isset($_POST['volver'])) {
-	$query = "SELECT * FROM proyectos ";
+	$query = "SELECT * FROM tareas ";
 	$flag=false;
   }
 
@@ -73,7 +69,6 @@ if(isset($_POST['submit'])) {
                     <li class="nav-item" role="presentation"><a class="nav-link active" href="panel.php"><i class="fas fa-tachometer-alt"></i><span>Panel Principal </span></a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="Lista_Usuarios.php"><i class="fas fa-user"></i><span>Usuarios</span></a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="Lista_Proyectos.php"><i class="fas fa-table"></i><span>Proyectos</span></a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="Lista_Tareas.php"><i class="fas fa-list"></i><span>Tareas</span></a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="stock.php"><i class="fas fa-warehouse"></i><span>Recursos</span></a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="cerrar_sesion.php"><i class="fas fa-user-circle"></i><span>Cerrar Sesión</span></a></li>
                 </ul>
@@ -102,17 +97,17 @@ if(isset($_POST['submit'])) {
             </div>
             </nav>
             <div class="container-fluid">
-                <h3 class="text-dark mb-4">Proyectos</h3>
+                <h3 class="text-dark mb-4">Tareas</h3>
                 <div class="row">
                     <div class="col-md-6 col-xl-3 mb-4">
                         <div class="card shadow border-left-primary py-2">
                             <div class="card-body">
                                 <div class="row align-items-center no-gutters">
                                     <div class="col mr-2">
-                                        <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span>Nuevo Proyecto</span></div>
+                                        <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span>Nueva Tarea</span></div>
                                         <div class="text-dark font-weight-bold h5 mb-0"><span></span></div>
                                     </div>
-                                    <div class="col-auto"><a class="btn btn-primary" href="crear_proyecto.php"><i class="fas fa-folder-plus  text-gray-300"></i></a></div>
+                                    <div class="col-auto"><a class="btn btn-primary" href="crear_tarea.php"><i class="fas fa-file-medical  text-gray-300"></i></a></div>
                                 </div>
                             </div>
                         </div>
@@ -123,7 +118,7 @@ if(isset($_POST['submit'])) {
                             <div class="card-body">
                                 <div class="row align-items-center no-gutters">
                                     <div class="col mr-2">
-                                        <div class="text-uppercase text-warning font-weight-bold text-xs mb-1"><span>Proyectos</span></div>
+                                        <div class="text-uppercase text-warning font-weight-bold text-xs mb-1"><span>Tareas</span></div>
                                         
                                     </div>
                                     <div class="col-auto" style="color: darkgoldenrod;margin-right: 1rem; font-size: larger;">
@@ -137,39 +132,6 @@ if(isset($_POST['submit'])) {
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-xl-3 mb-4">
-                        <div class="card shadow border-left-dark py-2">
-                            <div class="card-body">
-                                <div class="row align-items-center no-gutters">
-                                    <div class="col mr-2">
-                                        <div class="text-uppercase text-black font-weight-bold text-xs mb-1"><span>Nueva Tarea</span></div>
-                                        <div class="text-dark font-weight-bold h5 mb-0"><span></span></div>
-                                    </div>
-                                    <div class="col-auto"><a class="btn btn-dark" href="crear_tarea.php"><i class="fas fa-file-medical  text-gray-300"></i></a></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-xl-3 mb-4">
-                        <div class="card shadow border-left-info py-2">
-                            <div class="card-body">
-                                <div class="row align-items-center no-gutters">
-                                    <div class="col mr-2">
-                                        <div class="text-uppercase text-info font-weight-bold text-xs mb-1"><span>Tareas</span></div>
-                                        
-                                    </div>
-                                    <div class="col-auto" style="color: darkgoldenrod;margin-right: 1rem; font-size: larger;">
-                                    
-                                    <?php echo  $cont_t; ?> 
-                                   
-                                    </div>
-                                    <div class="col-auto"><i class="fas fa-tasks fa-2x text-gray-300"></i></div>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
                     
                 </div>
                 <div
@@ -183,7 +145,7 @@ if(isset($_POST['submit'])) {
                                 <!-- <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label>Mostrar&nbsp;<select class="form-control form-control-sm custom-select custom-select-sm"><option value="10" selected="">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select>&nbsp;</label></div> -->
                                 <?php 
 				                if ($flag==true){ ?>
-			                        <form method="POST" action="Lista_Proyectos.php">
+			                        <form method="POST" action="Lista_Tareas.php">
 				                        <input style="display: none;" type="text" name="busqueda" id="volver">
 				                        <input type="submit" name="volver" class="btn btn-info btn-sm" value="Volver a la lista completa"/>
 			
@@ -191,7 +153,7 @@ if(isset($_POST['submit'])) {
 			                    <?php } $flag=false; ?>
                             </div>
                             <div class="col-md-6">
-                            <form method="POST" action="Lista_Proyectos.php">
+                            <form method="POST" action="Lista_Tareas.php">
                                 <div class="row">
                                          <div class="col" style="max-width: fit-content; margin-right: 0px; margin-left: auto;">
 			                                <input type="text" name="busqueda" id="busqueda" placeholder="Ingrese nombre"></div>
@@ -205,14 +167,15 @@ if(isset($_POST['submit'])) {
                             <table class="table dataTable my-0" id="dataTable">
                                 <thead class="thead-dark">
                                     <tr>
-                                        <th>#</th>
+                                       
                                         <th>Nombre</th>
-                                        <th>Fecha de Inicio</th>                                        
-                                        <th>Tema</th> 
-                                        <th>Sector</th>                                           
+                                        <th>Descripcion</th>                                     
+                                        <th>Responsable</th>  
+                                        <th>Fecha de Inicio</th>                                         
                                         <th>Fecha de Fin</th> 
-                                        <th>Estado</th> 
-                                        <th>Nueva Tarea</th> 
+                                        <th>Estado</th>  
+                                        
+                                        <th>Proyecto</th> 
                                         <th>Detalles</th>
                                         <th>Editar</th>
                                         <th>Eliminar</th>
@@ -221,22 +184,21 @@ if(isset($_POST['submit'])) {
                                 <tbody>
                                     
                                 <?php 
-									$filas = $proyecto->mostrarDatosBusqueda($query); 
+									$filas = $tarea->mostrarDatosBusqueda($query); 
 											 foreach ($filas as $fila) {
 										   ?>
-										   <tr>
-                                           
-											 <!-- <td>/<?php //echo $fila['id_proyectos'] ?></td> -->
-											 <td><?php echo $fila['identificador'] ?></td>
+										   <tr>                                         
+											
+											
 											 <td><?php echo $fila['nombre'] ?></td>
-											 <td><?php echo $fila['fecha_inicio'] ?></td>
-                                             <td><?php echo $fila["tema"] ?></td>
-                                             <td><?php echo $cont_t ?></td>
-                                            
-                                             <td><?php echo $fila["fecha_realizado"] ?></td>
-                                             <td><?php echo $fila["estado"] ?></td>
+                                             <td><?php echo $fila['descripcion'] ?></td>
+                                             <td><?php echo $fila['responsable'] ?></td>
+											 <td><?php echo $fila['f_inicio'] ?></td>
+                                             <td><?php echo $fila['f_final'] ?></td>                                            
+                                             <td><?php echo $fila["Estado"] ?></td>
+                                             <td><?php echo $fila["id_proyectos"] ?></td>
                                              <script src="cartel.js"> </script>
-                                             <td><a class="btn btn-primary mx-auto btn-circle ml-1"  role="button" href="crear_tarea.php?tareaId=<?php echo $fila["id_proyectos"]; ?>"><i class="fas fa-file-medical text-white"></i></a></td>
+                                             <!-- <td><a class="btn btn-primary mx-auto btn-circle ml-1"  role="button" href="crear_tarea.php?tareaId=<?php //echo $fila["id_proyectos"]; ?>"><i class="fas fa-file-medical text-white"></i></a></td> -->
                                              <td><a class="btn btn-secondary mx-auto btn-circle ml-1"  role="button" href="detalle_proyecto.php?detalleid=<?php echo $fila["id_proyectos"]; ?>"><i class="fas fa-file-alt text-white"></i></a></td>
                                              <td><a class="btn btn-info mx-auto btn-circle ml-1" role="button" href="actualizar_proyecto.php?editId=<?php echo $fila['id_proyectos'] ?>" ><i class="fas fa-user-circle text-white"></i></a></td>
                                              <td><a class="btn btn-danger mx-auto btn-circle ml-1" onclick="return confirmBorrar()" role="button" href="Lista_proyectos.php?borrarid=<?php echo $fila['id_proyectos'] ?>"><i class="fas fa-trash text-white"></i></a></td>
@@ -248,14 +210,14 @@ if(isset($_POST['submit'])) {
                                 </tbody>
                                 <tfoot class="thead-dark">
                                     <tr>
-                                        <th>#</th>
+                                        
                                         <th>Nombre</th>
                                         <th>Fecha de Inicio</th>                                        
                                         <th>Tema</th> 
                                         <th>Sector</th> 
                                         <th>Fecha de Fin</th> 
                                         <th>Estado</th> 
-                                        <th>Nueva Tarea</th>
+                                        <th>Proyecto</th>
                                         <th>Detalles</th>
                                          <th>Editar</th>
                                         <th>Eliminar</th>

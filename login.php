@@ -19,7 +19,7 @@ if(isset($_POST['login'])){
 	else{
 		//si no rechaza la conexion puede entrar
 		$_SESSION['user'] = $auth;
-		header('location:home.php');
+		header('location:panel.php');
 	}
 }
 else{

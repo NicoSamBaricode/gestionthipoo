@@ -115,7 +115,20 @@ if(isset($_POST['submit'])) {
                                             </div>
                                             <div class="form-row">
                                                 <div class="col">
-                                                    <div class="form-group"><label for="resp"><strong>Responsable</strong><br></label><input class="form-control" type="text"required="Ingrese dato valido" placeholder="Responsable" name="resp"></div>
+                                                <div class="form-group"><label for="resp"><strong>Responsable</strong><br></label><select class="form-control" require name="resp" id="exampleFormControlSelect2"> 
+                                                    <?php 
+                                                    $filas = $user->mostrarDatos(); 
+										                    	 foreach ($filas as $fila) {
+										                       ?>
+										                       <tr>                                         
+                                                                
+                                                               <option> <?php echo $fila['nombre'] ?></option>
+										                    	
+
+                                                               </tr>
+                                                                <?php }  ?>
+                                                                </select>
+                                                            </div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="form-group"><label for="frealizacion"><strong>Fecha finalizacion</strong><br></label><input class="form-control" type="date" placeholder="Ingrese fecha de finalizacion" name="frealizado"></div>
