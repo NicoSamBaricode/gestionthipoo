@@ -205,14 +205,14 @@ if(isset($_POST['submit'])) {
                             <table class="table dataTable my-0" id="dataTable">
                                 <thead class="thead-dark">
                                     <tr>
-                                        <th>#</th>
+                                        <th>Id</th>
                                         <th>Nombre</th>
                                         <th>Fecha de Inicio</th>                                        
                                         <th>Tema</th> 
-                                        <th>Sector</th>                                           
+                                                                                   
                                         <th>Fecha de Fin</th> 
                                         <th>Estado</th> 
-                                        <th>Nueva Tarea</th> 
+                                         
                                         <th>Detalles</th>
                                         <th>Editar</th>
                                         <th>Eliminar</th>
@@ -231,12 +231,12 @@ if(isset($_POST['submit'])) {
 											 <td><?php echo $fila['nombre'] ?></td>
 											 <td><?php echo $fila['fecha_inicio'] ?></td>
                                              <td><?php echo $fila["tema"] ?></td>
-                                             <td><?php echo $cont_t ?></td>
+                                             
                                             
                                              <td><?php echo $fila["fecha_realizado"] ?></td>
                                              <td><?php echo $fila["estado"] ?></td>
                                              <script src="cartel.js"> </script>
-                                             <td><a class="btn btn-primary mx-auto btn-circle ml-1"  role="button" href="crear_tarea.php?tareaId=<?php echo $fila["id_proyectos"]; ?>"><i class="fas fa-file-medical text-white"></i></a></td>
+                                             <!-- <td><a class="btn btn-primary mx-auto btn-circle ml-1"  role="button" href="crear_tarea.php?tareaId=<?php echo $fila["id_proyectos"]; ?>"><i class="fas fa-file-medical text-white"></i></a></td> -->
                                              <td><a class="btn btn-secondary mx-auto btn-circle ml-1"  role="button" href="detalle_proyecto.php?detalleid=<?php echo $fila["id_proyectos"]; ?>"><i class="fas fa-file-alt text-white"></i></a></td>
                                              <td><a class="btn btn-info mx-auto btn-circle ml-1" role="button" href="actualizar_proyecto.php?editId=<?php echo $fila['id_proyectos'] ?>" ><i class="fas fa-user-circle text-white"></i></a></td>
                                              <td><a class="btn btn-danger mx-auto btn-circle ml-1" onclick="return confirmBorrar()" role="button" href="Lista_proyectos.php?borrarid=<?php echo $fila['id_proyectos'] ?>"><i class="fas fa-trash text-white"></i></a></td>
@@ -248,14 +248,14 @@ if(isset($_POST['submit'])) {
                                 </tbody>
                                 <tfoot class="thead-dark">
                                     <tr>
-                                        <th>#</th>
+                                        <th>Id</th>
                                         <th>Nombre</th>
                                         <th>Fecha de Inicio</th>                                        
                                         <th>Tema</th> 
-                                        <th>Sector</th> 
+                                        
                                         <th>Fecha de Fin</th> 
                                         <th>Estado</th> 
-                                        <th>Nueva Tarea</th>
+                                        
                                         <th>Detalles</th>
                                          <th>Editar</th>
                                         <th>Eliminar</th>

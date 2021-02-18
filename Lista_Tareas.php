@@ -23,7 +23,7 @@ $cont = $tarea->cont_t();
 //llama funcion borrar
 if(isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
     $borrarId = $_GET['borrarid'];
-    $proyecto->borrar_proyecto($borrarId);
+    $tarea->borrar_tarea($borrarId);
 }
 //carga los datos cuando recien entra a la pagina
 $query = "SELECT * FROM tareas ";
@@ -38,6 +38,7 @@ if(isset($_POST['submit'])) {
   }
   //es lo que imprime al inicio.
   if(isset($_POST['volver'])) {
+    
 	$query = "SELECT * FROM tareas ";
 	$flag=false;
   }
@@ -188,20 +189,22 @@ if(isset($_POST['submit'])) {
 											 foreach ($filas as $fila) {
 										   ?>
 										   <tr>                                         
-											
+                                           <?php $aux_p=$proyecto->mostrarFilaPorId($fila["id_proyectos"]);
+                                                 $aux_u=$user->mostrarFilaPorId($fila["responsable"]);
+                                           ?>
 											
 											 <td><?php echo $fila['nombre'] ?></td>
                                              <td><?php echo $fila['descripcion'] ?></td>
-                                             <td><?php echo $fila['responsable'] ?></td>
+                                             <td><?php echo $aux_u['nombre'] ?></td>
 											 <td><?php echo $fila['f_inicio'] ?></td>
                                              <td><?php echo $fila['f_final'] ?></td>                                            
                                              <td><?php echo $fila["Estado"] ?></td>
-                                             <td><?php echo $fila["id_proyectos"] ?></td>
+                                             <td><?php echo $aux_p['nombre'] ?></td>
                                              <script src="cartel.js"> </script>
                                              <!-- <td><a class="btn btn-primary mx-auto btn-circle ml-1"  role="button" href="crear_tarea.php?tareaId=<?php //echo $fila["id_proyectos"]; ?>"><i class="fas fa-file-medical text-white"></i></a></td> -->
-                                             <td><a class="btn btn-secondary mx-auto btn-circle ml-1"  role="button" href="detalle_proyecto.php?detalleid=<?php echo $fila["id_proyectos"]; ?>"><i class="fas fa-file-alt text-white"></i></a></td>
-                                             <td><a class="btn btn-info mx-auto btn-circle ml-1" role="button" href="actualizar_proyecto.php?editId=<?php echo $fila['id_proyectos'] ?>" ><i class="fas fa-user-circle text-white"></i></a></td>
-                                             <td><a class="btn btn-danger mx-auto btn-circle ml-1" onclick="return confirmBorrar()" role="button" href="Lista_proyectos.php?borrarid=<?php echo $fila['id_proyectos'] ?>"><i class="fas fa-trash text-white"></i></a></td>
+                                             <td><a class="btn btn-secondary mx-auto btn-circle ml-1"  role="button" href="detalle_tarea.php?detalleid=<?php echo $fila["id_tareas"]; ?>"><i class="fas fa-file-alt text-white"></i></a></td>
+                                             <td><a class="btn btn-info mx-auto btn-circle ml-1" role="button" href="actualizar_tarea.php?editId=<?php echo $fila['id_tareas'] ?>" ><i class="fas fa-user-circle text-white"></i></a></td>
+                                             <td><a class="btn btn-danger mx-auto btn-circle ml-1" onclick="return confirmBorrar()" role="button" href="Lista_Tareas.php?borrarid=<?php echo $fila['id_tareas'] ?>"><i class="fas fa-trash text-white"></i></a></td>
 
                                            </tr>
                                             <?php }  ?>

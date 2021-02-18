@@ -5,20 +5,35 @@ if (!isset($_SESSION['user']) ||(trim ($_SESSION['user']) == '')){
 	header('location:index.php');
 }
 
+
 include_once('Usuarios.class.php');
+include_once('tareas.class.php');
 include_once('proyectos.class.php');
 
 $user = new Usuario();
+$tarea_obj = new Tarea_class();
 $proyecto = new Proyecto_class();
+
 
 //extrae datos de usuaio
 $sql = "SELECT * FROM usuarios WHERE id_usuario = '".$_SESSION['user']."'";
 $row = $user->detalle($sql);
 
-//llama a la funcion de insertar datos
-if(isset($_POST['submit'])) {
-    $proyecto->insertarDatos($_POST);
+ // funcion edita
+ if(isset($_GET['editId']) && !empty($_GET['editId'])) {
+    $editId = $_GET['editId'];
+    $tarea = $tarea_obj->mostrarFilaPorId($editId);
   }
+
+  // actualiza
+  if(isset($_POST['update'])) {
+    $tarea_obj->actualizarFila($_POST);
+  } 
+  //llama funcion borrar
+if(isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
+    $borrarId = $_GET['borrarid'];
+    $tarea->borrar_tarea($borrarId);
+} 
 
 ?>
 
@@ -76,71 +91,69 @@ if(isset($_POST['submit'])) {
             </div>
             </nav>
             <div class="container-fluid">
-                <h3 class="text-dark mb-4">Nuevo Proyecto</h3>
+                <h3 class="text-dark mb-4">Editar </h3>
                 <div class="row mb-3">
-                   
-                    <div class="col-lg-12">
+                    <div class="col-lg-4">
+                        <div class="card mb-3">
+                       
+                            <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4" src="assets/img/dogs/image2.jpeg" width="160" height="160">
+                            
+
+                            </div>
+                      
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
                         
                         <div class="row">
                             <div class="col">
                                 <div class="card shadow mb-3">
                                     <div class="card-header py-3">
-                                        <p class="text-primary m-0 font-weight-bold">Configurar Proyecto</p>
+                                        <p class="text-primary m-0 font-weight-bold">Tarea</p>
                                     </div>
                                     <div class="card-body">
-                                    <form action="crear_proyecto.php" method="POST" >
+                                    <form action="actualizar_proyecto.php" method="POST" >
                                     <div class="form-row">
                                                 <div class="col">
-                                                    <div class="form-group"><label for="nombre"><strong>Nombre&nbsp;</strong></label><input class="form-control" type="text" placeholder="Nombre " name="nombre" required="Ingrese dato valido"></div>
+                                                    <div class="form-group"><label for="nombre"><strong>Nombre&nbsp;</strong></label><input class="form-control" type="text" placeholder="Nombre " name="nombre" required="Ingrese dato valido"value="<?php echo $tarea['nombre']; ?>"></div>
                                                 </div>
                                                 <div class="col">
-                                                    <div class="form-group"><label for="fecha"><strong>Fecha de Inicio</strong></label><input class="form-control" type="date" placeholder="Fecha inicio" required="Ingrese dato valido"name="fecha"></div>
-                                                </div>
-                                            </div>
-                                            <div class="form-row">
-                                                <div class="col">
-                                                    <div class="form-group"><label for="identificador"><strong>Identificador&nbsp;</strong></label><input class="form-control" type="text" placeholder="Identificador" name="identificador" required="Ingrese dato valido"></div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="form-group"><label for="tema"><strong>Tema</strong></label><input class="form-control" type="text" placeholder="Tema" name="tema"></div>
+                                                    <div class="form-group"><label for="fecha"><strong>Fecha de Inicio</strong></label><input class="form-control" type="date" placeholder="Fecha inicio" required="Ingrese dato valido"name="fecha" value="<?php echo $proyecto['fecha_inicio']; ?>"></div>
                                                 </div>
                                             </div>
                                             <div class="form-row">
                                                 <div class="col">
-                                                <div class="form-group"><label for="descripcion"><strong>Descripcion</strong><br></label><textarea class="form-control" type="text" placeholder="Descripcion" name="descrip"></textarea></div>
+                                                    <div class="form-group"><label for="identificador"><strong>Identificador&nbsp;</strong></label><input class="form-control" type="text" placeholder="Identificador" name="identificador" required="Ingrese dato valido"value="<?php echo $proyecto['identificador']; ?>"></div>
                                                 </div>
                                                 <div class="col">
-                                                    <div class="form-group"><label for="sector"><strong>Sector</strong></label><input class="form-control" type="text"required="Ingrese dato valido" placeholder="Sector" name="sector"></div>
-                                                </div>
-                                            </div>
-                                            <div class="form-row">
-                                                <div class="col">
-                                                <div class="form-group"><label for="resp"><strong>Responsable</strong><br></label><select class="form-control"  name="resp" id="exampleFormControlSelect2"> 
-                                                    <?php 
-                                                    $filas = $user->mostrarDatos();
-                                                     
-										                    	 foreach ($filas as $fila) {
-										                       ?>
-										                       <tr>                                         
-                                                                
-                                                               <option value="<?php echo $fila['id_usuario'] ?>"> <?php echo $fila['nombre'] ?></option>
-										                    	
-
-                                                               </tr>
-                                                                <?php }  ?>
-                                                                </select>
-                                                            </div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="form-group"><label for="frealizacion"><strong>Fecha finalizacion</strong><br></label><input class="form-control" type="date" placeholder="Ingrese fecha de finalizacion" name="frealizado"></div>
+                                                    <div class="form-group"><label for="tema"><strong>Tema</strong></label><input class="form-control" type="text" placeholder="Tema" name="tema" value="<?php echo $proyecto['tema']; ?>"></div>
                                                 </div>
                                             </div>
                                             <div class="form-row">
                                                 <div class="col">
-                                                    <div class="form-group"><label for="obs"><strong>Observaciones</strong><br></label><textarea class="form-control" type="text" placeholder="Observaciones" name="obs"></textarea></div>
+                                                <div class="form-group"><label for="descripcion"><strong>Descripcion</strong><br></label><input class="form-control" type="text" placeholder="Descripcion" name="descrip" value="<?php echo $proyecto['descripcion']; ?>"></div>
                                                 </div>
                                                 <div class="col">
-                                                    <div class="form-group"><label for="estado"><strong>Estado</strong><br></label><select class="form-control" require name="estado" id="exampleFormControlSelect1"> <option>Pendiente</option>
+                                                    <div class="form-group"><label for="sector"><strong>Sector</strong></label><input class="form-control" type="text"required="Ingrese dato valido" placeholder="Sector" name="sector" value="<?php echo $proyecto['sector']; ?>"></div>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="col">
+                                                    <div class="form-group"><label for="resp"><strong>Responsable</strong><br></label><input class="form-control" type="text"required="Ingrese dato valido" placeholder="Responsable" name="resp" value="<?php echo $proyecto['responsable']; ?>"></div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="form-group"><label for="frealizacion"><strong>Fecha finalizacion</strong><br></label><input class="form-control" type="date" placeholder="Ingrese fecha de finalizacion" name="frealizado" value="<?php echo $proyecto['fecha_realizado']; ?>"></div>
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="col">
+                                                    <div class="form-group"><label for="obs"><strong>Observaciones</strong><br></label><input class="form-control" type="text" placeholder="Observaciones" name="obs" value="<?php echo $proyecto['observaciones']; ?>"></div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="form-group"><label for="estado"><strong>Estado</strong><br></label><select class="form-control" require name="estado" id="exampleFormControlSelect1" value="<?php echo $proyecto['estado']; ?>"> 
+                                                                                                                                                                                                                
+                                                                                                                                                                                                               <option selected><?php echo $proyecto['estado']; ?></option>
+                                                                                                                                                                                                               <option>Pendiente</option>
                                                                                                                                                                                                                <option>En proceso</option>
                                                                                                                                                                                                                <option>Realizado</option>
                                                                                                                                                                                                                <option>Cancelado</option>
@@ -148,22 +161,28 @@ if(isset($_POST['submit'])) {
                                                                                                                                                                                                 </div>
                                                 </div>
                                             </div>
-                                            <!--  
                                             <div class="form-row">
                                                 <div class="col">
-                                                    <div class="form-group"><label for="archivo"><strong>Subir archivo</strong><br></label><br><input type="file"  class="btn btn-secondary btn-sm" name="archivo" value="agregar archivo"/></div>
+                                                    <!-- <div class="form-group"><label for="imagen"><strong>Imagen de Perfil</strong><br></label><br><input type="file" required class="btn btn-secondary btn-sm" name="imagen" value="agregar imagen"/></div> -->
                                                 </div>
-                                                
-                                            </div>-->
+                                                <input type="hidden" name="id_tareas" value="<?php echo $tarea['id_tareas']; ?>">
+                                            </div>
                                             <div class="form-row" style="margin-left:auto; right:0px; max-width:fit-content">
                                              
                                                 <div class="col" style="max-width:fit-content">
-                                                <a class="btn btn-secondary" href="Lista_proyectos.php">Volver</a>
+                                                <a class="btn btn-secondary"  href="Lista_Tareas.php">Volver</a>
+                                                
                                                 </div>
                                                 <div class="col" style="max-width:fit-content">
-                                                 
-                                                <input type="submit" name="submit" class="btn btn-primary " value="Crear Proyecto"/> 
+                                               
+                                                <input type="submit" name="update" class="btn btn-primary " value="Actualizar"/> 
                                                 </div>
+                                                <div class="col" style="max-width:fit-content">
+                                                <a class="btn btn-danger mx-auto btn-circle ml-1" onclick="return confirmBorrar()" role="button" href="Lista_Tareas.php?borrarid=<?php echo $tarea['id_tareas'] ?>"><i class="fas fa-trash text-white"></i></a>
+
+                                                </div>
+                                            </div>
+                                            </div>
                                             </div>
                                         </form>
                                     </div>

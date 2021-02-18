@@ -87,8 +87,8 @@ class Tarea_class extends conexionDb{
 			 return array();
 		    }
 		}
-		// mostrar datos relacion proyectos y tareas
-		public function mostrarDatos_pyt($id)
+		// mostrar datos relacion proyectos y tareas(join inner)
+		public function mostrarDatos_join($id)
 		{
 		    $query = "SELECT * FROM tareas WHERE id_proyectos = '$id'";
 		    $result = $this->conexion->query($query);
@@ -143,7 +143,7 @@ class Tarea_class extends conexionDb{
         // Saca datos de una sola fila filtrado por id
 		public function mostrarFilaPorId($id)
 		{
-		    $query = "SELECT * FROM tareas WHERE id_proyectos = '$id'";
+		    $query = "SELECT * FROM tareas WHERE id_tareas = '$id'";
 		    $result = $this->conexion->query($query);
 		if ($result->num_rows > 0) {
 			$row = $result->fetch_assoc();

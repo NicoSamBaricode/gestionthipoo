@@ -1,0 +1,12 @@
+.formulario{
+    margin-top: .5rem;
+}
+
+#myTabContent{
+    margin-left: .5rem;
+    
+}
+#boton-volver{
+    max-width: fit-content;
+    margin-left: auto;
+}
