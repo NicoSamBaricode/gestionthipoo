@@ -157,29 +157,24 @@ class Tarea_class extends conexionDb{
 		// actualiza datos en la tabla
 		public function actualizarFila($postData)
 		
-		{   $id_p = $this->conexion->real_escape_string($_POST['id_proyectos']);
-            $nombre = $this->conexion->real_escape_string($_POST['nombre']);
+		{   $id_t=$this->conexion->real_escape_string($_POST['id_tareas']);
+			$nombre = $this->conexion->real_escape_string($_POST['nombre']);
 			$fecha_i = $this->conexion->real_escape_string($_POST['fecha']);
-			$identificador = $this->conexion->real_escape_string($_POST['identificador']);
-			$tema = $this->conexion->real_escape_string($_POST['tema']);
-            $descrip = $this->conexion->real_escape_string($_POST['descrip']);
-            $sector = $this->conexion->real_escape_string($_POST['sector']);
-            $resp = $this->conexion->real_escape_string($_POST['resp']);
-            $fecha_r = $this->conexion->real_escape_string($_POST['frealizado']);
-			$obs = $this->conexion->real_escape_string($_POST['obs']);
+			$descrip = $this->conexion->real_escape_string($_POST['descrip']);
+			$resp = $this->conexion->real_escape_string($_POST['resp']);
+            $fecha_r = $this->conexion->real_escape_string($_POST['frealizado']);			
             $estado = $this->conexion->real_escape_string($_POST['estado']);
+			$id_proy = $this->conexion->real_escape_string($_POST['proy']);
 			
 		    
-		if (!empty($id_p) && !empty($postData)) {
+		if (!empty($id_t) && !empty($postData)) {
 			
-			$query = "UPDATE proyectos SET nombre = '$nombre', identificador = '$identificador', id_proyectos = '$id_p',
-             fecha_inicio = '$fecha_i', tema = '$tema', descripcion = '$descrip', sector = '$sector', responsable = '$resp', fecha_realizado = '$fecha_r'
-             , observaciones = '$obs', estado = '$estado' WHERE id_proyectos = '$id_p'";
+			$query = "UPDATE tareas SET nombre = '$nombre', descripcion = '$descrip', responsable= '$resp', f_inicio= '$fecha_i', f_final= '$fecha_r',Estado= '$estado',id_proyectos= '$id_proy'  WHERE id_tareas = '$id_t'";
 			$sql = $this->conexion->query($query);
 			if ($sql==true) {
-			    echo"<script> alert('Se actualizaron los datos con exito'); window.location='/test/Lista_Proyectos.php'</script> ";
+			    echo"<script> alert('Se actualizo la tarea con exito'); window.location='/test/Lista_Tareas.php'</script> ";
 			}else{
-			    echo"<script> alert('Fallo al actualizar datos');window.location='/test/Lista_Proyectos.php'</script>  </script>";
+			    echo"<script> alert('Fallo al actualizar datos');window.location='/test/Lista_Tareas.php'</script>  </script>";
 			}
 		    }
 			

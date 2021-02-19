@@ -20,7 +20,8 @@ $row = $user->detalle($sql);
 //recibe el id de lista de proyectos
 $id_tarea= $_GET["detalleid"];
 $fila_tarea=$tarea->mostrarFilaPorId($id_tarea);
- $aux_u=$user->mostrarFilaPorId($fila_tarea['responsable']);
+$aux_u=$user->mostrarFilaPorId($fila_tarea['responsable']);
+$aux_p=$proyecto->mostrarFilaPorId($fila_tarea['id_proyectos']);
                                           
 
   //llama funcion borrar
@@ -142,7 +143,9 @@ $fila_tarea=$tarea->mostrarFilaPorId($id_tarea);
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
-                                                    
+                                                <div class="col">
+                                                        <div class="form-group"><label for="proy"><strong>Perteneciente a proyecto</strong><br></label><p><?php echo $aux_p["nombre"] ?></p></div>
+                                                    </div>
                                                     <div class="col">
                                                         <div class="form-group"><label for="estado"><strong>Estado</strong><br></label><p><?php echo $fila_tarea["Estado"] ?></p></div>
                                                     </div>
@@ -178,7 +181,7 @@ $fila_tarea=$tarea->mostrarFilaPorId($id_tarea);
                                     <div class="card-footer">
                                         <div class="row" id="boton-volver">
                                         <div class="col" style="max-width:fit-content">
-                                                    <a class="btn btn-secondary" href="Lista_proyectos.php">Volver</a>
+                                                    <a class="btn btn-secondary" href="Lista_Tareas.php">Volver</a>
                                         </div>
                                         </div>
                                     </div>

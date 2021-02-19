@@ -23,7 +23,12 @@ $row = $user->detalle($sql);
  if(isset($_GET['editId']) && !empty($_GET['editId'])) {
     $editId = $_GET['editId'];
     $tarea = $tarea_obj->mostrarFilaPorId($editId);
+    $aux_u=$user->mostrarFilaPorId($tarea['responsable']);
+    $aux_p=$proyecto->mostrarFilaPorId($tarea['id_proyectos']);
+
   }
+  
+  
 
   // actualiza
   if(isset($_POST['update'])) {
@@ -112,47 +117,59 @@ if(isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
                                         <p class="text-primary m-0 font-weight-bold">Tarea</p>
                                     </div>
                                     <div class="card-body">
-                                    <form action="actualizar_proyecto.php" method="POST" >
+                                    <form action="actualizar_tarea.php" method="POST" >
                                     <div class="form-row">
                                                 <div class="col">
                                                     <div class="form-group"><label for="nombre"><strong>Nombre&nbsp;</strong></label><input class="form-control" type="text" placeholder="Nombre " name="nombre" required="Ingrese dato valido"value="<?php echo $tarea['nombre']; ?>"></div>
                                                 </div>
                                                 <div class="col">
-                                                    <div class="form-group"><label for="fecha"><strong>Fecha de Inicio</strong></label><input class="form-control" type="date" placeholder="Fecha inicio" required="Ingrese dato valido"name="fecha" value="<?php echo $proyecto['fecha_inicio']; ?>"></div>
+                                                    <div class="form-group"><label for="fecha"><strong>Fecha de Inicio</strong></label><input class="form-control" type="date" placeholder="Fecha inicio" required="Ingrese dato valido"name="fecha" value="<?php echo $tarea['f_inicio']; ?>"></div>
                                                 </div>
+                                            </div>
+                                            
+                                            <div class="form-row">
+                                                <div class="col">
+                                                <div class="form-group"><label for="descripcion"><strong>Descripcion</strong><br></label><input class="form-control" type="text" placeholder="Descripcion" name="descrip" value="<?php echo $tarea['descripcion']; ?>"></div>
+                                                </div>
+                                                
                                             </div>
                                             <div class="form-row">
                                                 <div class="col">
-                                                    <div class="form-group"><label for="identificador"><strong>Identificador&nbsp;</strong></label><input class="form-control" type="text" placeholder="Identificador" name="identificador" required="Ingrese dato valido"value="<?php echo $proyecto['identificador']; ?>"></div>
-                                                </div>
+                                                <div class="form-group"><label for="resp"><strong>Responsable</strong><br></label><select class="form-control" require name="resp" id="exampleFormControlSelect2"> 
+                                                <option selected value="<?php echo $aux_u["id_usuario"] ?>"><?php echo $aux_u["nombre"] ?></p></option>
+                                                    <?php 
+                                                    $filas = $user->mostrarDatos(); 
+										                    	 foreach ($filas as $fila) {
+										                       ?>									                                                              
+                                                                <option value="<?php echo $fila['id_usuario'];?>">
+                                                                 <?php echo $fila['nombre'];?>
+                                                                </option>
+										                    	<?php }  ?>
+                                                                </select>
+                                                            </div>
+                                                            </div>
                                                 <div class="col">
-                                                    <div class="form-group"><label for="tema"><strong>Tema</strong></label><input class="form-control" type="text" placeholder="Tema" name="tema" value="<?php echo $proyecto['tema']; ?>"></div>
-                                                </div>
-                                            </div>
-                                            <div class="form-row">
-                                                <div class="col">
-                                                <div class="form-group"><label for="descripcion"><strong>Descripcion</strong><br></label><input class="form-control" type="text" placeholder="Descripcion" name="descrip" value="<?php echo $proyecto['descripcion']; ?>"></div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="form-group"><label for="sector"><strong>Sector</strong></label><input class="form-control" type="text"required="Ingrese dato valido" placeholder="Sector" name="sector" value="<?php echo $proyecto['sector']; ?>"></div>
-                                                </div>
-                                            </div>
-                                            <div class="form-row">
-                                                <div class="col">
-                                                    <div class="form-group"><label for="resp"><strong>Responsable</strong><br></label><input class="form-control" type="text"required="Ingrese dato valido" placeholder="Responsable" name="resp" value="<?php echo $proyecto['responsable']; ?>"></div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="form-group"><label for="frealizacion"><strong>Fecha finalizacion</strong><br></label><input class="form-control" type="date" placeholder="Ingrese fecha de finalizacion" name="frealizado" value="<?php echo $proyecto['fecha_realizado']; ?>"></div>
+                                                    <div class="form-group"><label for="frealizacion"><strong>Fecha finalizacion</strong><br></label><input class="form-control" type="date" placeholder="Ingrese fecha de finalizacion" name="frealizado" value="<?php echo $tarea['f_final']; ?>"></div>
                                                 </div>
                                             </div>
                                             <div class="form-row">
+                                            <div class="col">
+                                                    <div class="form-group"><label for="resp"><strong>Proyecto</strong><br></label><select class="form-control" require name="proy" id="exampleFormControlSelect2"> 
+                                                    
+                                                    <option selected value="<?php echo $aux_p["id_proyectos"] ?>"><?php echo $aux_p["nombre"] ?></p></option>
+                                                    <?php 
+                                                    $filas_p = $proyecto->mostrarDatos(); 
+										                    	 foreach ($filas_p as $fila_p) {
+										                       ?>									                                                              
+                                                                <option value="<?php echo $fila_p['id_proyectos'] ?>"> <?php echo $fila_p['nombre'] ?></option>
+										                    	<?php }  ?>
+                                                                </select>
+                                                            </div>
+                                            </div>
                                                 <div class="col">
-                                                    <div class="form-group"><label for="obs"><strong>Observaciones</strong><br></label><input class="form-control" type="text" placeholder="Observaciones" name="obs" value="<?php echo $proyecto['observaciones']; ?>"></div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="form-group"><label for="estado"><strong>Estado</strong><br></label><select class="form-control" require name="estado" id="exampleFormControlSelect1" value="<?php echo $proyecto['estado']; ?>"> 
+                                                    <div class="form-group"><label for="estado"><strong>Estado</strong><br></label><select class="form-control" require name="estado" id="exampleFormControlSelect1" value="<?php echo $tarea['Estado']; ?>"> 
                                                                                                                                                                                                                 
-                                                                                                                                                                                                               <option selected><?php echo $proyecto['estado']; ?></option>
+                                                                                                                                                                                                               <option selected><?php echo $tarea['Estado']; ?></option>
                                                                                                                                                                                                                <option>Pendiente</option>
                                                                                                                                                                                                                <option>En proceso</option>
                                                                                                                                                                                                                <option>Realizado</option>
