@@ -203,7 +203,7 @@ if(isset($_POST['submit'])) {
                                              <script src="cartel.js"> </script>
                                              <!-- <td><a class="btn btn-primary mx-auto btn-circle ml-1"  role="button" href="crear_tarea.php?tareaId=<?php //echo $fila["id_proyectos"]; ?>"><i class="fas fa-file-medical text-white"></i></a></td> -->
                                              <td><a class="btn btn-secondary mx-auto btn-circle ml-1"  role="button" href="detalle_tarea.php?detalleid=<?php echo $fila["id_tareas"]; ?>"><i class="fas fa-file-alt text-white"></i></a></td>
-                                             <td><a class="btn btn-info mx-auto btn-circle ml-1" role="button" href="actualizar_tarea.php?editId=<?php echo $fila['id_tareas'] ?>" ><i class="fas fa-user-circle text-white"></i></a></td>
+                                             <td><a class="btn btn-info mx-auto btn-circle ml-1" role="button" href="actualizar_tarea.php?editId=<?php echo $fila['id_tareas'] ?>" ><i class="fa fa-edit text-white"></i></a></td>
                                              <td><a class="btn btn-danger mx-auto btn-circle ml-1" onclick="return confirmBorrar()" role="button" href="Lista_Tareas.php?borrarid=<?php echo $fila['id_tareas'] ?>"><i class="fas fa-trash text-white"></i></a></td>
 
                                            </tr>
