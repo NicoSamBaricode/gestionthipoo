@@ -6,10 +6,10 @@ if (!isset($_SESSION['user']) ||(trim ($_SESSION['user']) == '')){
 }
 
 include_once('Usuarios.class.php');
-include_once('proyectos.class.php');
+include_once('actividades.class.php');
 
 $user = new Usuario();
-$proyecto = new Proyecto_class();
+$actividad = new actividades_class();
 
 //extrae datos de usuaio
 $sql = "SELECT * FROM usuarios WHERE id_usuario = '".$_SESSION['user']."'";
@@ -17,7 +17,7 @@ $row = $user->detalle($sql);
 
 //llama a la funcion de insertar datos
 if(isset($_POST['submit'])) {
-    $proyecto->insertarDatos($_POST);
+    $actividad->insertarDatos($_POST);
   }
 
 ?>
@@ -28,7 +28,7 @@ if(isset($_POST['submit'])) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Crear Proyecto</title>
+    <title>Crear nueva Actividad</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/bootstrap/css/styles.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
@@ -48,6 +48,7 @@ if(isset($_POST['submit'])) {
                 <li class="nav-item" role="presentation"><a class="nav-link active" href="panel.php"><i class="fas fa-tachometer-alt"></i><span>Panel Principal</span></a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="Lista_Usuarios.php"><i class="fas fa-user"></i><span>Usuarios</span></a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="Lista_Proyectos.php"><i class="fas fa-table"></i><span>Proyectos</span></a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="Lista_actividades.php"><i class="fas fa-chart-pie"></i><span>Actividades</span></a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="stock.php"><i class="fas fa-warehouse"></i><span>Recursos</span></a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" href="cerrar_sesion.php"><i class="fas fa-user-circle"></i><span>Cerrar Sesión</span></a></li>
                 </ul>
@@ -76,7 +77,7 @@ if(isset($_POST['submit'])) {
             </div>
             </nav>
             <div class="container-fluid">
-                <h3 class="text-dark mb-4">Nuevo Proyecto</h3>
+                <h3 class="text-dark mb-4">Nuevo Actividad</h3>
                 <div class="row mb-3">
                    
                     <div class="col-lg-12">
@@ -85,84 +86,41 @@ if(isset($_POST['submit'])) {
                             <div class="col">
                                 <div class="card shadow mb-3">
                                     <div class="card-header py-3">
-                                        <p class="text-primary m-0 font-weight-bold">Configurar Proyecto</p>
+                                        <p class="text-primary m-0 font-weight-bold">Configurar </p>
                                     </div>
                                     <div class="card-body">
-                                    <form action="crear_proyecto.php" method="POST" >
+                                    <form action="crear_actividades.php" method="POST" >
                                     <div class="form-row">
                                                 <div class="col">
                                                     <div class="form-group"><label for="nombre"><strong>Nombre&nbsp;</strong></label><input class="form-control" type="text" placeholder="Nombre " name="nombre" required="Ingrese dato valido"></div>
                                                 </div>
                                                 <div class="col">
-                                                    <div class="form-group"><label for="fecha"><strong>Fecha de Inicio</strong></label><input class="form-control" type="date" placeholder="Fecha inicio" required="Ingrese dato valido"name="fecha"></div>
+                                                <div class="form-group"><label for="identificador"><strong>Identificador&nbsp;</strong></label><input class="form-control" type="text" placeholder="Identificador" name="identificador" required="Ingrese dato valido"></div>
                                                 </div>
                                             </div>
                                             <div class="form-row">
                                                 <div class="col">
-                                                    <div class="form-group"><label for="identificador"><strong>Identificador&nbsp;</strong></label><input class="form-control" type="text" placeholder="Identificador" name="identificador" required="Ingrese dato valido"></div>
+                                                  
                                                 </div>
-                                                <div class="col">
-                                                    <div class="form-group"><label for="tema"><strong>Tema</strong></label><input class="form-control" type="text" placeholder="Tema" name="tema"></div>
-                                                </div>
+                                                
                                             </div>
                                             <div class="form-row">
                                                 <div class="col">
                                                 <div class="form-group"><label for="descripcion"><strong>Descripcion</strong><br></label><textarea class="form-control" type="text" placeholder="Descripcion" name="descrip"></textarea></div>
                                                 </div>
                                                 <div class="col">
-                                                    <div class="form-group"><label for="sector"><strong>Sector</strong></label><input class="form-control" type="text"required="Ingrese dato valido" placeholder="Sector" name="sector"></div>
+                                                    <div class="form-group"><label for="horas"><strong>Asignar Horas</strong></label><input class="form-control" type="text"required="Ingrese dato valido" placeholder="horas" name="horas"></div>
                                                 </div>
                                             </div>
-                                            <div class="form-row">
-                                                <div class="col">
-                                                <div class="form-group"><label for="resp"><strong>Responsable</strong><br></label><select class="form-control"  name="resp" id="exampleFormControlSelect2"> 
-                                                    <?php 
-                                                    $filas = $user->mostrarDatos();
-                                                     
-										                    	 foreach ($filas as $fila) {
-										                       ?>
-										                       <tr>                                         
-                                                                
-                                                               <option value="<?php echo $fila['id_usuario'] ?>"> <?php echo $fila['nombre'] ?></option>
-										                    	
-
-                                                               </tr>
-                                                                <?php }  ?>
-                                                                </select>
-                                                            </div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="form-group"><label for="frealizacion"><strong>Fecha finalizacion</strong><br></label><input class="form-control" type="date" placeholder="Ingrese fecha de finalizacion" name="frealizado"></div>
-                                                </div>
-                                            </div>
-                                            <div class="form-row">
-                                                <div class="col">
-                                                    <div class="form-group"><label for="obs"><strong>Observaciones</strong><br></label><textarea class="form-control" type="text" placeholder="Observaciones" name="obs"></textarea></div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="form-group"><label for="estado"><strong>Estado</strong><br></label><select class="form-control" require name="estado" id="exampleFormControlSelect1"> <option>Pendiente</option>
-                                                                                                                                                                                                               <option>En proceso</option>
-                                                                                                                                                                                                               <option>Realizado</option>
-                                                                                                                                                                                                               <option>Cancelado</option>
-                                                                                                                                                                                                               <option>Revisar</option></select>
-                                                                                                                                                                                                </div>
-                                                </div>
-                                            </div>
-                                            <!--  
-                                            <div class="form-row">
-                                                <div class="col">
-                                                    <div class="form-group"><label for="archivo"><strong>Subir archivo</strong><br></label><br><input type="file"  class="btn btn-secondary btn-sm" name="archivo" value="agregar archivo"/></div>
-                                                </div>
-                                                
-                                            </div>-->
+                                            
                                             <div class="form-row" style="margin-left:auto; right:0px; max-width:fit-content">
                                              
                                                 <div class="col" style="max-width:fit-content">
-                                                <a class="btn btn-secondary" href="Lista_proyectos.php">Volver</a>
+                                                <a class="btn btn-secondary" href="Lista_actividades.php">Volver</a>
                                                 </div>
                                                 <div class="col" style="max-width:fit-content">
                                                  
-                                                <input type="submit" name="submit" class="btn btn-primary " value="Crear Proyecto"/> 
+                                                <input type="submit" name="submit" class="btn btn-primary " value="Crear Actividad"/> 
                                                 </div>
                                             </div>
                                         </form>

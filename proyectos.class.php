@@ -71,8 +71,8 @@ class Proyecto_class extends conexionDb{
 			 echo "Base de datos vacia";
 		    }
 		}
-
-    // Insertar datos a la tabla de usuarios
+      
+    // Insertar datos a la tabla de proyectos
 		public function insertarDatos($post)
 		{
 			$nombre = $this->conexion->real_escape_string($_POST['nombre']);
@@ -85,14 +85,27 @@ class Proyecto_class extends conexionDb{
             $fecha_r = $this->conexion->real_escape_string($_POST['frealizado']);
 			$obs = $this->conexion->real_escape_string($_POST['obs']);
             $estado = $this->conexion->real_escape_string($_POST['estado']);
-            $query="INSERT INTO proyectos(identificador,nombre,fecha_inicio,tema,descripcion,sector,responsable,fecha_realizado,observaciones,estado) 
-            VALUES ('$identificador','$nombre','$fecha_i','$tema','$descrip','$sector','$resp','$fecha_r','$obs','$estado')";
-			$sql = $this->conexion->query($query);
-			if ($sql==true) {
-			    echo"<script> alert('Se creo el proyecto con exito'); window.location='/test/Lista_proyectos.php'</script> ";
-			}else{
-			    echo"<script> alert('Fallo al insertar datos'); </script>";
+			//busco que no exista el identificador
+			$queryident = "SELECT identificador FROM proyectos WHERE identificador=$identificador ";
+		    			$result = $this->conexion->query($queryident);
+						if ($result->num_rows > 0) {
+							
+							echo"<script> alert('El identificador ingresado ya existe, por favor ingrese uno diferente.'); window.location='/test/crear_proyecto.php'</script> ";
+							
+							}
+							else{
+	
+							 $query="INSERT INTO proyectos(identificador,nombre,fecha_inicio,tema,descripcion,sector,responsable,fecha_realizado,observaciones,estado) 
+           							 VALUES ('$identificador','$nombre','$fecha_i','$tema','$descrip','$sector','$resp','$fecha_r','$obs','$estado')";
+							$sql = $this->conexion->query($query);
+							if ($sql==true) {
+						    echo"<script> alert('Se creo el proyecto con exito'); window.location='/test/Lista_proyectos.php'</script> ";
+							}else{
+			   				 echo"<script> alert('Fallo al insertar datos'); </script>";
 			}
+							 
+							}
+            
             
 		}
         //borrar usuarios
@@ -166,6 +179,22 @@ class Proyecto_class extends conexionDb{
 						 echo "No se encontraron datos";
 						 
 						 return array();
+						}
+					}
+			public function buscarIdRepetido($identificador)
+					{
+						$query = "SELECT identificador FROM proyectos WHERE identificador=$identificador ";
+		    			$result = $this->conexion->query($query);
+						
+					if ($result->num_rows > 0) {
+						echo " Identificador no disponible";
+						//echo"<script> alert('El identificador ingresado ya existe, por favor ingrese uno diferente.'); window.location='/test/crear_proyecto.php'</script> ";
+						return true;
+						}
+						else{
+
+						 
+						 return false;
 						}
 					}
 }
