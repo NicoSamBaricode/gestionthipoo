@@ -10,3 +10,14 @@
     max-width: fit-content;
     margin-left: auto;
 }
+
+#chart-container {
+    width: 100%;
+    height: auto;
+}
+
+#graphCanvas {
+    width: 100%;
+    height: auto;
+    
+}

@@ -55,15 +55,29 @@ class actividades_class extends conexionDb{
 			 echo "Base de datos vacia";
 		    }
 		}
+		public function arrayGrafico()
+		{
+		    $query = "SELECT nombre,horas_dedicadas,color_act FROM actividades";
+		    $result = $this->conexion->query($query);
+		if ($result->num_rows > 0) {
+		    $data = array();
+		    while ($row = $result->fetch_assoc()) {
+		           $data[] = $row;
+		    }
+			 return  json_encode($data);
+		    }else{
+			 echo "Base de datos vacia";
+		    }
+		}
       
     // Insertar datos a la tabla de actividades
 		public function insertarDatos($post)
 		{
 			$nombre = $this->conexion->real_escape_string($_POST['nombre']);			
 			$identificador = $this->conexion->real_escape_string($_POST['identificador']);
-            $estado = $this->conexion->real_escape_string($_POST['estado']);
 			$descrip = $this->conexion->real_escape_string($_POST['descrip']);
 			$horas = $this->conexion->real_escape_string($_POST['horas']);
+			$color = $this->conexion->real_escape_string($_POST['color']);
 			//busco que no exista el identificador
 			$queryident = "SELECT identificador FROM actividades WHERE identificador=$identificador ";
 		    			$result = $this->conexion->query($queryident);
@@ -74,8 +88,8 @@ class actividades_class extends conexionDb{
 							}
 							else{
 	
-							 $query="INSERT INTO actividades(identificador,nombre,descripcion,horas_dedicadas) 
-           							 VALUES ('$identificador','$nombre','$descrip','$horas')";
+							 $query="INSERT INTO actividades(identificador,nombre,descripcion,horas_dedicadas,color_act) 
+           							 VALUES ('$identificador','$nombre','$descrip','$horas','$color')";
 							$sql = $this->conexion->query($query);
 							if ($sql==true) {
 						    echo"<script> alert('Se creo la actividad con exito'); window.location='/test/Lista_actividades.php'</script> ";
@@ -120,10 +134,10 @@ class actividades_class extends conexionDb{
 			$identificador = $this->conexion->real_escape_string($_POST['identificador']);
             $descrip = $this->conexion->real_escape_string($_POST['descrip']);
             $horas = $this->conexion->real_escape_string($_POST['horas']);
-		    
+		    $color = $this->conexion->real_escape_string($_POST['color']);
 		if (!empty($id_a) && !empty($postData)) {
 			
-			$query = "UPDATE actividades SET nombre = '$nombre', identificador = '$identificador', descripcion = '$descrip', horas_dedicadas = '$horas' WHERE id_actividades = '$id_a'";
+			$query = "UPDATE actividades SET nombre = '$nombre', identificador = '$identificador', descripcion = '$descrip', horas_dedicadas = '$horas', color_act = '$color' WHERE id_actividades = '$id_a'";
 			$sql = $this->conexion->query($query);
 			if ($sql==true) {
 			    echo"<script> alert('Se actualizaron los datos con exito'); window.location='/test/Lista_actividades.php'</script> ";

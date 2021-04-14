@@ -77,7 +77,7 @@ if(isset($_POST['submit'])) {
             </div>
             </nav>
             <div class="container-fluid">
-                <h3 class="text-dark mb-4">Nuevo Actividad</h3>
+                <h3 class="text-dark mb-4">Nueva Actividad</h3>
                 <div class="row mb-3">
                    
                     <div class="col-lg-12">
@@ -98,21 +98,23 @@ if(isset($_POST['submit'])) {
                                                 <div class="form-group"><label for="identificador"><strong>Identificador&nbsp;</strong></label><input class="form-control" type="text" placeholder="Identificador" name="identificador" required="Ingrese dato valido"></div>
                                                 </div>
                                             </div>
+                                            
                                             <div class="form-row">
-                                                <div class="col">
-                                                  
+                                            <div class="col">
+                                                <div class="form-group"><label for="descripcion"><strong>Elegir Color para graficar</strong><br></label><input class="form-control" type="color" placeholder="Color" name="color"></div>
+
                                                 </div>
-                                                
-                                            </div>
-                                            <div class="form-row">
-                                                <div class="col">
-                                                <div class="form-group"><label for="descripcion"><strong>Descripcion</strong><br></label><textarea class="form-control" type="text" placeholder="Descripcion" name="descrip"></textarea></div>
-                                                </div>
+                                              
                                                 <div class="col">
                                                     <div class="form-group"><label for="horas"><strong>Asignar Horas</strong></label><input class="form-control" type="text"required="Ingrese dato valido" placeholder="horas" name="horas"></div>
                                                 </div>
                                             </div>
-                                            
+                                            <div class="form-row">
+                                                
+                                                  <div class="col">
+                                                <div class="form-group"><label for="descripcion"><strong>Descripcion</strong><br></label><textarea class="form-control" type="text" placeholder="Descripcion" name="descrip"></textarea></div>
+                                                </div>
+                                            </div>
                                             <div class="form-row" style="margin-left:auto; right:0px; max-width:fit-content">
                                              
                                                 <div class="col" style="max-width:fit-content">

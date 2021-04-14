@@ -7,10 +7,13 @@ if (!isset($_SESSION['user']) ||(trim ($_SESSION['user']) == '')){
 }
 
 include_once('Usuarios.class.php');
+
 include_once('proyectos.class.php');
+include_once('actividades.class.php');
 
 $user = new Usuario();
 $proyecto = new Proyecto_class();
+$actividad= new actividades_class();
 
 //extrae datos de usuaio
 $sql = "SELECT * FROM usuarios WHERE id_usuario = '".$_SESSION['user']."'";
@@ -43,6 +46,10 @@ echo $row['rol'];
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
     <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/Chart.min.js"></script>
+
 </head>
 
 <body id="page-top">
@@ -162,21 +169,80 @@ echo $row['rol'];
                         </div>
                     </div>
                 </div>
+                
+                
                 <div class="row">
-                    <div class="col-lg-6 col-xl-4">
+                    <div class="col">
                         <div class="card shadow mb-4">
                             <div class="card-header d-flex justify-content-between align-items-center">
                                 <h6 class="text-primary font-weight-bold m-0">Ocupación del personal</h6>
                                 
                             </div>
+
+                            
+                            <!-- grafico de torta -->
                              <div class="card-body">
-                                <div class="chart-area"><canvas data-bs-chart="{&quot;type&quot;:&quot;doughnut&quot;,&quot;data&quot;:{&quot;labels&quot;:[&quot;act1&quot;,&quot;act2&quot;,&quot;act3&quot;,&quot;act4&quot;],&quot;datasets&quot;:[{&quot;label&quot;:&quot;&quot;,&quot;backgroundColor&quot;:[&quot;#4e73df&quot;,&quot;#1cc88a&quot;,&quot;#36b9cc&quot;,&quot;#fhjf&quot;],&quot;borderColor&quot;:[&quot;#ffffff&quot;,&quot;#ffffff&quot;,&quot;#ffffff&quot;,&quot;#ffffff&quot;],&quot;data&quot;:[&quot;50&quot;,&quot;10&quot;,&quot;30&quot;,&quot;80&quot;]}]},&quot;options&quot;:{&quot;maintainAspectRatio&quot;:false,&quot;legend&quot;:{&quot;display&quot;:false},&quot;title&quot;:{}}}"></canvas></div>
-                                <div
-                                    class="text-center small mt-4"><span class="mr-2"><i class="fas fa-circle text-primary"></i>&nbsp;Proyectos</span><span class="mr-2"><i class="fas fa-circle text-success"></i>&nbsp;Libres</span><span class="mr-2"><i class="fas fa-circle text-info"></i>&nbsp;Otros</span><span class="mr-2"><i class="fas fa-circle text-info"></i>&nbsp;act</span></div>
+                             <div id="chart-container">
+                                 <canvas id="graphCanvas"></canvas>
+                                </div>
+
+     <script>
+        $(document).ready(function () {
+            showGraph();
+        });
+
+
+        function showGraph()
+        {
+            {
+                $.post("grafico.php",
+                function (data)
+                {
+                    console.log(data);
+                     var name = [];
+                    var marks = [];
+                    var color=[];
+
+                    for (var i in data) {
+                        name.push(data[i].nombre);
+                        marks.push(data[i].horas_dedicadas);
+                        color.push(data[i].color_act);
+                    }
+
+                    var chartdata = {
+                        labels: name,
+                        datasets: [
+                            {
+                                label: 'Ocupacion',
+                                backgroundColor: color,
+                                borderColor: '#ffff',
+                                hoverBackgroundColor: '#CCCCCC',
+                                hoverBorderColor: '#666666',
+                                data: marks
+                            }
+                        ]
+                    };
+
+                    var graphTarget = $("#graphCanvas");
+
+                    var barGraph = new Chart(graphTarget, {
+                        type: 'doughnut',
+                        data: chartdata
+                    });
+                });
+            }
+        }
+        </script>
                         </div> 
                     </div>
                 </div>
-                <div class="col-auto col-lg-6 mx-auto mb-4">
+
+                
+                                                    
+                                                            
+
+                <!-- grafico de barra -->
+                <div class="col">
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="text-primary font-weight-bold m-0">Proyectos</h6>

@@ -120,6 +120,9 @@ if(isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
                                                 <div class="col">
                                                 <div class="form-group"><label for="horas"><strong>Horas dedicadas</strong><br></label><input class="form-control" type="number" placeholder="Horas dedicadas" name="horas" value="<?php echo $actividad['horas_dedicadas']; ?>"></div>
                                                 </div>
+                                                <div class="col">
+                                                <div class="form-group"><label for="color"><strong>Color de grafico</strong><br></label><input class="form-control" type="color" placeholder="Color" name="color" value="<?php echo $actividad['color_act']; ?>"></div>
+                                                </div>
                                                 
                                             </div>
                                                                                                                                                                                                   
