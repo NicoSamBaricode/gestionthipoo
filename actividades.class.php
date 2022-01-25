@@ -83,7 +83,7 @@ class actividades_class extends conexionDb{
 		    			$result = $this->conexion->query($queryident);
 						if ($result->num_rows > 0) {
 							
-							echo"<script> alert('El identificador ingresado ya existe, por favor ingrese uno diferente.'); window.location='/test/crear_actividades.php'</script> ";
+							echo"<script> alert('El identificador ingresado ya existe, por favor ingrese uno diferente.'); window.location='/GestionThi/gestionthipoo/crear_actividades.php'</script> ";
 							
 							}
 							else{
@@ -92,7 +92,7 @@ class actividades_class extends conexionDb{
            							 VALUES ('$identificador','$nombre','$descrip','$horas','$color')";
 							$sql = $this->conexion->query($query);
 							if ($sql==true) {
-						    echo"<script> alert('Se creo la actividad con exito'); window.location='/test/Lista_actividades.php'</script> ";
+						    echo"<script> alert('Se creo la actividad con exito'); window.location='/GestionThi/gestionthipoo/Lista_actividades.php'</script> ";
 							}else{
 			   				 echo"<script> alert('Fallo al insertar datos'); </script>";
 			}
@@ -107,7 +107,7 @@ class actividades_class extends conexionDb{
 		    $query = "DELETE FROM actividad WHERE id_actividades = '$id'";
 		    $sql = $this->conexion->query($query);
 		if ($sql==true) {
-			echo"<script> alert('Se borraron los datos con exito'); window.location='/test/Lista_actividades.php'</script> ";
+			echo"<script> alert('Se borraron los datos con exito'); window.location='/GestionThi/gestionthipoo/Lista_actividades.php'</script> ";
 		}else{
 			echo"<script> alert('Fallo al borrar datos'); </script>";
 		    }
@@ -140,9 +140,9 @@ class actividades_class extends conexionDb{
 			$query = "UPDATE actividades SET nombre = '$nombre', identificador = '$identificador', descripcion = '$descrip', horas_dedicadas = '$horas', color_act = '$color' WHERE id_actividades = '$id_a'";
 			$sql = $this->conexion->query($query);
 			if ($sql==true) {
-			    echo"<script> alert('Se actualizaron los datos con exito'); window.location='/test/Lista_actividades.php'</script> ";
+			    echo"<script> alert('Se actualizaron los datos con exito'); window.location='/GestionThi/gestionthipoo/Lista_actividades.php'</script> ";
 			}else{
-			    echo"<script> alert('Fallo al actualizar datos');window.location='/test/Lista_actividades.php'</script>  </script>";
+			    echo"<script> alert('Fallo al actualizar datos');window.location='/GestionThi/gestionthipoo/Lista_actividades.php'</script>  </script>";
 			}
 		    }
 			

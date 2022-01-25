@@ -80,7 +80,7 @@ class Usuario extends conexionDb{
 			$query="INSERT INTO usuarios(nombre,apellido,mail,alias,rol,pasword) VALUES ('$nombre','$apellido','$mail','$alias','$rol','$contr')";
 			$sql = $this->conexion->query($query);
 			if ($sql==true) {
-			    echo"<script> alert('Se insertaron los datos con exito'); window.location='/test/Lista_Usuarios.php'</script> ";
+			    echo"<script> alert('Se insertaron los datos con exito'); window.location='/GestionThi/gestionthipoo/Lista_Usuarios.php'</script> ";
 			}else{
 			    echo"<script> alert('Fallo al insertar datos'); </script>";
 			}
@@ -92,7 +92,7 @@ class Usuario extends conexionDb{
 		    $query = "DELETE FROM usuarios WHERE id_usuario = '$id'";
 		    $sql = $this->conexion->query($query);
 		if ($sql==true) {
-			echo"<script> alert('Se borraron los datos con exito'); window.location='/test/Lista_Usuarios.php'</script> ";
+			echo"<script> alert('Se borraron los datos con exito'); window.location='/GestionThi/gestionthipoo/Lista_Usuarios.php'</script> ";
 		}else{
 			echo"<script> alert('Fallo al borrar datos'); </script>";
 		    }
@@ -127,9 +127,9 @@ class Usuario extends conexionDb{
 			$query = "UPDATE usuarios SET nombre = '$nombre', apellido = '$apellido', mail = '$mail', alias = '$alias', rol = '$rol', pasword = '$contr' WHERE id_usuario = '$id'";
 			$sql = $this->conexion->query($query);
 			if ($sql==true) {
-			    echo"<script> alert('Se actualizaron los datos con exito'); window.location='/test/Lista_Usuarios.php'</script> ";
+			    echo"<script> alert('Se actualizaron los datos con exito'); window.location='/GestionThi/gestionthipoo/Lista_Usuarios.php'</script> ";
 			}else{
-			    echo"<script> alert('Fallo al actualizar datos');window.location='/test/Lista_Usuarios.php'</script>  </script>";
+			    echo"<script> alert('Fallo al actualizar datos');window.location='/GestionThi/gestionthipoo/Lista_Usuarios.php'</script>  </script>";
 			}
 		    }
 			

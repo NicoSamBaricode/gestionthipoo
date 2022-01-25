@@ -122,7 +122,7 @@ class Tarea_class extends conexionDb{
             VALUES ('$nombre','$descrip','$resp','$fecha_i','$fecha_r','$estado','$id_proy')";
 			$sql = $this->conexion->query($query);
 			if ($sql==true) {
-			    echo"<script> alert('Se creo la tarea con exito'); window.location='/test/Lista_Tareas.php'</script> ";
+			    echo"<script> alert('Se creo la tarea con exito'); window.location='/GestionThi/gestionthipoo/Lista_Tareas.php'</script> ";
 			}else{
 			    echo"<script> alert('Fallo al insertar datos'); </script>";
 			}
@@ -134,7 +134,7 @@ class Tarea_class extends conexionDb{
 		    $query = "DELETE FROM tareas WHERE id_tareas = '$id'";
 		    $sql = $this->conexion->query($query);
 		if ($sql==true) {
-			echo"<script> alert('Se borraron los datos con exito'); window.location='/test/Lista_Tareas.php'</script> ";
+			echo"<script> alert('Se borraron los datos con exito'); window.location='/GestionThi/gestionthipoo/Lista_Tareas.php'</script> ";
 		}else{
 			echo"<script> alert('Fallo al borrar datos'); </script>";
 		    }
@@ -172,9 +172,9 @@ class Tarea_class extends conexionDb{
 			$query = "UPDATE tareas SET nombre = '$nombre', descripcion = '$descrip', responsable= '$resp', f_inicio= '$fecha_i', f_final= '$fecha_r',Estado= '$estado',id_proyectos= '$id_proy'  WHERE id_tareas = '$id_t'";
 			$sql = $this->conexion->query($query);
 			if ($sql==true) {
-			    echo"<script> alert('Se actualizo la tarea con exito'); window.location='/test/Lista_Tareas.php'</script> ";
+			    echo"<script> alert('Se actualizo la tarea con exito'); window.location='/GestionThi/gestionthipoo/Lista_Tareas.php'</script> ";
 			}else{
-			    echo"<script> alert('Fallo al actualizar datos');window.location='/test/Lista_Tareas.php'</script>  </script>";
+			    echo"<script> alert('Fallo al actualizar datos');window.location='/GestionThi/gestionthipoo/Lista_Tareas.php'</script>  </script>";
 			}
 		    }
 			
