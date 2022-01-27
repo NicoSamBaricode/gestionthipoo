@@ -9,6 +9,7 @@
                     <!-- arranca admin -->
                     <?php if ('admin' == $row["rol"]) { ?>
                         <li class="nav-item" role="presentation"><a class="nav-link active" href="panel.php"><i class="fas fa-tachometer-alt"></i><span>Panel Principal</span></a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link " href="Lista_Dedicacion.php"><i class="fas fa-list"></i><span>Mi Dedicación</span></a></li>
                         <li class="nav-item" role="presentation"><a class="nav-link" href="Lista_Usuarios.php"><i class="fas fa-user"></i><span>Usuarios</span></a></li>
                         <li class="nav-item" role="presentation"><a class="nav-link" href="Lista_Proyectos.php"><i class="fas fa-table"></i><span>Proyectos</span></a></li>
                         <li class="nav-item" role="presentation"><a class="nav-link" href="Lista_Tareas.php"><i class="fas fa-list"></i><span>Tareas</span></a></li>
