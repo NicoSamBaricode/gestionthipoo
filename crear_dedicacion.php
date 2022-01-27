@@ -6,11 +6,11 @@ if (!isset($_SESSION['user']) || (trim($_SESSION['user']) == '')) {
 }
 
 include_once('Usuarios.class.php');
-include_once('tareas.class.php');
+include_once('dedicacion.class.php');
 include_once('proyectos.class.php');
 
 $user = new Usuario();
-$tarea = new Tarea_class();
+$dedicacion = new Dedicacion_class();
 $proyecto = new Proyecto_class();
 
 //extrae datos de usuaio
@@ -24,7 +24,7 @@ $row = $user->detalle($sql);
 //llama a la funcion de insertar datos
 if (isset($_POST['submit'])) {
 
-    $tarea->insertarDatos($_POST);
+    $dedicacion->insertarDatos($_POST);
 }
 
 ?>
