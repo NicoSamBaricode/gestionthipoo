@@ -77,13 +77,13 @@ if (isset($_POST['submit'])) {
                                             <form action="crear_dedicacion.php" method="POST">
                                                 <div class="form-row">
                                                     <div class="col">
-                                                        <div class="form-group"><label for="resp"><strong>Agente</strong><br></label><select class="form-control" require name="resp" id="exampleFormControlSelect2">
+                                                        <div class="form-group"><label for="id_agente"><strong>Agente</strong><br></label><select class="form-control" require name="id_agente" id="exampleFormControlSelect2">
                                                                 <?php
                                                                 $filas = $user->mostrarDatos();
                                                                 foreach ($filas as $fila) {
                                                                 ?>
-                                                                    <option value="<?php echo $fila['id_agente']; ?>">
-                                                                        <?php echo $fila['nombre']; ?>
+                                                                    <option value="<?php echo $fila['id_usuario']; ?>">
+                                                                        <?php echo $fila['nombre']?>
                                                                     </option>
                                                                 <?php }  ?>
                                                             </select>

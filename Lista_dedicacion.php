@@ -167,20 +167,20 @@ if (isset($_POST['volver'])) {
                                         foreach ($filas as $fila) {
                                         ?>
                                             <tr>
-                                                <?php $aux_p = $proyecto->mostrarFilaPorId($fila["id_proyectos"]);
-                                                $aux_u = $user->mostrarFilaPorId($fila["responsable"]);
+                                                <?php $aux_p = $proyecto->mostrarFilaPorId($fila["imputacion"]);
+                                               // $aux_u = $user->mostrarFilaPorId($fila["id_agente"]);//aca tengo el nombre del usuario
                                                 ?>
 
-                                                <td><?php echo $fila['nombre'] ?></td>
-                                                <td><?php echo $fila['descripcion'] ?></td>
-                                                <td><?php echo $aux_u['nombre'] ?></td>
+                                                <td><?php echo $fila['mes'] ?></td>
+                                                <td><?php echo $fila['horas'] ?></td>
+                                                <td><?php echo $aux_p['nombre'] ?></td>
 
                                                 <script src="cartel.js"> </script>
                                                 <!-- <td><a class="btn btn-primary mx-auto btn-circle ml-1"  role="button" href="crear_tarea.php?tareaId=<?php //echo $fila["id_proyectos"]; 
                                                                                                                                                             ?>"><i class="fas fa-file-medical text-white"></i></a></td> -->
 
                                                 <td><a class="btn btn-info mx-auto btn-circle ml-1" role="button" href="actualizar_dedicacion.php?editId=<?php echo $fila['id_dedicacion'] ?>"><i class="fa fa-edit text-white"></i></a></td>
-                                                <td><a class="btn btn-danger mx-auto btn-circle ml-1" onclick="return confirmBorrar()" role="button" href="Lista_dedicacion.php?borrarid=<?php echo $fila['dedicacion'] ?>"><i class="fas fa-trash text-white"></i></a></td>
+                                                <td><a class="btn btn-danger mx-auto btn-circle ml-1" onclick="return confirmBorrar()" role="button" href="Lista_dedicacion.php?borrarid=<?php echo $fila['id_dedicacion'] ?>"><i class="fas fa-trash text-white"></i></a></td>
 
                                             </tr>
                                         <?php }  ?>
