@@ -122,24 +122,23 @@ class Dedicacion_class extends conexionDb{
 		// actualiza datos en la tabla
 		public function actualizarFila($postData)
 		
-		{   $id_t=$this->conexion->real_escape_string($_POST['id_tareas']);
-			$nombre = $this->conexion->real_escape_string($_POST['nombre']);
-			$fecha_i = $this->conexion->real_escape_string($_POST['fecha']);
-			$descrip = $this->conexion->real_escape_string($_POST['descrip']);
-			$resp = $this->conexion->real_escape_string($_POST['resp']);
-            $fecha_r = $this->conexion->real_escape_string($_POST['frealizado']);			
-            $estado = $this->conexion->real_escape_string($_POST['estado']);
-			$id_proy = $this->conexion->real_escape_string($_POST['proy']);
+		{   $id_d=$this->conexion->real_escape_string($_POST['id_dedicacion']);
+			$id_ag = $this->conexion->real_escape_string($_POST['id_agente']);
+			$mes = $this->conexion->real_escape_string($_POST['mes']);
+			$anio = $this->conexion->real_escape_string($_POST['anio']);
+			$horas = $this->conexion->real_escape_string($_POST['horas']);
+            $imput = $this->conexion->real_escape_string($_POST['imputacion']);			
+            
 			
 		    
-		if (!empty($id_t) && !empty($postData)) {
+		if (!empty($id_d) && !empty($postData)) {
 			
-			$query = "UPDATE tareas SET nombre = '$nombre', descripcion = '$descrip', responsable= '$resp', f_inicio= '$fecha_i', f_final= '$fecha_r',Estado= '$estado',id_proyectos= '$id_proy'  WHERE id_tareas = '$id_t'";
+			$query = "UPDATE dedicacion SET id_agente = '$id_d', mes = '$mes', anio= '$anio', horas= '$horas', imputacion= '$imput' WHERE id_dedicacion = '$id_d'";
 			$sql = $this->conexion->query($query);
 			if ($sql==true) {
-			    echo"<script> alert('Se actualizo la tarea con exito'); window.location='/GestionThi/gestionthipoo/Lista_Tareas.php'</script> ";
+			    echo"<script> alert('Se actualizo la tarea con exito'); window.location='/GestionThi/gestionthipoo/Lista_dedicacion.php'</script> ";
 			}else{
-			    echo"<script> alert('Fallo al actualizar datos');window.location='/GestionThi/gestionthipoo/Lista_Tareas.php'</script>  </script>";
+			    echo"<script> alert('Fallo al actualizar datos');window.location='/GestionThi/gestionthipoo/Lista_dedicacion.php'</script>  </script>";
 			}
 		    }
 			
