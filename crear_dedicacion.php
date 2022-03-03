@@ -9,9 +9,11 @@ include_once('Usuarios.class.php');
 include_once('dedicacion.class.php');
 include_once('proyectos.class.php');
 
+
 $user = new Usuario();
 $dedicacion = new Dedicacion_class();
 $proyecto = new Proyecto_class();
+
 
 //extrae datos de usuaio
 $sql = "SELECT * FROM usuarios WHERE id_usuario = '" . $_SESSION['user'] . "'";
@@ -83,27 +85,43 @@ if (isset($_POST['submit'])) {
                                                                 foreach ($filas as $fila) {
                                                                 ?>
                                                                     <option value="<?php echo $fila['id_usuario']; ?>">
-                                                                        <?php echo $fila['nombre']?>
+                                                                        <?php echo $fila['nombre'] ?>
                                                                     </option>
                                                                 <?php }  ?>
                                                             </select>
                                                         </div>
                                                     </div>
                                                     <div class="col">
-                                                        <div class="form-group"><label for="mes"><strong>Mes</strong></label><input class="form-control" type="number" placeholder="Mes" required="Ingrese dato valido" name="mes"></div>
+                                                        <div class="form-group"><label for="mes"><strong>Mes</strong></label>
+                                                           <select class="form-control " name="mes" required>
+                                                                <!-- <option selected disabled>Mes</option> -->
+                                                                <option value="1">Enero</option>
+                                                                <option value="2">Febrero</option>
+                                                                <option value="3">Marzo</option>
+                                                                <option value="4">Abril</option>
+                                                                <option value="5">Mayo</option>
+                                                                <option value="6">Junio</option>
+                                                                <option value="7">Julio</option>
+                                                                <option value="8">Agosto</option>
+                                                                <option value="9">Septiembre</option>
+                                                                <option value="10">Octubre</option>
+                                                                <option value="11">Noviembre</option>
+                                                                <option value="12">Diciembre</option>
+                                                            </select>
+                                                        </div>
                                                     </div>
                                                     <div class="col">
-                                                        <div class="form-group"><label for="anio"><strong>Año</strong><br></label><input class="form-control" type="number" placeholder="Año" name="anio"></input></div>
+                                                        <div class="form-group"><label for="anio"><strong>Año</strong><br></label><input class="form-control" type="number" placeholder="Año" name="anio" min="2022"></input></div>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-row">
 
-                                                <div class="col">
+                                                    <div class="col">
                                                         <div class="form-group"><label for="horas"><strong>Horas a cagar</strong><br></label><input class="form-control" type="number" placeholder="Ingrese cantidad de horas" name="horas"></input></div>
                                                     </div>
                                                     <div class="col">
-                                                        <div class="form-group"><label for="resp"><strong>Proyecto</strong><br></label><select class="form-control" require name="imputacion" id="exampleFormControlSelect2">
+                                                        <div class="form-group"><label for="resp"><strong>Proyecto / Actividad</strong><br></label><select class="form-control" require name="imputacion" id="exampleFormControlSelect2">
                                                                 <?php
                                                                 $filas_p = $proyecto->mostrarDatos();
                                                                 foreach ($filas_p as $fila_p) {
@@ -113,6 +131,7 @@ if (isset($_POST['submit'])) {
                                                             </select>
                                                         </div>
                                                     </div>
+                                                    
                                                 </div>
                                                 <!--  
                                             <div class="form-row">

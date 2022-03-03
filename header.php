@@ -6,3 +6,5 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/Chart.min.js"></script>
+
+<script type="text/javascript" src="assets/bootstrap/js/printThis.js"></script>
