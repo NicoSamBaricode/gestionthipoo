@@ -28,7 +28,7 @@ if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
 $query = "SELECT * FROM dedicacion ";
 $queryMiDedicacion = "SELECT * FROM dedicacion where id_agente = $usuario";
 
-
+$tipo = 2; // si es 0 es de actividad //1 si es proyectos
 
 
 ?>
@@ -154,7 +154,7 @@ $queryMiDedicacion = "SELECT * FROM dedicacion where id_agente = $usuario";
                                                         <th data-field="Horas R">Horas relevadas</th>
                                                         <th data-field="Imputacion" data-sortable="true">Imputación</th>
                                                         <!-- <th data-field="Editar">Editar</th> -->
-                                                        <th data-field="Borrar"> Eliminar</th>
+                                                        <!-- <th data-field="Borrar"> Eliminar</th> -->
                                                     </tr>
                                                 </thead>
                                                 <tbody id="tablaDedicacion">
@@ -164,7 +164,7 @@ $queryMiDedicacion = "SELECT * FROM dedicacion where id_agente = $usuario";
                                                     foreach ($filas as $fila) {
                                                     ?>
                                                         <tr>
-                                                            <?php $aux_p = $proyecto->mostrarFilaPorId($fila["imputacion"]);
+                                                            <?php $aux_p = $proyecto->mostrarFilaPorId($fila["imputacion"],$tipo);
                                                             $aux_u = $user->mostrarFilaPorId($fila["id_agente"]); //aca tengo el nombre del usuario
                                                             ?>
                                                             <td><?php echo $aux_u['nombre'] ?></td>
@@ -178,7 +178,7 @@ $queryMiDedicacion = "SELECT * FROM dedicacion where id_agente = $usuario";
                                                                                                                                                                         ?>"><i class="fas fa-file-medical text-white"></i></a></td> -->
 
                                                             <!-- <td><a class="btn btn-info mx-auto btn-circle ml-1" role="button" href="actualizar_dedicacion.php?editId=<?php echo $fila['id_dedicacion'] ?>"><i class="fa fa-edit text-white"></i></a></td> -->
-                                                            <td><a class="btn btn-danger mx-auto btn-circle ml-1" onclick="return confirmBorrar()" role="button" href="Lista_dedicacion.php?borrarid=<?php echo $fila['id_dedicacion'] ?>"><i class="fas fa-trash text-white"></i></a></td>
+                                                            <!-- <td><a class="btn btn-danger mx-auto btn-circle ml-1" onclick="return confirmBorrar()" role="button" href="Lista_dedicacion.php?borrarid=<?php echo $fila['id_dedicacion'] ?>"><i class="fas fa-trash text-white"></i></a></td> -->
 
                                                         </tr>
                                                     <?php }  ?>
@@ -235,7 +235,7 @@ $queryMiDedicacion = "SELECT * FROM dedicacion where id_agente = $usuario";
                                                     foreach ($filas as $fila) {
                                                     ?>
                                                         <tr>
-                                                            <?php $aux_p = $proyecto->mostrarFilaPorId($fila["imputacion"]);
+                                                            <?php $aux_p = $proyecto->mostrarFilaPorId($fila["imputacion"],$tipo);
                                                             $aux_u = $user->mostrarFilaPorId($fila["id_agente"]); //aca tengo el nombre del usuario
                                                             ?>
                                                             <td><?php echo $aux_u['nombre'] ?></td>

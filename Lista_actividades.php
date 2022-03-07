@@ -6,19 +6,20 @@ if (!isset($_SESSION['user']) || (trim($_SESSION['user']) == '')) {
 }
 
 include_once('Usuarios.class.php');
-include_once('actividades.class.php');
 include_once('tareas.class.php');
+include_once('proyectos.class.php');
 
 $user = new Usuario();
-$actividad = new actividades_class();
+$actividad = new Proyecto_class();
 $tareas = new Tarea_class();
 
+$tipo = 0;
 //extrae datos de usuaio
 $sql = "SELECT * FROM usuarios WHERE id_usuario = '" . $_SESSION['user'] . "'";
 $row = $user->detalle($sql);
 
 //contador actividades
-$cont = $actividad->cont_a();
+$cont = $actividad->contadorPorColumna($tipo,'tipo');
 
 //contador tareas
 $cont_t = $tareas->cont_t();
@@ -27,10 +28,10 @@ $cont_t = $tareas->cont_t();
 //llama funcion borrar
 if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
     $borrarId = $_GET['borrarid'];
-    $actividad->borrar_actividad($borrarId);
+    $actividad->borrar_proyecto($borrarId);
 }
 //carga los datos cuando recien entra a la pagina
-$query = "SELECT * FROM actividades ";
+$query = "SELECT 'id_proyectos', 'nombre','descripcion','horas_dedicadas' FROM proyectos where tipo = '$tipo ";
 //bandera para que desaparezca boton volver a la lista
 $flag = false;
 
@@ -41,7 +42,7 @@ if (isset($_POST['submit'])) {
 }
 //es lo que imprime al inicio.
 if (isset($_POST['volver'])) {
-    $query = "SELECT * FROM actividades ";
+    "SELECT 'id_proyectos', 'nombre','descripcion','horas_dedicadas' FROM proyectos where tipo = '$tipo ";
     $flag = false;
 }
 
@@ -177,10 +178,10 @@ if (isset($_POST['volver'])) {
                                                 <td><?php echo $fila['horas_dedicadas'] ?></td>
 
                                                 <script src="cartel.js"> </script>
-                                                <!-- <td><a class="btn btn-primary mx-auto btn-circle ml-1"  role="button" href="crear_tarea.php?tareaId=<?php echo $fila["id_actividades"]; ?>"><i class="fas fa-file-medical text-white"></i></a></td> -->
+                                                <!-- <td><a class="btn btn-primary mx-auto btn-circle ml-1"  role="button" href="crear_tarea.php?tareaId=<?php echo $fila["id_proyectos"]; ?>"><i class="fas fa-file-medical text-white"></i></a></td> -->
 
-                                                <td><a class="btn btn-info mx-auto btn-circle ml-1" role="button" href="actualizar_actividades.php?editId=<?php echo $fila['id_actividades'] ?>"><i class="fas fa-edit text-white"></i></a></td>
-                                                <td><a class="btn btn-danger mx-auto btn-circle ml-1" onclick="return confirmBorrar()" role="button" href="Lista_actividades.php?borrarid=<?php echo $fila['id_actividades'] ?>"><i class="fas fa-trash text-white"></i></a></td>
+                                                <td><a class="btn btn-info mx-auto btn-circle ml-1" role="button" href="actualizar_actividades.php?editId=<?php echo $fila['id_proyectos'] ?>"><i class="fas fa-edit text-white"></i></a></td>
+                                                <td><a class="btn btn-danger mx-auto btn-circle ml-1" onclick="return confirmBorrar()" role="button" href="Lista_actividades.php?borrarid=<?php echo $fila['id_proyectos'] ?>"><i class="fas fa-trash text-white"></i></a></td>
 
                                             </tr>
                                         <?php }  ?>
@@ -190,16 +191,7 @@ if (isset($_POST['volver'])) {
 
 
                                     </tbody>
-                                    <tfoot class="thead-dark">
-                                        <tr>
-                                            <th>Id</th>
-                                            <th>Nombre</th>
-                                            <th>Descripción</th>
-                                            <th>Horas asignadas</th>
-                                            <th>Editar</th>
-                                            <th>Eliminar</th>
-                                        </tr>
-                                    </tfoot>
+                                    
                                 </table>
                             </div>
                             <div class="row">

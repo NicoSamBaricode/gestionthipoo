@@ -14,10 +14,10 @@ $proyecto = new Proyecto_class();
 //extrae datos de usuaio
 $sql = "SELECT * FROM usuarios WHERE id_usuario = '" . $_SESSION['user'] . "'";
 $row = $user->detalle($sql);
-
+$tipo=1;
 //llama a la funcion de insertar datos
 if (isset($_POST['submit'])) {
-    $proyecto->insertarDatos($_POST);
+    $proyecto->insertarDatos($_POST,$tipo);
 }
 
 ?>
@@ -114,11 +114,12 @@ if (isset($_POST['submit'])) {
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
-                                                    <div class="col">
-                                                        <div class="form-group"><label for="obs"><strong>Observaciones</strong><br></label><textarea class="form-control" type="text" placeholder="Observaciones" name="obs"></textarea></div>
+                                                <div class="col">
+                                                        <div class="form-group"><label for="horas"><strong>Horas Pautadas</strong><br></label><input class="form-control" type="number" placeholder="Horas pautadas" name="horas" required></inp></div>
                                                     </div>
+                                                   
                                                     <div class="col">
-                                                        <div class="form-group"><label for="estado"><strong>Estado</strong><br></label><select class="form-control" require name="estado" id="exampleFormControlSelect1">
+                                                        <div class="form-group"><label for="estado"><strong>Estado</strong><br></label><select class="form-control" required name="estado" id="exampleFormControlSelect1">
                                                                 <option>Pendiente</option>
                                                                 <option>En proceso</option>
                                                                 <option>Realizado</option>
@@ -126,6 +127,11 @@ if (isset($_POST['submit'])) {
                                                                 <option>Revisar</option>
                                                             </select>
                                                         </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                <div class="col">
+                                                        <div class="form-group"><label for="obs"><strong>Observaciones</strong><br></label><textarea class="form-control" type="text" placeholder="Observaciones" name="obs"></textarea></div>
                                                     </div>
                                                 </div>
                                                 <!--  

@@ -6,18 +6,18 @@ if (!isset($_SESSION['user']) || (trim($_SESSION['user']) == '')) {
 }
 
 include_once('Usuarios.class.php');
-include_once('actividades.class.php');
+include_once('proyectos.class.php');
 
 $user = new Usuario();
-$actividad = new actividades_class();
+$actividad = new Proyecto_class();
 
 //extrae datos de usuaio
 $sql = "SELECT * FROM usuarios WHERE id_usuario = '" . $_SESSION['user'] . "'";
 $row = $user->detalle($sql);
-
+$tipo = 0;
 //llama a la funcion de insertar datos
 if (isset($_POST['submit'])) {
-    $actividad->insertarDatos($_POST);
+    $actividad->insertarDatos($_POST, $tipo);
 }
 
 ?>

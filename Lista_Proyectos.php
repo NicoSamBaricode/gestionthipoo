@@ -12,7 +12,7 @@ include_once('tareas.class.php');
 $user = new Usuario();
 $proyecto = new Proyecto_class();
 $tareas = new Tarea_class();
-
+$tipo = 1; //significa que es efectivamente un proyecto
 //extrae datos de usuaio
 $sql = "SELECT * FROM usuarios WHERE id_usuario = '" . $_SESSION['user'] . "'";
 $row = $user->detalle($sql);
@@ -30,7 +30,7 @@ if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
     $proyecto->borrar_proyecto($borrarId);
 }
 //carga los datos cuando recien entra a la pagina
-$query = "SELECT * FROM proyectos ";
+$query = "SELECT * FROM proyectos where tipo = '$tipo'";
 //bandera para que desaparezca boton volver a la lista
 $flag = false;
 
@@ -41,7 +41,7 @@ if (isset($_POST['submit'])) {
 }
 //es lo que imprime al inicio.
 if (isset($_POST['volver'])) {
-    $query = "SELECT * FROM proyectos ";
+    $query = "SELECT * FROM proyectos where tipo = '$tipo'";
     $flag = false;
 }
 
