@@ -19,7 +19,7 @@ $sql = "SELECT * FROM usuarios WHERE id_usuario = '" . $_SESSION['user'] . "'";
 $row = $user->detalle($sql);
 
 //contador actividades
-$cont = $actividad->contadorPorColumna($tipo,'tipo');
+$cont = $actividad->contadorPorColumna($tipo, 'tipo');
 
 //contador tareas
 $cont_t = $tareas->cont_t();
@@ -28,10 +28,10 @@ $cont_t = $tareas->cont_t();
 //llama funcion borrar
 if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
     $borrarId = $_GET['borrarid'];
-    $actividad->borrar_proyecto($borrarId);
+    $actividad->borrar_proyecto($borrarId,$tipo);
 }
 //carga los datos cuando recien entra a la pagina
-$query = "SELECT 'id_proyectos', 'nombre','descripcion','horas_dedicadas' FROM proyectos where tipo = '$tipo ";
+$query = "SELECT id_proyectos,identificador, nombre,descripcion,horas_dedicadas FROM proyectos where tipo = '$tipo' ";
 //bandera para que desaparezca boton volver a la lista
 $flag = false;
 
@@ -42,7 +42,7 @@ if (isset($_POST['submit'])) {
 }
 //es lo que imprime al inicio.
 if (isset($_POST['volver'])) {
-    "SELECT 'id_proyectos', 'nombre','descripcion','horas_dedicadas' FROM proyectos where tipo = '$tipo ";
+    "SELECT 'identificador', 'nombre','descripcion','horas_dedicadas' FROM proyectos where tipo = '$tipo' ";
     $flag = false;
 }
 
@@ -170,8 +170,8 @@ if (isset($_POST['volver'])) {
                                         ?>
                                             <tr>
 
-                                                <!-- <td>/<?php //echo $fila['id_actividades'] 
-                                                            ?></td> -->
+                                                
+                                                <td hidden><?php echo $fila['id_proyectos'] ?></td>
                                                 <td><?php echo $fila['identificador'] ?></td>
                                                 <td><?php echo $fila['nombre'] ?></td>
                                                 <td><?php echo $fila['descripcion'] ?></td>
@@ -191,7 +191,7 @@ if (isset($_POST['volver'])) {
 
 
                                     </tbody>
-                                    
+
                                 </table>
                             </div>
                             <div class="row">

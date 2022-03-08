@@ -3,7 +3,7 @@ header('Content-Type: application/json');
 
 $conn = mysqli_connect("localhost","root","","gestion_thi");
 
-$sqlQuery = "SELECT nombre,horas_dedicadas,color_act FROM actividades ";
+$sqlQuery = "SELECT nombre,horas_dedicadas,color_act FROM proyectos ";
 $result = mysqli_query($conn,$sqlQuery);
 
 $data = array();

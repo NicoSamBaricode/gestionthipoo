@@ -27,7 +27,7 @@ $cont_t = $tareas->cont_t();
 //llama funcion borrar
 if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
     $borrarId = $_GET['borrarid'];
-    $proyecto->borrar_proyecto($borrarId);
+    $proyecto->borrar_proyecto($borrarId,$tipo);
 }
 //carga los datos cuando recien entra a la pagina
 $query = "SELECT * FROM proyectos where tipo = '$tipo'";

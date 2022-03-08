@@ -123,7 +123,7 @@ if (isset($_POST['submit'])) {
                                                     <div class="col">
                                                         <div class="form-group"><label for="resp"><strong>Proyecto / Actividad</strong><br></label><select class="form-control" require name="imputacion" id="exampleFormControlSelect2">
                                                                 <?php
-                                                                $filas_p = $proyecto->mostrarDatos();
+                                                                $filas_p = $proyecto->mostrarDatosCompleto();
                                                                 foreach ($filas_p as $fila_p) {
                                                                 ?>
                                                                     <option value="<?php echo $fila_p['id_proyectos'] ?>"> <?php echo $fila_p['nombre'] ?></option>

@@ -6,11 +6,11 @@ if (!isset($_SESSION['user']) || (trim($_SESSION['user']) == '')) {
 }
 
 include_once('Usuarios.Class.php');
-include_once('actividades.class.php');
+include_once('proyectos.class.php');
 
 $user = new Usuario();
-$actividad_obj = new actividades_class();
-
+$actividad_obj = new Proyecto_class();
+$tipo = 0;
 
 //extrae datos de usuaio
 $sql = "SELECT * FROM usuarios WHERE id_usuario = '" . $_SESSION['user'] . "'";
@@ -19,12 +19,12 @@ $row = $user->detalle($sql);
 // funcion edita
 if (isset($_GET['editId']) && !empty($_GET['editId'])) {
     $editId = $_GET['editId'];
-    $actividad = $actividad_obj->mostrarFilaPorId($editId);
+    $actividad = $actividad_obj->mostrarFilaPorId($editId,$tipo);
 }
 
 // actualiza
 if (isset($_POST['update'])) {
-    $actividad_obj->actualizarFila($_POST);
+    $actividad_obj->actualizarFila($_POST,$tipo);
 }
 //llama funcion borrar
 if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
@@ -107,7 +107,7 @@ if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
                                                     <div class="col">
                                                         <!-- <div class="form-group"><label for="imagen"><strong>Imagen de Perfil</strong><br></label><br><input type="file" required class="btn btn-secondary btn-sm" name="imagen" value="agregar imagen"/></div> -->
                                                     </div>
-                                                    <input type="hidden" name="id_actividades" value="<?php echo $actividad['id_actividades']; ?>">
+                                                    <input type="hidden" name="id_proyectos" value="<?php echo $actividad['id_proyectos']; ?>">
                                                 </div>
                                                 <div class="form-row" style="margin-left:auto; right:0px; max-width:fit-content">
 
@@ -120,7 +120,7 @@ if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
                                                         <input type="submit" name="update" class="btn btn-primary " value="Actualizar" />
                                                     </div>
                                                     <div class="col" style="max-width:fit-content">
-                                                        <a class="btn btn-danger mx-auto btn-circle ml-1" onclick="return confirmBorrar()" role="button" href="Lista_actividades.php?borrarid=<?php echo  $actividad['id_actividades'] ?>"><i class="fas fa-trash text-white"></i></a>
+                                                        <a class="btn btn-danger mx-auto btn-circle ml-1" onclick="return confirmBorrar()" role="button" href="Lista_actividades.php?borrarid=<?php echo  $actividad['id_proyectos'] ?>"><i class="fas fa-trash text-white"></i></a>
 
                                                     </div>
                                                 </div>

@@ -12,21 +12,21 @@ include_once('tareas.class.php');
 $user = new Usuario();
 $proyecto = new Proyecto_class();
 $tarea = new Tarea_class();
-
+$tipo = 1;
 //extrae datos de usuaio
 $sql = "SELECT * FROM usuarios WHERE id_usuario = '" . $_SESSION['user'] . "'";
 $row = $user->detalle($sql);
 
 //recibe el id de lista de proyectos
 $id_proy = $_GET["detalleid"];
-$fila_proy = $proyecto->mostrarFilaPorId($id_proy);
+$fila_proy = $proyecto->mostrarFilaPorId($id_proy, $tipo);
 $aux_u = $user->mostrarFilaPorId($fila_proy['responsable']);
 
 
 //llama funcion borrar
 if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
     $borrarId = $_GET['borrarid'];
-    $proyecto->borrar_proyecto($borrarId);
+    $proyecto->borrar_proyecto($borrarId, $tipo);
 }
 
 ?>
@@ -96,62 +96,63 @@ if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
                                                     <form action="actualizar_proyecto.php" method="POST" class="formulario">
 
                                                         <div class="form-row">
-                                                            <div class="col">
+                                                            <div class="col-md-3">
                                                                 <div class="form-group"><label for="nombre"><strong>Nombre&nbsp;</strong></label>
                                                                     <p><?php echo $fila_proy["nombre"] ?></p>
                                                                 </div>
                                                             </div>
-                                                            <div class="col">
+                                                            <div class="col-md-3">
                                                                 <div class="form-group"><label for="fecha"><strong>Fecha de Inicio</strong></label>
                                                                     <p><?php echo $fila_proy["fecha_inicio"] ?></p>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="form-row">
-                                                            <div class="col">
+                                                       
+                                                            <div class="col-md-3">
                                                                 <div class="form-group"><label for="identificador"><strong>Identificador&nbsp;</strong></label>
                                                                     <p><?php echo $fila_proy["identificador"] ?></p>
                                                                 </div>
                                                             </div>
-                                                            <div class="col">
+                                                            <div class="col-md-3">
                                                                 <div class="form-group"><label for="tema"><strong>Tema</strong></label>
                                                                     <p><?php echo $fila_proy["tema"] ?></p>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="form-row">
-                                                            <div class="col">
+                                                        
+                                                            <div class="col-md-3">
                                                                 <div class="form-group"><label for="descripcion"><strong>Descripcion</strong><br></label>
                                                                     <p><?php echo $fila_proy["descripcion"] ?></p>
                                                                 </div>
                                                             </div>
-                                                            <div class="col">
+                                                            <div class="col-md-3">
                                                                 <div class="form-group"><label for="sector"><strong>Sector</strong></label>
                                                                     <p><?php echo $fila_proy["sector"] ?></p>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="form-row">
-                                                            <div class="col">
+                                                        
+                                                            <div class="col-md-3">
                                                                 <div class="form-group"><label for="resp"><strong>Responsable</strong><br></label>
                                                                     <p><?php echo $aux_u["nombre"] ?></p>
                                                                 </div>
                                                             </div>
-                                                            <div class="col">
+                                                            <div class="col-md-3">
                                                                 <div class="form-group"><label for="frealizacion"><strong>Fecha finalizacion</strong><br></label>
                                                                     <p><?php echo $fila_proy["fecha_realizado"] ?></p>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="form-row">
-                                                            <div class="col">
+                                                        
+                                                            <div class="col-md-3">
                                                                 <div class="form-group"><label for="obs"><strong>Observaciones</strong><br></label>
                                                                     <p><?php echo $fila_proy["observaciones"] ?></p>
                                                                 </div>
                                                             </div>
-                                                            <div class="col">
+                                                            <div class="col-md-3">
                                                                 <div class="form-group"><label for="estado"><strong>Estado</strong><br></label>
                                                                     <p><?php echo $fila_proy["estado"] ?></p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <div class="form-group"><label for="horas"><strong>Horas</strong><br></label>
+                                                                    <p><?php echo $fila_proy["horas_dedicadas"] ?></p>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -213,6 +214,7 @@ if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
                                                                         <td><?php echo $aux_u2['nombre'] ?></td>
                                                                         <td><?php echo $fila['f_inicio'] ?></td>
                                                                         <td><?php echo $fila['f_final'] ?></td>
+                                                                        <td><?php echo $fila["Estado"] ?></td>
                                                                         <td><?php echo $fila["Estado"] ?></td>
 
                                                                         <script src="cartel.js"> </script>
