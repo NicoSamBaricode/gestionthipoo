@@ -10,7 +10,7 @@ include_once('proyectos.class.php');
 
 $user = new Usuario();
 $proyecto_obj = new Proyecto_class();
-
+$tipo = 1;
 
 //extrae datos de usuaio
 $sql = "SELECT * FROM usuarios WHERE id_usuario = '" . $_SESSION['user'] . "'";
@@ -19,12 +19,12 @@ $row = $user->detalle($sql);
 // funcion edita
 if (isset($_GET['editId']) && !empty($_GET['editId'])) {
     $editId = $_GET['editId'];
-    $proyecto = $proyecto_obj->mostrarFilaPorId($editId);
+    $proyecto = $proyecto_obj->mostrarFilaPorId($editId,$tipo);
 }
 
 // actualiza
 if (isset($_POST['update'])) {
-    $proyecto_obj->actualizarFila($_POST);
+    $proyecto_obj->actualizarFila($_POST,$tipo);
 }
 //llama funcion borrar
 if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {

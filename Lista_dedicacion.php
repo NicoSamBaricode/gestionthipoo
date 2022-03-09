@@ -39,9 +39,7 @@ $tipo = 2; // si es 0 es de actividad //1 si es proyectos
     <title>Mi Dedicacion</title>
     <?php include('header.php'); ?>
 
-    <link href="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.css" rel="stylesheet">
-    <script src="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.js"></script>
-    <script src="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table-locale-all.min"></script>
+   
 
 
 
@@ -85,22 +83,25 @@ $tipo = 2; // si es 0 es de actividad //1 si es proyectos
                                             <div class="text-dark font-weight-bold h5 mb-0"><span></span></div>
                                         </div>
                                         <div class="col-auto"><a class="btn btn-primary" href="crear_dedicacion.php"><i class="fas fa-file-medical  text-gray-300"></i></a></div>
+
                                     </div>
+
                                 </div>
                             </div>
                         </div>
 
-                        <!-- <div class="col-md-6 col-xl-3 mb-4">
+                        <div class="col-md-6 col-xl-3 mb-4">
                             <div class="card shadow border-left-warning py-2">
                                 <div class="card-body">
                                     <div class="row align-items-center no-gutters">
                                         <div class="col mr-2">
-                                            <div class="text-uppercase text-warning font-weight-bold text-xs mb-1"><span>Próximo Vencimiento</span></div>
+                                            <div class="text-uppercase text-warning font-weight-bold text-xs mb-1"><span>Imprimir Reporte</span></div>
 
                                         </div>
                                         <div class="col-auto" style="color: darkgoldenrod;margin-right: 1rem; font-size: larger;">
 
-                                            <?php echo "12 dias"; ?>
+                                            <button id="imprimir2" class="btn btn-secondary"><i class="fa fa-print"></i></button>
+
 
                                         </div>
                                         <div class="col-auto"><i class="fas fa-tasks fa-2x text-gray-300"></i></div>
@@ -108,7 +109,7 @@ $tipo = 2; // si es 0 es de actividad //1 si es proyectos
                                     </div>
                                 </div>
                             </div>
-                        </div> -->
+                        </div>
 
                     </div>
 
@@ -127,21 +128,7 @@ $tipo = 2; // si es 0 es de actividad //1 si es proyectos
                         <div class="tab-pane fade show active" id="dedicacion_todos" role="tabpanel" aria-labelledby="dedicacion_todos-tab">
 
                             <div class="card-body">
-                                <div class="row">
-                                    <div class="col " style="text-align: right;">
-                                        <button id="imprimir2" class="btn btn-secondary" style="margin-top: 24px;"><i class="fa fa-print"></i></button>
-                                    </div>
-                                    <div class="col  derecha" style="text-align: right; max-width: fit-content;">
-                                        <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label>Mostrar&nbsp;<select class="form-control form-control-sm custom-select custom-select-sm">
-                                                    <option value="5" selected="">5</option>
-                                                    <option value="10">10</option>
-                                                    <option value="20">20</option>
-                                                    <option value="100">Todos</option>
-                                                </select>&nbsp;</label></div>
 
-
-                                    </div>
-                                </div>
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
@@ -164,7 +151,7 @@ $tipo = 2; // si es 0 es de actividad //1 si es proyectos
                                                     foreach ($filas as $fila) {
                                                     ?>
                                                         <tr>
-                                                            <?php $aux_p = $proyecto->mostrarFilaPorId($fila["imputacion"],$tipo);
+                                                            <?php $aux_p = $proyecto->mostrarFilaPorId($fila["imputacion"], $tipo);
                                                             $aux_u = $user->mostrarFilaPorId($fila["id_agente"]); //aca tengo el nombre del usuario
                                                             ?>
                                                             <td><?php echo $aux_u['nombre'] ?></td>
@@ -187,6 +174,18 @@ $tipo = 2; // si es 0 es de actividad //1 si es proyectos
                                                 </tbody>
 
                                             </table>
+                                            <div class="row">
+                                                <div class="col  derecha" style="text-align: right; max-width: fit-content;">
+                                                    <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label>Mostrar&nbsp;<select class="form-control form-control-sm custom-select custom-select-sm">
+                                                                <option value="5" selected="">5</option>
+                                                                <option value="10">10</option>
+                                                                <option value="20">20</option>
+                                                                <option value="100">Todos</option>
+                                                            </select>&nbsp;</label></div>
+
+
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -235,7 +234,7 @@ $tipo = 2; // si es 0 es de actividad //1 si es proyectos
                                                     foreach ($filas as $fila) {
                                                     ?>
                                                         <tr>
-                                                            <?php $aux_p = $proyecto->mostrarFilaPorId($fila["imputacion"],$tipo);
+                                                            <?php $aux_p = $proyecto->mostrarFilaPorId($fila["imputacion"], $tipo);
                                                             $aux_u = $user->mostrarFilaPorId($fila["id_agente"]); //aca tengo el nombre del usuario
                                                             ?>
                                                             <td><?php echo $aux_u['nombre'] ?></td>

@@ -106,7 +106,7 @@ if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
                                                                     <p><?php echo $fila_proy["fecha_inicio"] ?></p>
                                                                 </div>
                                                             </div>
-                                                       
+
                                                             <div class="col-md-3">
                                                                 <div class="form-group"><label for="identificador"><strong>Identificador&nbsp;</strong></label>
                                                                     <p><?php echo $fila_proy["identificador"] ?></p>
@@ -117,7 +117,7 @@ if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
                                                                     <p><?php echo $fila_proy["tema"] ?></p>
                                                                 </div>
                                                             </div>
-                                                        
+
                                                             <div class="col-md-3">
                                                                 <div class="form-group"><label for="descripcion"><strong>Descripcion</strong><br></label>
                                                                     <p><?php echo $fila_proy["descripcion"] ?></p>
@@ -128,7 +128,7 @@ if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
                                                                     <p><?php echo $fila_proy["sector"] ?></p>
                                                                 </div>
                                                             </div>
-                                                        
+
                                                             <div class="col-md-3">
                                                                 <div class="form-group"><label for="resp"><strong>Responsable</strong><br></label>
                                                                     <p><?php echo $aux_u["nombre"] ?></p>
@@ -139,7 +139,7 @@ if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
                                                                     <p><?php echo $fila_proy["fecha_realizado"] ?></p>
                                                                 </div>
                                                             </div>
-                                                        
+
                                                             <div class="col-md-3">
                                                                 <div class="form-group"><label for="obs"><strong>Observaciones</strong><br></label>
                                                                     <p><?php echo $fila_proy["observaciones"] ?></p>
@@ -215,15 +215,15 @@ if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
                                                                         <td><?php echo $fila['f_inicio'] ?></td>
                                                                         <td><?php echo $fila['f_final'] ?></td>
                                                                         <td><?php echo $fila["Estado"] ?></td>
-                                                                        <td><?php echo $fila["Estado"] ?></td>
+                                                                        <
 
                                                                         <script src="cartel.js"> </script>
                                                                         <!-- <td><a class="btn btn-primary mx-auto btn-circle ml-1"  role="button" href="crear_tarea.php?tareaId=<?php //echo $fila["id_proyectos"]; 
                                                                                                                                                                                     ?>"><i class="fas fa-file-medical text-white"></i></a></td> -->
                                                                         <!-- <td><a class="btn btn-secondary mx-auto btn-circle ml-1"  role="button" href="detalle_proyecto.php?detalleid=<?php //echo $fila["id_proyectos"]; 
                                                                                                                                                                                             ?>"><i class="fas fa-file-alt text-white"></i></a></td> -->
-                                                                        <td><a class="btn btn-info mx-auto btn-circle ml-1" role="button" href="actualizar_proyecto.php?editId=<?php echo $fila['id_proyectos'] ?>"><i class="fas fa-user-circle text-white"></i></a></td>
-                                                                        <td><a class="btn btn-danger mx-auto btn-circle ml-1" onclick="return confirmBorrar()" role="button" href="Lista_proyectos.php?borrarid=<?php echo $fila['id_proyectos'] ?>"><i class="fas fa-trash text-white"></i></a></td>
+                                                                        <td><a class="btn btn-info mx-auto btn-circle ml-1" role="button" href="actualizar_tarea.php?editId=<?php echo $fila['id_tareas'] ?>"><i class="fas fa-user-circle text-white"></i></a></td>
+                                                                        <td><a class="btn btn-danger mx-auto btn-circle ml-1" onclick="return confirmBorrar()" role="button" href="Lista_Tareas.php?borrarid=<?php echo $fila['id_tareas'] ?>"><i class="fas fa-trash text-white"></i></a></td>
 
                                                                     </tr>
                                                                 <?php }  ?>
@@ -239,7 +239,44 @@ if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
                                                     <a class="btn btn-primary mx-auto  ml-1" role="button" href="crear_tarea.php">Nueva Tarea</a>
                                                 </div>
                                                 <div class="tab-pane fade" id="recursos" role="tabpanel" aria-labelledby="recursos-tab">recursos</div>
-                                                <div class="tab-pane fade" id="int" role="tabpanel" aria-labelledby="int-tab">integrantes</div>
+                                                <div class="tab-pane fade" id="int" role="tabpanel" aria-labelledby="int-tab">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                                                                <table class="table dataTable my-0" id="table" data-show-print="true" data-toggle="table" data-search="true" data-pagination="true" data-show-columns="true" data-locale="es-ES">
+                                                                    <thead class="thead-dark">
+                                                                        <tr>
+                                                                            <th data-field="Agente" data-sortable="true">Agente</th>
+                                                                            <th data-field="Horas Dedicadas" data-sortable="true">Horas Dedicadas</th>
+                                                                            <th data-field="Mes">Mes</th>
+                                                                            <th data-field="Anio">Año</th>                                                                          
+                                                                            
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody id="tablaDedicacionProyecto">
+
+                                                                        <?php
+                                                                        $filas = $proyecto->mostrarDatosPorImputacion($id_proy);
+                                                                        foreach ($filas as $fila) {
+                                                                        ?>
+                                                                            <tr>
+                                                                                <td><?php echo $fila['usuariosNombre'] ?></td>
+                                                                                <td><?php echo $fila['horas'] ?></td>
+                                                                                <td ><?php echo $fila['mes'] ?></td>
+                                                                                <td><?php echo $fila['anio'] ?></td>
+                                                                                                                                                            
+                                                                            </tr>
+                                                                        <?php }  ?>
+
+
+                                                                    </tbody>
+
+                                                                </table>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
 
                                         </div>
@@ -262,4 +299,5 @@ if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
 
 </body>
 <?php include('footer.php'); ?>
+
 </html>

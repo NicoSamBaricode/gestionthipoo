@@ -147,25 +147,24 @@ class Proyecto_class extends conexionDb
 				VALUES ('$identificador','$nombre','$descrip','$tipo','$horas','$color')";
 				$sql = $this->conexion->query($query);
 				if ($sql == true) {
-					
+
 					echo "<script> alert('Se creo la Actividad con exito'); window.location='/GestionThi/gestionthipoo/Lista_actividades.php'</script> ";
 				} else {
 					echo "<script> alert('Fallo al insertar datos'); </script>";
 				}
 			}
 		}
-
 	}
 	//borrar usuarios
-	public function borrar_proyecto($id,$tipo)
+	public function borrar_proyecto($id, $tipo)
 	{
 		$query = "DELETE FROM proyectos WHERE id_proyectos = '$id'";
 		$sql = $this->conexion->query($query);
 		if ($sql == true) {
-			if ($tipo==1) {
+			if ($tipo == 1) {
 				echo "<script> alert('Se borraron los datos con exito'); window.location='/GestionThi/gestionthipoo/Lista_Proyectos.php'</script> ";
 			}
-			if ($tipo==0) {
+			if ($tipo == 0) {
 				echo "<script> alert('Se borraron los datos con exito'); window.location='/GestionThi/gestionthipoo/Lista_actividades.php'</script> ";
 			}
 		} else {
@@ -267,6 +266,21 @@ class Proyecto_class extends conexionDb
 
 
 			return false;
+		}
+	}
+
+	public function mostrarDatosPorImputacion($id_proyecto)
+	{
+		$query = "	SELECT dedicacion.id_dedicacion, dedicacion.mes, dedicacion.anio,dedicacion.horas, dedicacion.id_agente,dedicacion.imputacion,proyectos.nombre,usuarios.nombre AS usuariosNombre FROM dedicacion LEFT JOIN usuarios ON dedicacion.id_agente=usuarios.id_usuario LEFT JOIN proyectos ON dedicacion.imputacion=proyectos.id_proyectos where dedicacion.imputacion = $id_proyecto;";
+		$result = $this->conexion->query($query);
+		if ($result->num_rows > 0) {
+			$data = array();
+			while ($row = $result->fetch_assoc()) {
+				$data[] = $row;
+			}
+			return $data;
+		} else {
+			echo "Base de datos vacia";
 		}
 	}
 }

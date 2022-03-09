@@ -24,7 +24,7 @@ if (isset($_GET['editId']) && !empty($_GET['editId'])) {
     $editId = $_GET['editId'];
     $tarea = $tarea_obj->mostrarFilaPorId($editId);
     $aux_u = $user->mostrarFilaPorId($tarea['responsable']);
-    $aux_p = $proyecto->mostrarFilaPorId($tarea['id_proyectos']);
+    $aux_p = $proyecto->mostrarFilaPorId($tarea['id_proyectos'],1);
 }
 
 
@@ -138,7 +138,7 @@ if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
                                                                 <option selected value="<?php echo $aux_p["id_proyectos"] ?>"><?php echo $aux_p["nombre"] ?></p>
                                                                 </option>
                                                                 <?php
-                                                                $filas_p = $proyecto->mostrarDatos();
+                                                                $filas_p = $proyecto->mostrarDatos(1);
                                                                 foreach ($filas_p as $fila_p) {
                                                                 ?>
                                                                     <option value="<?php echo $fila_p['id_proyectos'] ?>"> <?php echo $fila_p['nombre'] ?></option>

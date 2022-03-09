@@ -21,13 +21,13 @@ $row = $user->detalle($sql);
 $id_tarea = $_GET["detalleid"];
 $fila_tarea = $tarea->mostrarFilaPorId($id_tarea);
 $aux_u = $user->mostrarFilaPorId($fila_tarea['responsable']);
-$aux_p = $proyecto->mostrarFilaPorId($fila_tarea['id_proyectos']);
+$aux_p = $proyecto->mostrarFilaPorId($fila_tarea['id_proyectos'],1);
 
 
 //llama funcion borrar
 if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
     $borrarId = $_GET['borrarid'];
-    $proyecto->borrar_proyecto($borrarId);
+    $proyecto->borrar_proyecto($borrarId,1);
 }
 
 ?>

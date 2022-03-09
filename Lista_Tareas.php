@@ -170,7 +170,7 @@ if (isset($_POST['volver'])) {
                                         foreach ($filas as $fila) {
                                         ?>
                                             <tr>
-                                                <?php $aux_p = $proyecto->mostrarFilaPorId($fila["id_proyectos"]);
+                                                <?php $aux_p = $proyecto->mostrarFilaPorId($fila["id_proyectos"],1);
                                                 $aux_u = $user->mostrarFilaPorId($fila["responsable"]);
                                                 ?>
 
