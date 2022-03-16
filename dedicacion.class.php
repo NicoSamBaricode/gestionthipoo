@@ -87,7 +87,7 @@ class Dedicacion_class extends conexionDb{
             VALUES ('$id_agente','$mes','$anio','$horas','$imputacion')";
 			$sql = $this->conexion->query($query);
 			if ($sql==true) {
-			    echo"<script> alert('Se inserto con exito'); window.location='/GestionThi/gestionthipoo/Lista_dedicacion.php'</script> ";
+			    echo"<script> window.location='/GestionThi/gestionthipoo/crear_dedicacion.php'</script> ";
 			}else{
 			    echo"<script> alert('Fallo al insertar datos'); </script>";
 			}
@@ -112,6 +112,7 @@ class Dedicacion_class extends conexionDb{
 		    $result = $this->conexion->query($query);
 		if ($result->num_rows > 0) {
 			$row = $result->fetch_assoc();
+			
 			return $row;
 		    }else{
                 echo"<script> alert('No se encontro el registro'); </script>";
@@ -120,23 +121,17 @@ class Dedicacion_class extends conexionDb{
 		}
 
 		// actualiza datos en la tabla
-		public function actualizarFila($postData)
+		public function actualizarFilaD($postData)
 		
 		{   $id_d=$this->conexion->real_escape_string($_POST['id_dedicacion']);
-			$id_ag = $this->conexion->real_escape_string($_POST['id_agente']);
-			$mes = $this->conexion->real_escape_string($_POST['mes']);
-			$anio = $this->conexion->real_escape_string($_POST['anio']);
-			$horas = $this->conexion->real_escape_string($_POST['horas']);
-            $imput = $this->conexion->real_escape_string($_POST['imputacion']);			
-            
-			
-		    
+			$relevadas = $this->conexion->real_escape_string($_POST['horasR']);
+					    
 		if (!empty($id_d) && !empty($postData)) {
 			
-			$query = "UPDATE dedicacion SET id_agente = '$id_d', mes = '$mes', anio= '$anio', horas= '$horas', imputacion= '$imput' WHERE id_dedicacion = '$id_d'";
+			$query = "UPDATE dedicacion SET horas_relevadas = '$relevadas' WHERE id_dedicacion = '$id_d'";
 			$sql = $this->conexion->query($query);
 			if ($sql==true) {
-			    echo"<script> alert('Se actualizo la tarea con exito'); window.location='/GestionThi/gestionthipoo/Lista_dedicacion.php'</script> ";
+			    echo"<script> alert('Se actualizo la dedicacion con exito'); window.location='/GestionThi/gestionthipoo/Lista_dedicacion.php'</script> ";
 			}else{
 			    echo"<script> alert('Fallo al actualizar datos');window.location='/GestionThi/gestionthipoo/Lista_dedicacion.php'</script>  </script>";
 			}

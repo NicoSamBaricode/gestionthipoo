@@ -39,7 +39,7 @@ $tipo = 2; // si es 0 es de actividad //1 si es proyectos
     <title>Mi Dedicacion</title>
     <?php include('header.php'); ?>
 
-   
+
 
 
 
@@ -157,7 +157,7 @@ $tipo = 2; // si es 0 es de actividad //1 si es proyectos
                                                             <td><?php echo $aux_u['nombre'] ?></td>
                                                             <td><?php echo $fila['mes'] ?></td>
                                                             <td class="centrarRegistros"><?php echo $fila['horas'] ?></td>
-                                                            <td><?php echo $fila['horas'] ?></td>
+                                                            <td><?php echo $fila['horas_relevadas'] ?></td>
                                                             <td><?php echo $aux_p['nombre'] ?></td>
 
                                                             <script src="cartel.js"> </script>
@@ -224,7 +224,7 @@ $tipo = 2; // si es 0 es de actividad //1 si es proyectos
                                                         <th data-field="Horas R">Horas relevadas</th>
                                                         <th data-field="Imputacion" data-sortable="true">Imputación</th>
                                                         <!-- <th data-field="Editar">Editar</th> -->
-                                                        <th data-field="Borrar"> Eliminar</th>
+
                                                     </tr>
                                                 </thead>
                                                 <tbody id="tablaDedicacion">
@@ -240,7 +240,12 @@ $tipo = 2; // si es 0 es de actividad //1 si es proyectos
                                                             <td><?php echo $aux_u['nombre'] ?></td>
                                                             <td><?php echo $fila['mes'] ?></td>
                                                             <td class="centrarRegistros"><?php echo $fila['horas'] ?></td>
-                                                            <td><?php echo $fila['horas'] ?></td>
+                                                            <td>
+                                                                <div class="row">
+                                                                    <div class="col-md-6" style="top: 9px;"><p><?php echo $fila['horas_relevadas'] ?></p></div>
+                                                                    <div class="col-md-6 " style="text-align: right;"><a class="btn btn-light mx-auto btn-circle ml-1" style="color:black" role="button" href="actualizar_dedicacion.php?editId=<?php echo $fila['id_dedicacion'] ?>"><i class="fa fa-edit text-black"></i></a></div>
+                                                                </div>
+                                                            </td>
                                                             <td><?php echo $aux_p['nombre'] ?></td>
 
                                                             <script src="cartel.js"> </script>
@@ -248,7 +253,7 @@ $tipo = 2; // si es 0 es de actividad //1 si es proyectos
                                                                                                                                                                         ?>"><i class="fas fa-file-medical text-white"></i></a></td> -->
 
                                                             <!-- <td><a class="btn btn-info mx-auto btn-circle ml-1" role="button" href="actualizar_dedicacion.php?editId=<?php echo $fila['id_dedicacion'] ?>"><i class="fa fa-edit text-white"></i></a></td> -->
-                                                            <td><a class="btn btn-danger mx-auto btn-circle ml-1" onclick="return confirmBorrar()" role="button" href="Lista_dedicacion.php?borrarid=<?php echo $fila['id_dedicacion'] ?>"><i class="fas fa-trash text-white"></i></a></td>
+                                                            <!-- <td><a class="btn btn-danger mx-auto btn-circle ml-1" onclick="return confirmBorrar()" role="button" href="Lista_dedicacion.php?borrarid=<?php echo $fila['id_dedicacion'] ?>"><i class="fas fa-trash text-white"></i></a></td> -->
 
                                                         </tr>
                                                     <?php }  ?>

@@ -186,7 +186,7 @@ class Proyecto_class extends conexionDb
 			$row = $result->fetch_assoc();
 			return $row;
 		} else {
-			echo "<script> alert('No se encontro el registro'); </script>";
+			echo "<script> alert('No se encontro el registro de proyectos'); </script>";
 		}
 	}
 

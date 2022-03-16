@@ -106,7 +106,7 @@ class Usuario extends conexionDb{
 			$row = $result->fetch_assoc();
 			return $row;
 		    }else{
-                echo"<script> alert('No se encontro el registro'); </script>";
+                echo"<script> alert('No se encontro el registro de usuario'); </script>";
 		    }
 		}
 

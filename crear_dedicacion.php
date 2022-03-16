@@ -6,21 +6,23 @@ if (!isset($_SESSION['user']) || (trim($_SESSION['user']) == '')) {
 }
 
 include_once('Usuarios.class.php');
-include_once('dedicacion.class.php');
 include_once('proyectos.class.php');
-
-
+include_once('actividades.class.php');
+include_once('dedicacion.class.php');
+include_once('calendario.class.php');
+include_once('funciones.php');
 $user = new Usuario();
 $dedicacion = new Dedicacion_class();
 $proyecto = new Proyecto_class();
+$calendario = new calendario_class();
 
 
 //extrae datos de usuaio
 $sql = "SELECT * FROM usuarios WHERE id_usuario = '" . $_SESSION['user'] . "'";
 $row = $user->detalle($sql);
-
-
-
+$usuario =  $_SESSION['user']; //numero de usuario
+//tabla
+$queryMiDedicacion = "SELECT * FROM dedicacion where id_agente = $usuario ORDER by `timeStamp` DESC" ;
 
 
 //llama a la funcion de insertar datos
@@ -92,23 +94,18 @@ if (isset($_POST['submit'])) {
                                                         </div>
                                                     </div>
                                                     <div class="col">
-                                                        <div class="form-group"><label for="mes"><strong>Mes</strong></label>
-                                                           <select class="form-control " name="mes" required>
-                                                                <!-- <option selected disabled>Mes</option> -->
-                                                                <option value="1">Enero</option>
-                                                                <option value="2">Febrero</option>
-                                                                <option value="3">Marzo</option>
-                                                                <option value="4">Abril</option>
-                                                                <option value="5">Mayo</option>
-                                                                <option value="6">Junio</option>
-                                                                <option value="7">Julio</option>
-                                                                <option value="8">Agosto</option>
-                                                                <option value="9">Septiembre</option>
-                                                                <option value="10">Octubre</option>
-                                                                <option value="11">Noviembre</option>
-                                                                <option value="12">Diciembre</option>
+                                                        <div class="form-group"><label for="mes"><strong>Mes</strong><br></label><select class="form-control" require name="mes" id="exampleFormControlSelect23">
+                                                                <?php
+                                                                $filasCalendario = $calendario->mostrarDatos();
+                                                                foreach ($filasCalendario as $fila_c) {
+                                                                ?>
+                                                                    <option value="<?php echo $fila_c['id_Mes']; ?>">
+                                                                        <?php echo $fila_c['nombre'] ?>
+                                                                    </option>
+                                                                <?php }  ?>
                                                             </select>
                                                         </div>
+
                                                     </div>
                                                     <div class="col">
                                                         <div class="form-group"><label for="anio"><strong>Año</strong><br></label><input class="form-control" type="number" placeholder="Año" name="anio" min="2022"></input></div>
@@ -118,7 +115,7 @@ if (isset($_POST['submit'])) {
                                                 <div class="form-row">
 
                                                     <div class="col">
-                                                        <div class="form-group"><label for="horas"><strong>Horas a cagar</strong><br></label><input class="form-control" type="number" placeholder="Ingrese cantidad de horas" name="horas"></input></div>
+                                                        <div class="form-group"><label for="horas"><strong>Horas Planificadas</strong><br></label><input class="form-control" type="number" placeholder="Ingrese cantidad de horas" name="horas"></input></div>
                                                     </div>
                                                     <div class="col">
                                                         <div class="form-group"><label for="resp"><strong>Proyecto / Actividad</strong><br></label><select class="form-control" require name="imputacion" id="exampleFormControlSelect2">
@@ -131,7 +128,7 @@ if (isset($_POST['submit'])) {
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    
+
                                                 </div>
                                                 <!--  
                                             <div class="form-row">
@@ -158,6 +155,53 @@ if (isset($_POST['submit'])) {
                                     </div>
 
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                                <table class="table dataTable my-0" id="table2" data-show-export="true" data-force-export="true" data-toggle="table" data-search="false" data-pagination="true" data-show-columns="true" data-locale="es-ES">
+                                    <thead class="thead-dark">
+                                        <tr>
+
+                                            <th data-field="Mes" data-sortable="true">Mes</th>
+                                            <th data-field="Horas P">Horas planificadas</th>
+                                            <th data-field="Imputacion" data-sortable="true">Imputación</th>
+                                            <!-- <th data-field="Editar">Editar</th> -->
+
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tablaDedicacionPersonalCrear">
+
+                                        <?php
+                                        $filas = $dedicacion->mostrarDatosBusqueda($queryMiDedicacion);
+                                        foreach ($filas as $fila) {
+                                        ?>
+                                            <tr>
+                                                <?php $aux_p = $proyecto->mostrarFilaPorId($fila["imputacion"], 2);
+                                                $aux_u = $user->mostrarFilaPorId($fila["id_agente"]); //aca tengo el nombre del usuario
+                                                ?>
+
+                                                <td><?php echo $fila['mes'] ?></td>
+                                                <td class="centrarRegistros"><?php echo $fila['horas'] ?></td>
+
+                                                <td><?php echo $aux_p['nombre'] ?></td>
+
+                                                <script src="cartel.js"> </script>
+                                                <!-- <td><a class="btn btn-primary mx-auto btn-circle ml-1"  role="button" href="crear_tarea.php?tareaId=<?php //echo $fila["id_proyectos"]; 
+                                                                                                                                                            ?>"><i class="fas fa-file-medical text-white"></i></a></td> -->
+
+                                                <!-- <td><a class="btn btn-info mx-auto btn-circle ml-1" role="button" href="actualizar_dedicacion.php?editId=<?php echo $fila['id_dedicacion'] ?>"><i class="fa fa-edit text-white"></i></a></td> -->
+                                                <!-- <td><a class="btn btn-danger mx-auto btn-circle ml-1" onclick="return confirmBorrar()" role="button" href="Lista_dedicacion.php?borrarid=<?php echo $fila['id_dedicacion'] ?>"><i class="fas fa-trash text-white"></i></a></td> -->
+
+                                            </tr>
+                                        <?php }  ?>
+
+
+                                    </tbody>
+
+                                </table>
                             </div>
                         </div>
                     </div>

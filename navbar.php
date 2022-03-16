@@ -15,8 +15,11 @@
                         <li class="nav-item" role="presentation"><a class="nav-link" href="Lista_Tareas.php"><i class="fas fa-list"></i><span>Tareas</span></a></li>
                         <li class="nav-item" role="presentation"><a class="nav-link" href="Lista_actividades.php"><i class="fas fa-chart-pie"></i><span>Actividades</span></a></li>
                         <li class="nav-item" role="presentation"><a class="nav-link" href="Lista_Recursos.php"><i class="fas fa-warehouse"></i><span>Recursos</span></a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link " href="Configuracion.php"><i class="fas fa-cog"></i><span>Configuración</span></a></li>
+
                         <li class="nav-item" role="presentation"><a class="nav-link" href="cerrar_sesion.php"><i class="fas fa-user-circle"></i><span>Cerrar Sesión</span></a></li>
-                    <?php } ?>
+
+                        <?php } ?>
                     <!-- termina admin -->
                     <!-- arranca jefe -->
                     <?php if ('jefe' == $row["rol"]) { ?>
