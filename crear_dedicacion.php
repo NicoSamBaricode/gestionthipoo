@@ -22,7 +22,7 @@ $sql = "SELECT * FROM usuarios WHERE id_usuario = '" . $_SESSION['user'] . "'";
 $row = $user->detalle($sql);
 $usuario =  $_SESSION['user']; //numero de usuario
 //tabla
-$queryMiDedicacion = "SELECT * FROM dedicacion where id_agente = $usuario ORDER by `timeStamp` DESC" ;
+$queryMiDedicacion = "SELECT * FROM dedicacion where id_agente = $usuario ORDER by `timeStamp` DESC";
 
 
 //llama a la funcion de insertar datos
@@ -81,7 +81,7 @@ if (isset($_POST['submit'])) {
                                             <form action="crear_dedicacion.php" method="POST">
                                                 <div class="form-row">
                                                     <div class="col">
-                                                        <div class="form-group"><label for="id_agente"><strong>Agente</strong><br></label><select class="form-control" require name="id_agente" id="exampleFormControlSelect2">
+                                                        <div class="form-group"><label for="id_agente"><strong>Agente</strong><br></label><select class="form-control" require name="id_agente" id="id_agente">
                                                                 <?php
                                                                 $filas = $user->mostrarDatos();
                                                                 foreach ($filas as $fila) {
@@ -94,7 +94,7 @@ if (isset($_POST['submit'])) {
                                                         </div>
                                                     </div>
                                                     <div class="col">
-                                                        <div class="form-group"><label for="mes"><strong>Mes</strong><br></label><select class="form-control" require name="mes" id="exampleFormControlSelect23">
+                                                        <div class="form-group"><label for="mes"><strong>Mes</strong><br></label><select class="form-control" require name="mes" id="mes">
                                                                 <?php
                                                                 $filasCalendario = $calendario->mostrarDatos();
                                                                 foreach ($filasCalendario as $fila_c) {
@@ -108,14 +108,20 @@ if (isset($_POST['submit'])) {
 
                                                     </div>
                                                     <div class="col">
-                                                        <div class="form-group"><label for="anio"><strong>Año</strong><br></label><input class="form-control" type="number" placeholder="Año" name="anio" min="2022"></input></div>
+                                                        <div class="form-group"><label for="anio"><strong>Año</strong><br></label><input class="form-control" type="number" id="anio" placeholder="Año" name="anio" min="2022"></input></div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="form-group"><label for="horas"><strong>Horas Laborables Totales</strong><br></label><input class="form-control" type="text" placeholder="Horas Laborables" id="totales" name="horasL" readonly></input></div>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-row">
 
                                                     <div class="col">
-                                                        <div class="form-group"><label for="horas"><strong>Horas Planificadas</strong><br></label><input class="form-control" type="number" placeholder="Ingrese cantidad de horas" name="horas"></input></div>
+                                                        <div class="form-group"><label for="horas"><strong>Horas Planificadas</strong><br></label><input class="form-control" type="number" placeholder="Ingrese cantidad de horas" name="horas" id="planificadas"></input></div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="form-group"><label for="restantes"><strong>Horas Restantes</strong><br></label><input class="form-control" type="restantes" name="restante" id="restantes" readonly></input></div>
                                                     </div>
                                                     <div class="col">
                                                         <div class="form-group"><label for="resp"><strong>Proyecto / Actividad</strong><br></label><select class="form-control" require name="imputacion" id="exampleFormControlSelect2">
@@ -211,5 +217,59 @@ if (isset($_POST['submit'])) {
     </div>
 </body>
 <?php include('footer.php'); ?>
+<script>
+    $(document).ready(function() {
+        const d = new Date();
+        let year = d.getFullYear();
+        let month = d.getMonth();
+        $("#id_agente").val(<?= $usuario ?>);
+        $("#mes").focus();
+        $("#mes").val(month + 1);
+        $("#anio").val(year);
+        $.post("ajaxHorasMes.php", {
+                mes: $("#mes").val(),
+
+            })
+            .done(function(data) {
+                // alert("Data Loaded: " + data);
+                $("#totales").val(data);
+            });
+    });
+    $("#mes").on("change", function() {
+        $.post("ajaxHorasMes.php", {
+                mes: $("#mes").val(),
+
+            })
+            .done(function(data) {
+                // alert("Data Loaded: " + data);
+                $("#totales").val(data);
+            });
+    });
+    $("#planificadas").on("change", function() {
+        
+         $.post("ajaxHorasRestantes.php", {
+               mes: $("#mes").val(),
+               planificadas: $("#planificadas").val(),
+               anio: $("#anio").val(),
+               agente: $("#id_agente").val(),
+               totales: $("#totales").val(),
+           })
+             .done(function(data) {
+               // alert("Data Loaded: " + data);
+                $("#restantes").val(data);
+            });
+    });
+    // $("#planificadas").keyup("change", function() {
+    //     alert("cambioevento");
+    //     $.post("ajaxHorasRestantes.php", {
+    //            mes: $("#mes").val(),
+
+    //         })
+    //         .done(function(data) {
+    //           // alert("Data Loaded: " + data);
+    //              $("#totales").val(data);
+    //          });
+    // });
+</script>
 
 </html>
