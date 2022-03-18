@@ -10,9 +10,11 @@ include_once('proyectos.class.php');
 include_once('actividades.class.php');
 include_once('dedicacion.class.php');
 include_once('funciones.php');
+include_once('calendario.class.php');
 $user = new Usuario();
 $proyecto = new Proyecto_class();
 $dedicacion = new Dedicacion_class();
+$calendario = new calendario_class();
 
 //extrae datos de usuaio
 $sql = "SELECT * FROM usuarios WHERE id_usuario = '" . $_SESSION['user'] . "'";
@@ -111,6 +113,7 @@ $tipo = 2; // si es 0 es de actividad //1 si es proyectos
                             </div>
                         </div>
 
+
                     </div>
 
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -119,6 +122,9 @@ $tipo = 2; // si es 0 es de actividad //1 si es proyectos
                         </li>
                         <li class="nav-item" role="mi_dedicacion">
                             <a class="nav-link" id="mi_dedicacion-tab" data-toggle="tab" href="#mi_dedicacion" role="tab" aria-controls="mi_dedicacion" aria-selected="false">Mi Dedicación</a>
+                        </li>
+                        <li class="nav-item" role="grafico">
+                            <a class="nav-link" id="grafico-tab" data-toggle="tab" href="#grafico" role="tab" aria-controls="grafico" aria-selected="false">Grafico</a>
                         </li>
 
                     </ul>
@@ -202,7 +208,7 @@ $tipo = 2; // si es 0 es de actividad //1 si es proyectos
                                     <div class="col " style="text-align: right;">
                                         <button id="imprimir" class="btn btn-secondary" style="margin-top: 24px;"><i class="fa fa-print"></i></button>
                                     </div>
-                                    
+
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
@@ -235,7 +241,9 @@ $tipo = 2; // si es 0 es de actividad //1 si es proyectos
                                                             <td class="centrarRegistros"><?php echo $fila['horas'] ?></td>
                                                             <td>
                                                                 <div class="row">
-                                                                    <div class="col-md-6" style="top: 9px;"><p><?php echo $fila['horas_relevadas'] ?></p></div>
+                                                                    <div class="col-md-6" style="top: 9px;">
+                                                                        <p><?php echo $fila['horas_relevadas'] ?></p>
+                                                                    </div>
                                                                     <div class="col-md-6 " style="text-align: right;"><a class="btn btn-light mx-auto btn-circle ml-1" style="color:black" role="button" href="actualizar_dedicacion.php?editId=<?php echo $fila['id_dedicacion'] ?>"><i class="fa fa-edit text-black"></i></a></div>
                                                                 </div>
                                                             </td>
@@ -262,6 +270,108 @@ $tipo = 2; // si es 0 es de actividad //1 si es proyectos
 
 
 
+                            </div>
+                        </div>
+                        <div class="tab-pane fade show " id="grafico" role="tabpanel" aria-labelledby="grafico-tab">
+                            <div class="col-md-6">
+                                <div class="card shadow mb-4">
+                                    <div class="col">
+                                        <div class="form-group"><label for="mes"><strong>Mes</strong><br></label><select class="form-control" require name="mes" id="mes">
+                                                <?php
+                                                $filasCalendario = $calendario->mostrarDatos();
+                                                foreach ($filasCalendario as $fila_c) {
+                                                ?>
+                                                    <option value="<?php echo $fila_c['id_Mes']; ?>">
+                                                        <?php echo $fila_c['nombre'] ?>
+                                                    </option>
+                                                <?php }  ?>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                    <div class="card-header d-flex justify-content-between align-items-center">
+                                        <h6 class="text-primary font-weight-bold m-0">Ocupación Agente: <?= $row['nombre'] ?></h6>
+                                        <button id="boton" class="btn btn-danger">borrar</button>
+                                    </div>
+
+
+                                    <!-- grafico de torta -->
+                                    <div class="card-body">
+                                        <div id="chart-container2">
+                                            <canvas id="graphCanvas2"></canvas>
+                                        </div>
+
+                                        <script>
+                                            $(document).ready(function() {
+                                                const d = new Date();                                                
+                                                let month = d.getMonth();
+                                                $("#mes").val(month + 1);
+                                                showGraph();
+                                            });
+
+                                            $("#boton").on("click", function() {
+                                                resetCanvas();
+
+                                            });
+
+                                            var resetCanvas = function() {
+                                                $('#graphCanvas2').remove(); // this is my <canvas> element
+                                                $('#chart-container2').append('<canvas id="graphCanvas2"><canvas>');
+                                                canvas = document.querySelector('#graphCanvas2');
+                                                ctx = canvas.getContext('2d');
+
+                                            };
+                                            $("#mes").on("change", function() {
+                                                resetCanvas();
+                                                showGraph();
+                                            });
+
+                                            function showGraph() {
+                                                {
+                                                    $.post("graficoAgente.php", {
+                                                            mes: $("#mes").val(),
+                                                            usuario: <?= $row['id_usuario']; ?>
+                                                        },
+                                                        function(data) {
+
+                                                            console.log(data);
+                                                            var name = [];
+                                                            var marks = [];
+                                                            var color = [];
+
+                                                            for (var i in data) {
+                                                                name.push(data[i].nombre);
+                                                                marks.push(data[i].horas);
+                                                                color.push(data[i].color_act);
+                                                            }
+
+                                                            var chartdata = {
+                                                                labels: name,
+                                                                datasets: [{
+                                                                    label: 'Ocupacion: ',
+                                                                    backgroundColor: color,
+                                                                    borderColor: '#ffff',
+                                                                    hoverBackgroundColor: '#CCCCCC',
+                                                                    hoverBorderColor: '#666666',
+                                                                    data: marks
+                                                                }]
+                                                            };
+
+                                                            var graphTarget = $("#graphCanvas2");
+
+                                                            var barGraph = new Chart(graphTarget, {
+                                                                type: 'doughnut',
+                                                                data: chartdata
+                                                            });
+                                                        },
+
+                                                    );
+
+                                                }
+                                            }
+                                        </script>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
