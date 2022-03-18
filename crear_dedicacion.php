@@ -55,7 +55,7 @@ if (isset($_POST['submit'])) {
 
                             <div class="d-none d-sm-block topbar-divider"></div>
                             <li class="nav-item dropdown no-arrow" role="presentation">
-                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small"><?php echo $row['nombre'] ?></span><img class="border rounded-circle img-profile" src="<?php echo $row['imagen'] ?>"></a>
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small"><?php echo $row['nombre'] ?></span><img class="border rounded-circle img-profile" src="/GestionThi/gestionthipoo/assets/img/logo-cnea2.png"></a>
                                     <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in" role="menu"><a class="dropdown-item" role="presentation" href="#"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Profile</a><a class="dropdown-item" role="presentation" href="#"><i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Settings</a>
                                         <a class="dropdown-item" role="presentation" href="#"><i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Registro de actividades</a>
                                         <div class="dropdown-divider"></div><a class="dropdown-item" role="presentation" href="cerrar_sesion.php"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Logout</a>
@@ -118,10 +118,10 @@ if (isset($_POST['submit'])) {
                                                 <div class="form-row">
 
                                                     <div class="col">
-                                                        <div class="form-group"><label for="horas"><strong>Horas Planificadas</strong><br></label><input class="form-control" type="number" placeholder="Ingrese cantidad de horas" name="horas" id="planificadas"></input></div>
+                                                        <div class="form-group"><label for="horas"><strong>Horas Planificadas Mes</strong><br></label><input class="form-control" type="number" placeholder="Ingrese cantidad de horas" name="horas" id="planificadas"></input></div>
                                                     </div>
                                                     <div class="col">
-                                                        <div class="form-group"><label for="restantes"><strong>Horas Restantes</strong><br></label><input class="form-control" type="restantes" name="restante" id="restantes" readonly></input></div>
+                                                        <div class="form-group"><label for="restantes"><strong>Horas Restantes Mes</strong><br></label><input class="form-control" type="restantes" name="restante" id="restantes" readonly></input></div>
                                                     </div>
                                                     <div class="col">
                                                         <div class="form-group"><label for="resp"><strong>Proyecto / Actividad</strong><br></label><select class="form-control" require name="imputacion" id="exampleFormControlSelect2">
@@ -136,6 +136,12 @@ if (isset($_POST['submit'])) {
                                                     </div>
 
                                                 </div>
+                                                <div class="form-row">
+                                                    <div class="col">
+                                                        <div class="form-group"><label for="obs"><strong>Metas/Observaciones</strong><br></label><textarea class="form-control" type="text" placeholder="Metas/Observaciones" name="obs"></textarea></div>
+                                                    </div>
+                                                </div>
+
                                                 <!--  
                                             <div class="form-row">
                                                 <div class="col">
@@ -174,6 +180,7 @@ if (isset($_POST['submit'])) {
                                             <th data-field="Mes" data-sortable="true">Mes</th>
                                             <th data-field="Horas P">Horas planificadas</th>
                                             <th data-field="Imputacion" data-sortable="true">Imputación</th>
+                                            <th data-field="obse" data-sortable="true">Obs/Metas</th>
                                             <!-- <th data-field="Editar">Editar</th> -->
 
                                         </tr>
@@ -193,7 +200,7 @@ if (isset($_POST['submit'])) {
                                                 <td class="centrarRegistros"><?php echo $fila['horas'] ?></td>
 
                                                 <td><?php echo $aux_p['nombre'] ?></td>
-
+                                                <td><?php echo $fila['obs'] ?></td>
                                                 <script src="cartel.js"> </script>
                                                 <!-- <td><a class="btn btn-primary mx-auto btn-circle ml-1"  role="button" href="crear_tarea.php?tareaId=<?php //echo $fila["id_proyectos"]; 
                                                                                                                                                             ?>"><i class="fas fa-file-medical text-white"></i></a></td> -->
@@ -246,16 +253,16 @@ if (isset($_POST['submit'])) {
             });
     });
     $("#planificadas").on("change", function() {
-        
-         $.post("ajaxHorasRestantes.php", {
-               mes: $("#mes").val(),
-               planificadas: $("#planificadas").val(),
-               anio: $("#anio").val(),
-               agente: $("#id_agente").val(),
-               totales: $("#totales").val(),
-           })
-             .done(function(data) {
-               // alert("Data Loaded: " + data);
+
+        $.post("ajaxHorasRestantes.php", {
+                mes: $("#mes").val(),
+                planificadas: $("#planificadas").val(),
+                anio: $("#anio").val(),
+                agente: $("#id_agente").val(),
+                totales: $("#totales").val(),
+            })
+            .done(function(data) {
+                // alert("Data Loaded: " + data);
                 $("#restantes").val(data);
             });
     });

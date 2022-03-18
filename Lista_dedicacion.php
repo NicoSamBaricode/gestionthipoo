@@ -61,7 +61,7 @@ $tipo = 2; // si es 0 es de actividad //1 si es proyectos
 
                             <div class="d-none d-sm-block topbar-divider"></div>
                             <li class="nav-item dropdown no-arrow" role="presentation">
-                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small"><?php echo $row['nombre']; ?></span><img class="border rounded-circle img-profile" src="<?php echo $row['imagen'] ?>"></a>
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small"><?php echo $row['nombre']; ?></span><img class="border rounded-circle img-profile" src="/GestionThi/gestionthipoo/assets/img/logo-cnea2.png"></a>
                                     <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in" role="menu"><a class="dropdown-item" role="presentation" href="#"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Profile</a><a class="dropdown-item" role="presentation" href="#"><i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Settings</a>
                                         <a class="dropdown-item" role="presentation" href="#"><i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Registro de actividades</a>
                                         <div class="dropdown-divider"></div><a class="dropdown-item" role="presentation" href="cerrar_sesion.php"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Logout</a>
@@ -140,8 +140,9 @@ $tipo = 2; // si es 0 es de actividad //1 si es proyectos
                                                         <th data-field="Horas P">Horas planificadas</th>
                                                         <th data-field="Horas R">Horas relevadas</th>
                                                         <th data-field="Imputacion" data-sortable="true">Imputación</th>
+                                                        <th data-field="obs" data-sortable="true">Obs/Metas</th>
                                                         <!-- <th data-field="Editar">Editar</th> -->
-                                                        <!-- <th data-field="Borrar"> Eliminar</th> -->
+                                                        <th data-field="Borrar"> Eliminar</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody id="tablaDedicacion">
@@ -159,13 +160,13 @@ $tipo = 2; // si es 0 es de actividad //1 si es proyectos
                                                             <td class="centrarRegistros"><?php echo $fila['horas'] ?></td>
                                                             <td><?php echo $fila['horas_relevadas'] ?></td>
                                                             <td><?php echo $aux_p['nombre'] ?></td>
-
+                                                            <td><?php echo $fila['obs'] ?></td>
                                                             <script src="cartel.js"> </script>
                                                             <!-- <td><a class="btn btn-primary mx-auto btn-circle ml-1"  role="button" href="crear_tarea.php?tareaId=<?php //echo $fila["id_proyectos"]; 
                                                                                                                                                                         ?>"><i class="fas fa-file-medical text-white"></i></a></td> -->
 
                                                             <!-- <td><a class="btn btn-info mx-auto btn-circle ml-1" role="button" href="actualizar_dedicacion.php?editId=<?php echo $fila['id_dedicacion'] ?>"><i class="fa fa-edit text-white"></i></a></td> -->
-                                                            <!-- <td><a class="btn btn-danger mx-auto btn-circle ml-1" onclick="return confirmBorrar()" role="button" href="Lista_dedicacion.php?borrarid=<?php echo $fila['id_dedicacion'] ?>"><i class="fas fa-trash text-white"></i></a></td> -->
+                                                            <td style="text-align: center;"><a class="btn btn-danger mx-auto btn-circle ml-1" onclick="return confirmBorrar()" role="button" href="Lista_dedicacion.php?borrarid=<?php echo $fila['id_dedicacion'] ?>"><i class="fas fa-trash text-white"></i></a></td>
 
                                                         </tr>
                                                     <?php }  ?>
@@ -174,7 +175,7 @@ $tipo = 2; // si es 0 es de actividad //1 si es proyectos
                                                 </tbody>
 
                                             </table>
-                                            <div class="row">
+                                            <!-- <div class="row">
                                                 <div class="col  derecha" style="text-align: right; max-width: fit-content;">
                                                     <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label>Mostrar&nbsp;<select class="form-control form-control-sm custom-select custom-select-sm">
                                                                 <option value="5" selected="">5</option>
@@ -185,7 +186,7 @@ $tipo = 2; // si es 0 es de actividad //1 si es proyectos
 
 
                                                 </div>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
                                 </div>
@@ -201,16 +202,7 @@ $tipo = 2; // si es 0 es de actividad //1 si es proyectos
                                     <div class="col " style="text-align: right;">
                                         <button id="imprimir" class="btn btn-secondary" style="margin-top: 24px;"><i class="fa fa-print"></i></button>
                                     </div>
-                                    <div class="col  derecha" style="text-align: right; max-width: fit-content;">
-                                        <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label>Mostrar&nbsp;<select class="form-control form-control-sm custom-select custom-select-sm">
-                                                    <option value="5" selected="">5</option>
-                                                    <option value="10">10</option>
-                                                    <option value="20">20</option>
-                                                    <option value="100">Todos</option>
-                                                </select>&nbsp;</label></div>
-
-
-                                    </div>
+                                    
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
@@ -223,6 +215,7 @@ $tipo = 2; // si es 0 es de actividad //1 si es proyectos
                                                         <th data-field="Horas P">Horas planificadas</th>
                                                         <th data-field="Horas R">Horas relevadas</th>
                                                         <th data-field="Imputacion" data-sortable="true">Imputación</th>
+                                                        <th data-field="obs2" data-sortable="true">Obs/Metas</th>
                                                         <!-- <th data-field="Editar">Editar</th> -->
 
                                                     </tr>
@@ -247,7 +240,7 @@ $tipo = 2; // si es 0 es de actividad //1 si es proyectos
                                                                 </div>
                                                             </td>
                                                             <td><?php echo $aux_p['nombre'] ?></td>
-
+                                                            <td><?php echo $fila['obs'] ?></td>
                                                             <script src="cartel.js"> </script>
                                                             <!-- <td><a class="btn btn-primary mx-auto btn-circle ml-1"  role="button" href="crear_tarea.php?tareaId=<?php //echo $fila["id_proyectos"]; 
                                                                                                                                                                         ?>"><i class="fas fa-file-medical text-white"></i></a></td> -->

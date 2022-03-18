@@ -85,10 +85,11 @@ class Dedicacion_class extends conexionDb
 		$anio = $this->conexion->real_escape_string($_POST['anio']);
 		$horas = $this->conexion->real_escape_string($_POST['horas']);
 		$imputacion = $this->conexion->real_escape_string($_POST['imputacion']);
+		$obs = $this->conexion->real_escape_string($_POST['obs']);
 		//$timeStamp = $this->conexion->real_escape_string($_POST['tiempo']);
 
-		$query = "INSERT INTO dedicacion(id_agente,mes,anio,horas,imputacion) 
-            VALUES ('$id_agente','$mes','$anio','$horas','$imputacion')";
+		$query = "INSERT INTO dedicacion(id_agente,mes,anio,horas,imputacion,obs) 
+            VALUES ('$id_agente','$mes','$anio','$horas','$imputacion','$obs')";
 		$sql = $this->conexion->query($query);
 		if ($sql == true) {
 			echo "<script> window.location='/GestionThi/gestionthipoo/crear_dedicacion.php'</script> ";
