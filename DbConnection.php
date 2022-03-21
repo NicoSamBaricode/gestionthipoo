@@ -4,7 +4,7 @@ class conexionDb{
     private $host = 'localhost';
     private $usuario = 'root';
     private $password = '';
-    private $database = 'gestion_thi';
+    private $database = 'gestion_thi_back';
     
     protected $conexion;
     

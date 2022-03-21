@@ -1,7 +1,7 @@
 <?php
 header('Content-Type: application/json');
 
-$conn = mysqli_connect("localhost","root","","gestion_thi");
+$conn = mysqli_connect("localhost","root","","gestion_thi_back");
 
 $sqlQuery = "SELECT nombre,horas_dedicadas,color_act FROM proyectos ";
 $result = mysqli_query($conn,$sqlQuery);
