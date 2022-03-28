@@ -76,8 +76,9 @@ class Usuario extends conexionDb{
 			$contr = $this->conexion->real_escape_string($_POST['pasword']);
 			$alias = $this->conexion->real_escape_string($_POST['alias']);
             $mail = $this->conexion->real_escape_string($_POST['mail']);
+			$sector = $this->conexion->real_escape_string($_POST['sector']);
             $rol = $this->conexion->real_escape_string($_POST['rol']);
-			$query="INSERT INTO usuarios(nombre,apellido,mail,alias,rol,pasword) VALUES ('$nombre','$apellido','$mail','$alias','$rol','$contr')";
+			$query="INSERT INTO usuarios(nombre,apellido,mail,alias,rol,sector_id,pasword) VALUES ('$nombre','$apellido','$mail','$alias','$rol','$sector','$contr')";
 			$sql = $this->conexion->query($query);
 			if ($sql==true) {
 			    echo"<script> alert('Se insertaron los datos con exito'); window.location='/GestionThi/gestionthipoo/Lista_Usuarios.php'</script> ";

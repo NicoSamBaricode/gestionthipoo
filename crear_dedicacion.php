@@ -16,13 +16,15 @@ $dedicacion = new Dedicacion_class();
 $proyecto = new Proyecto_class();
 $calendario = new calendario_class();
 
+$mesActual= date("n");
+
 
 //extrae datos de usuaio
 $sql = "SELECT * FROM usuarios WHERE id_usuario = '" . $_SESSION['user'] . "'";
 $row = $user->detalle($sql);
 $usuario =  $_SESSION['user']; //numero de usuario
 //tabla
-$queryMiDedicacion = "SELECT * FROM dedicacion where id_agente = $usuario ORDER by `timeStamp` DESC";
+$queryMiDedicacion = "SELECT * FROM dedicacion where mes=$mesActual AND id_agente = $usuario ORDER by `timeStamp` DESC";
 
 
 //llama a la funcion de insertar datos
@@ -176,7 +178,7 @@ if (isset($_POST['submit'])) {
                                 <table class="table dataTable my-0" id="table2" data-show-export="true" data-force-export="true" data-toggle="table" data-search="false" data-pagination="true" data-show-columns="true" data-locale="es-ES">
                                     <thead class="thead-dark">
                                         <tr>
-
+                                            <th data-field="anio" data-sortable="true">Año</th>
                                             <th data-field="Mes" data-sortable="true">Mes</th>
                                             <th data-field="Horas P">Horas planificadas</th>
                                             <th data-field="Imputacion" data-sortable="true">Imputación</th>
@@ -195,7 +197,7 @@ if (isset($_POST['submit'])) {
                                                 <?php $aux_p = $proyecto->mostrarFilaPorId($fila["imputacion"], 2);
                                                 $aux_u = $user->mostrarFilaPorId($fila["id_agente"]); //aca tengo el nombre del usuario
                                                 ?>
-
+                                                <td><?php echo $fila['anio'] ?></td>
                                                 <td><?php echo $fila['mes'] ?></td>
                                                 <td class="centrarRegistros"><?php echo $fila['horas'] ?></td>
 

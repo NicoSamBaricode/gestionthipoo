@@ -136,6 +136,7 @@ class Proyecto_class extends conexionDb
 			$identificador = $this->conexion->real_escape_string($_POST['identificador']);
 			$descrip = $this->conexion->real_escape_string($_POST['descrip']);
 			$color = $this->conexion->real_escape_string($_POST['color']);
+			$sector = $this->conexion->real_escape_string($_POST['sector']);
 			$tipo = $this->conexion->real_escape_string($tipo);
 			$horas = $this->conexion->real_escape_string($_POST['horas']);
 			$queryident = "SELECT identificador FROM proyectos WHERE identificador=$identificador ";
@@ -143,8 +144,8 @@ class Proyecto_class extends conexionDb
 			if ($result->num_rows > 0) {
 				echo "<script> alert('El identificador ingresado ya existe, por favor ingrese uno diferente.'); window.location='/GestionThi/gestionthipoo/crear_actividades.php'</script> ";
 			} else {
-				$query = "INSERT INTO proyectos(identificador,nombre,descripcion,Tipo,horas_dedicadas,color_act) 
-				VALUES ('$identificador','$nombre','$descrip','$tipo','$horas','$color')";
+				$query = "INSERT INTO proyectos(identificador,nombre,descripcion,Tipo,sector,horas_dedicadas,color_act) 
+				VALUES ('$identificador','$nombre','$descrip','$tipo','$sector','$horas','$color')";
 				$sql = $this->conexion->query($query);
 				if ($sql == true) {
 

@@ -7,7 +7,8 @@ if (!isset($_SESSION['user']) || (trim($_SESSION['user']) == '')) {
 
 include_once('Usuarios.class.php');
 include_once('proyectos.class.php');
-
+include_once('sectores.class.php');
+$sector = new Sector();
 $user = new Usuario();
 $proyecto = new Proyecto_class();
 
@@ -56,17 +57,8 @@ if (isset($_POST['submit'])) {
                 <div class="container-fluid">
                     <h3 class="text-dark mb-4">Nuevo Usuario</h3>
                     <div class="row mb-3">
-                        <div class="col-lg-4">
-                            <div class="card mb-3">
-
-                                <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4" src="assets/img/dogs/image2.jpeg" width="160" height="160">
-
-
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="col-lg-8">
+                        
+                        <div class="col-lg-12">
 
                             <div class="row">
                                 <div class="col">
@@ -90,13 +82,13 @@ if (isset($_POST['submit'])) {
                                                     <div class="col">
                                                         <div class="form-group"><label for="rol"><strong>Tipo de Usuario</strong></label><select class="form-control" required name="rol" placeholder="Tipo de usuario" id="rol">
                                                                 <option selected>Agente</option>
-                                                                <option>Admin</option>
-                                                                <option>Taller</option>
-                                                                <option>Jefe</option>
+                                                                <option>Admin</option>                                                                
+                                                                <option>Jefe Division</option>
+                                                                <option>Jefe Depto</option>
                                                             </select></div>
                                                     </div>
                                                     <div class="col">
-                                                        <div class="form-group"><label for="pasword"><strong>Contraseña</strong></label><input class="form-control" type="pasword" required="Ingrese dato valido" placeholder="contraseña" name="pasword"></div>
+                                                        <div class="form-group"><label for="password"><strong>Contraseña</strong></label><input class="form-control" type="password" required="Ingrese dato valido" placeholder="contraseña" name="pasword"></div>
                                                     </div>
                                                 </div>
 
@@ -106,6 +98,23 @@ if (isset($_POST['submit'])) {
                                                 <div class="form-row">
                                                     <div class="col">
                                                         <div class="form-group"><label for="alias"><strong>Nombre de Usuario</strong><br></label><input class="form-control" type="text" required="Ingrese dato valido" placeholder="Nombre de usuario" name="alias"></div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="form-group"><label for="sector"><strong>Sector</strong><br></label><select class="form-control" name="sector" id="exampleFormControlSelect2">
+                                                                <?php
+                                                                $filas = $sector->mostrarDatos();
+
+                                                                foreach ($filas as $fila) {
+                                                                ?>
+                                                                    <tr>
+
+                                                                        <option value="<?php echo $fila['Sector_id'] ?>"> <?php echo $fila['Nombre'] ?></option>
+
+
+                                                                    </tr>
+                                                                <?php }  ?>
+                                                            </select>
+                                                        </div>
                                                     </div>
                                                     <div class="col">
                                                         <div class="form-group"><label for="mail"><strong>Email</strong><br></label><input class="form-control" type="email" required="Ingrese dato valido" placeholder="usuario@cab.cnea.gov.ar" name="mail"></div>

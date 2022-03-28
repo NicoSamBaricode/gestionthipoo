@@ -7,7 +7,8 @@ if (!isset($_SESSION['user']) || (trim($_SESSION['user']) == '')) {
 
 include_once('Usuarios.class.php');
 include_once('proyectos.class.php');
-
+include_once('sectores.class.php');
+$sector = new Sector();
 $user = new Usuario();
 $actividad = new Proyecto_class();
 
@@ -86,6 +87,23 @@ if (isset($_POST['submit'])) {
 
                                                     <div class="col">
                                                         <div class="form-group"><label for="horas"><strong>Asignar Horas</strong></label><input class="form-control" type="text" required="Ingrese dato valido" placeholder="horas" name="horas"></div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="form-group"><label for="sector"><strong>Sector</strong><br></label><select class="form-control" name="sector" id="exampleFormControlSelect2">
+                                                                <?php
+                                                                $filas = $sector->mostrarDatos();
+
+                                                                foreach ($filas as $fila) {
+                                                                ?>
+                                                                    <tr>
+
+                                                                        <option value="<?php echo $fila['Sector_id'] ?>"> <?php echo $fila['Nombre'] ?></option>
+
+
+                                                                    </tr>
+                                                                <?php }  ?>
+                                                            </select>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-row">

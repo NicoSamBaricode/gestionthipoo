@@ -181,18 +181,7 @@ if (isset($_POST['volver'])) {
 
 
                                     </tbody>
-                                    <tfoot class="thead-dark">
-                                        <tr>
-                                            <th>Nombre</th>
-                                            <th>Apellido</th>
-                                            <th>Rol</th>
-                                            <th>Alias</th>
-                                            <th>Pasword</th>
-                                            <th>Email</th>
-                                            <th>Editar</th>
-                                            <th>Eliminar</th>
-                                        </tr>
-                                    </tfoot>
+                                   
                                 </table>
                             </div>
                             <div class="row">

@@ -68,7 +68,7 @@ echo $row['rol'];
                 </nav>
 
                 <!-- arranca Admin -->
-                <?php if ('admin' == $row["rol"]) { ?>
+                <?php if ('Admin' == $row["rol"]) { ?>
 
                     <div class="container-fluid">
                         <div class="d-sm-flex justify-content-between align-items-center mb-4">
@@ -275,19 +275,19 @@ echo $row['rol'];
                     <!-- termina Admin -->
 
                     <!-- arranca jefe -->
-                    <?php if ('jefe' == $row["rol"]) { ?>
+                    <?php if ('Jefe Division ' == $row["rol"]) { ?>
                         entraste a jefe de departamento
                     <?php } ?>
                     <!-- termina jefe -->
 
                     <!-- arranca taller -->
-                    <?php if ('taller' == $row["rol"]) { ?>
+                    <?php if ('Jefe Depto' == $row["rol"]) { ?>
                         entraste a taller
                     <?php } ?>
                     <!-- termina taller -->
 
                     <!-- arranca agente -->
-                    <?php if ('agente' == $row["rol"]) { ?>
+                    <?php if ('Agente' == $row["rol"]) { ?>
                         entraste a agente
                     <?php } ?>
                     <!-- termina agente -->

@@ -79,12 +79,12 @@ if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
                                                 <li class="nav-item" role="presentation">
                                                     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Detalles</a>
                                                 </li>
-                                                <li class="nav-item" role="presentation">
+                                                <!-- <li class="nav-item" role="presentation">
                                                     <a class="nav-link" id="tareas-tab" data-toggle="tab" href="#tareas" role="tab" aria-controls="tareas" aria-selected="false">Tareas</a>
                                                 </li>
                                                 <li class="nav-item" role="presentation">
                                                     <a class="nav-link" id="recursos-tab" data-toggle="tab" href="#recursos" role="tab" aria-controls="recursos" aria-selected="false">Recursos</a>
-                                                </li>
+                                                </li> -->
                                                 <li class="nav-item" role="presentation">
                                                     <a class="nav-link" id="int-tab" data-toggle="tab" href="#int" role="tab" aria-controls="int" aria-selected="false">Integrantes</a>
                                                 </li>

@@ -114,7 +114,7 @@ if (isset($_POST['volver'])) {
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6 col-xl-3 mb-4">
+                        <!-- <div class="col-md-6 col-xl-3 mb-4">
                             <div class="card shadow border-left-dark py-2">
                                 <div class="card-body">
                                     <div class="row align-items-center no-gutters">
@@ -145,7 +145,7 @@ if (isset($_POST['volver'])) {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
 
                     </div>

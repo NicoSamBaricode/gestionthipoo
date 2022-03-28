@@ -7,17 +7,19 @@ if (!isset($_SESSION['user']) || (trim($_SESSION['user']) == '')) {
 
 include_once('Usuarios.class.php');
 include_once('proyectos.class.php');
+include_once('sectores.class.php');
 
 $user = new Usuario();
 $proyecto = new Proyecto_class();
+$sector = new Sector();
 
 //extrae datos de usuaio
 $sql = "SELECT * FROM usuarios WHERE id_usuario = '" . $_SESSION['user'] . "'";
 $row = $user->detalle($sql);
-$tipo=1;
+$tipo = 1;
 //llama a la funcion de insertar datos
 if (isset($_POST['submit'])) {
-    $proyecto->insertarDatos($_POST,$tipo);
+    $proyecto->insertarDatos($_POST, $tipo);
 }
 
 ?>
@@ -88,7 +90,21 @@ if (isset($_POST['submit'])) {
                                                         <div class="form-group"><label for="descripcion"><strong>Descripcion</strong><br></label><textarea class="form-control" type="text" placeholder="Descripcion" name="descrip"></textarea></div>
                                                     </div>
                                                     <div class="col">
-                                                        <div class="form-group"><label for="sector"><strong>Sector</strong></label><input class="form-control" type="text" required="Ingrese dato valido" placeholder="Sector" name="sector"></div>
+                                                        <div class="form-group"><label for="sector"><strong>Sector</strong><br></label><select class="form-control" name="sector" id="exampleFormControlSelect2">
+                                                                <?php
+                                                                $filas = $sector->mostrarDatos();
+
+                                                                foreach ($filas as $fila) {
+                                                                ?>
+                                                                    <tr>
+
+                                                                        <option value="<?php echo $fila['Sector_id'] ?>"> <?php echo $fila['Nombre'] ?></option>
+
+
+                                                                    </tr>
+                                                                <?php }  ?>
+                                                            </select>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
@@ -114,10 +130,11 @@ if (isset($_POST['submit'])) {
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
-                                                <div class="col">
-                                                        <div class="form-group"><label for="horas"><strong>Horas Pautadas</strong><br></label><input class="form-control" type="number" placeholder="Horas pautadas" name="horas" required></inp></div>
+                                                    <div class="col">
+                                                        <div class="form-group"><label for="horas"><strong>Horas Pautadas</strong><br></label><input class="form-control" type="number" placeholder="Horas pautadas" name="horas" required></inp>
+                                                        </div>
                                                     </div>
-                                                   
+
                                                     <div class="col">
                                                         <div class="form-group"><label for="estado"><strong>Estado</strong><br></label><select class="form-control" required name="estado" id="exampleFormControlSelect1">
                                                                 <option>Pendiente</option>
@@ -130,7 +147,7 @@ if (isset($_POST['submit'])) {
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
-                                                <div class="col">
+                                                    <div class="col">
                                                         <div class="form-group"><label for="obs"><strong>Observaciones</strong><br></label><textarea class="form-control" type="text" placeholder="Observaciones" name="obs"></textarea></div>
                                                     </div>
                                                 </div>
@@ -170,4 +187,5 @@ if (isset($_POST['submit'])) {
     </div>
 </body>
 <?php include('footer.php'); ?>
+
 </html>

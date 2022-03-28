@@ -28,6 +28,7 @@ if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
 }
 //carga los datos cuando recien entra a la pagina
 $query = "SELECT * FROM dedicacion ";
+
 $queryMiDedicacion = "SELECT * FROM dedicacion where id_agente = $usuario";
 
 $tipo = 2; // si es 0 es de actividad //1 si es proyectos
@@ -91,35 +92,37 @@ $tipo = 2; // si es 0 es de actividad //1 si es proyectos
                                 </div>
                             </div>
                         </div>
+                        <?php if (('Admin' == $row["rol"]) || ('Jefe Division' == $row["rol"]) || ('Jefe Depto' == $row["rol"])) { ?>
+                            <div class="col-md-6 col-xl-3 mb-4">
+                                <div class="card shadow border-left-warning py-2">
+                                    <div class="card-body">
+                                        <div class="row align-items-center no-gutters">
+                                            <div class="col mr-2">
+                                                <div class="text-uppercase text-warning font-weight-bold text-xs mb-1"><span>Imprimir Reporte</span></div>
 
-                        <div class="col-md-6 col-xl-3 mb-4">
-                            <div class="card shadow border-left-warning py-2">
-                                <div class="card-body">
-                                    <div class="row align-items-center no-gutters">
-                                        <div class="col mr-2">
-                                            <div class="text-uppercase text-warning font-weight-bold text-xs mb-1"><span>Imprimir Reporte</span></div>
+                                            </div>
+                                            <div class="col-auto" style="color: darkgoldenrod;margin-right: 1rem; font-size: larger;">
+
+                                                <button id="imprimir2" class="btn btn-secondary"><i class="fa fa-print"></i></button>
+
+
+                                            </div>
+                                            <div class="col-auto"><i class="fas fa-tasks fa-2x text-gray-300"></i></div>
 
                                         </div>
-                                        <div class="col-auto" style="color: darkgoldenrod;margin-right: 1rem; font-size: larger;">
-
-                                            <button id="imprimir2" class="btn btn-secondary"><i class="fa fa-print"></i></button>
-
-
-                                        </div>
-                                        <div class="col-auto"><i class="fas fa-tasks fa-2x text-gray-300"></i></div>
-
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
+                        <?php } ?>
 
                     </div>
 
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
-                        <li class="nav-item" role="dedicacion_todos">
-                            <a class="nav-link active" id="dedicacion_todos-tab" data-toggle="tab" href="#dedicacion_todos" role="tab" aria-controls="dedicacion_todos" aria-selected="true">Dedicación Equipo</a>
-                        </li>
+                        <?php if (('Admin' == $row["rol"]) || ('Jefe Division' == $row["rol"]) || ('Jefe Depto' == $row["rol"])) { ?>
+                            <li class="nav-item" role="dedicacion_todos">
+                                <a class="nav-link active" id="dedicacion_todos-tab" data-toggle="tab" href="#dedicacion_todos" role="tab" aria-controls="dedicacion_todos" aria-selected="true">Dedicación Equipo</a>
+                            </li>
+                        <?php } ?>
                         <li class="nav-item" role="mi_dedicacion">
                             <a class="nav-link" id="mi_dedicacion-tab" data-toggle="tab" href="#mi_dedicacion" role="tab" aria-controls="mi_dedicacion" aria-selected="false">Mi Dedicación</a>
                         </li>
@@ -303,7 +306,7 @@ $tipo = 2; // si es 0 es de actividad //1 si es proyectos
 
                                         <script>
                                             $(document).ready(function() {
-                                                const d = new Date();                                                
+                                                const d = new Date();
                                                 let month = d.getMonth();
                                                 $("#mes").val(month + 1);
                                                 showGraph();

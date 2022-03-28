@@ -28,10 +28,10 @@ $cont_t = $tareas->cont_t();
 //llama funcion borrar
 if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
     $borrarId = $_GET['borrarid'];
-    $actividad->borrar_proyecto($borrarId,$tipo);
+    $actividad->borrar_proyecto($borrarId, $tipo);
 }
 //carga los datos cuando recien entra a la pagina
-$query = "SELECT id_proyectos,identificador, nombre,descripcion,horas_dedicadas FROM proyectos where tipo = '$tipo' ";
+$query = "SELECT proyectos.id_proyectos, proyectos.identificador,proyectos.nombre,proyectos.descripcion,proyectos.horas_dedicadas,proyectos.sector,sector.nombre as nombreSector FROM proyectos LEFT JOIN sector ON proyectos.sector=sector.Sector_id where proyectos.Tipo = '$tipo' ";
 //bandera para que desaparezca boton volver a la lista
 $flag = false;
 
@@ -42,7 +42,7 @@ if (isset($_POST['submit'])) {
 }
 //es lo que imprime al inicio.
 if (isset($_POST['volver'])) {
-    "SELECT 'identificador', 'nombre','descripcion','horas_dedicadas' FROM proyectos where tipo = '$tipo' ";
+    "SELECT 'identificador', 'nombre','descripcion','horas_dedicadas','sector 'FROM proyectos where tipo = '$tipo' ";
     $flag = false;
 }
 
@@ -158,6 +158,7 @@ if (isset($_POST['volver'])) {
                                             <th>Nombre</th>
                                             <th>Descripción</th>
                                             <th>Horas asignadas</th>
+                                            <th>Sector</th>
                                             <th>Editar</th>
                                             <th>Eliminar</th>
                                         </tr>
@@ -170,12 +171,14 @@ if (isset($_POST['volver'])) {
                                         ?>
                                             <tr>
 
-                                                
+
                                                 <td hidden><?php echo $fila['id_proyectos'] ?></td>
                                                 <td><?php echo $fila['identificador'] ?></td>
                                                 <td><?php echo $fila['nombre'] ?></td>
                                                 <td><?php echo $fila['descripcion'] ?></td>
+
                                                 <td><?php echo $fila['horas_dedicadas'] ?></td>
+                                                <td><?php echo $fila['nombreSector'] ?></td>
 
                                                 <script src="cartel.js"> </script>
                                                 <!-- <td><a class="btn btn-primary mx-auto btn-circle ml-1"  role="button" href="crear_tarea.php?tareaId=<?php echo $fila["id_proyectos"]; ?>"><i class="fas fa-file-medical text-white"></i></a></td> -->

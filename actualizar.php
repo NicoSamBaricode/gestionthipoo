@@ -7,7 +7,8 @@ if (!isset($_SESSION['user']) || (trim($_SESSION['user']) == '')) {
 
 include_once('Usuarios.Class.php');
 include_once('proyectos.class.php');
-
+include_once('sectores.class.php');
+$sector = new Sector();
 $user = new Usuario();
 
 
@@ -62,17 +63,8 @@ if (isset($_POST['update'])) {
                 <div class="container-fluid">
                     <h3 class="text-dark mb-4">Editar Usuario</h3>
                     <div class="row mb-3">
-                        <div class="col-lg-4">
-                            <div class="card mb-3">
-
-                                <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4" src="assets/img/dogs/image2.jpeg" width="160" height="160">
-
-
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="col-lg-8">
+                        
+                        <div class="col-lg-12">
 
                             <div class="row">
                                 <div class="col">
@@ -96,18 +88,35 @@ if (isset($_POST['update'])) {
                                                     <div class="col">
                                                         <div class="form-group"><label for="rol"><strong>Tipo de Usuario</strong></label><select class="form-control" required name="rol" placeholder="Tipo de usuario" id="rol" value="<?php echo $usuario['rol']; ?>">
                                                                 <option selected><strong><?php echo $usuario['rol']; ?></strong></option>
-                                                                <option>Agente</option>
-                                                                <option>Admin</option>
-                                                                <option>Taller</option>
-                                                                <option>Jefe</option>
+                                                                <option >Agente</option>
+                                                                <option>Admin</option>                                                                
+                                                                <option>Jefe Division</option>
+                                                                <option>Jefe Depto</option>
                                                             </select></div>
                                                     </div>
                                                     <div class="col">
                                                         <div class="form-group"><label for="pasword"><strong>Contraseña</strong></label><input class="form-control" type="pasword" required="Ingrese dato valido" placeholder="contraseña" value="<?php echo $usuario['pasword']; ?>" name="pasword"></div>
                                                     </div>
+                                                    <div class="col">
+                                                        <div class="form-group"><label for="sector"><strong>Sector</strong><br></label><select class="form-control" name="sector" id="exampleFormControlSelect2">
+                                                                <?php
+                                                                $filas = $sector->mostrarDatos();
+
+                                                                foreach ($filas as $fila) {
+                                                                ?>
+                                                                    <tr>
+
+                                                                        <option value="<?php echo $fila['Sector_id'] ?>"> <?php echo $fila['Nombre'] ?></option>
+
+
+                                                                    </tr>
+                                                                <?php }  ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
                                                 </div>
 
-
+                                                
 
 
                                                 <div class="form-row">

@@ -7,7 +7,8 @@ if (!isset($_SESSION['user']) || (trim($_SESSION['user']) == '')) {
 
 include_once('Usuarios.Class.php');
 include_once('proyectos.class.php');
-
+include_once('sectores.class.php');
+$sector = new Sector();
 $user = new Usuario();
 $proyecto_obj = new Proyecto_class();
 $tipo = 1;
@@ -70,17 +71,8 @@ if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
                 <div class="container-fluid">
                     <h3 class="text-dark mb-4">Editar </h3>
                     <div class="row mb-3">
-                        <div class="col-lg-4">
-                            <div class="card mb-3">
-
-                                <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4" src="assets/img/dogs/image2.jpeg" width="160" height="160">
-
-
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="col-lg-8">
+                        
+                        <div class="col-lg-12">
 
                             <div class="row">
                                 <div class="col">
@@ -111,8 +103,24 @@ if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
                                                         <div class="form-group"><label for="descripcion"><strong>Descripcion</strong><br></label><input class="form-control" type="text" placeholder="Descripcion" name="descrip" value="<?php echo $proyecto['descripcion']; ?>"></div>
                                                     </div>
                                                     <div class="col">
-                                                        <div class="form-group"><label for="sector"><strong>Sector</strong></label><input class="form-control" type="text" required="Ingrese dato valido" placeholder="Sector" name="sector" value="<?php echo $proyecto['sector']; ?>"></div>
+                                                        <div class="form-group"><label for="sector"><strong>Sector</strong><br></label><select class="form-control" name="sector" id="exampleFormControlSelect2">
+                                                            
+                                                                <?php
+                                                                $filas = $sector->mostrarDatos();
+
+                                                                foreach ($filas as $fila) {
+                                                                ?>
+                                                                    <tr>
+
+                                                                        <option value="<?php echo $fila['Sector_id'] ?>"> <?php echo $fila['Nombre'] ?></option>
+
+
+                                                                    </tr>
+                                                                <?php }  ?>
+                                                            </select>
+                                                        </div>
                                                     </div>
+                                                   
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="col">
