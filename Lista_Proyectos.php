@@ -16,7 +16,7 @@ $tipo = 1; //significa que es efectivamente un proyecto
 //extrae datos de usuaio
 $sql = "SELECT * FROM usuarios WHERE id_usuario = '" . $_SESSION['user'] . "'";
 $row = $user->detalle($sql);
-
+$sectorUsuario = $row['sector_id'];
 //contador proyectos
 $cont = $proyecto->cont_p();
 
@@ -27,10 +27,10 @@ $cont_t = $tareas->cont_t();
 //llama funcion borrar
 if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
     $borrarId = $_GET['borrarid'];
-    $proyecto->borrar_proyecto($borrarId,$tipo);
+    $proyecto->borrar_proyecto($borrarId, $tipo);
 }
 //carga los datos cuando recien entra a la pagina
-$query = "SELECT * FROM proyectos where tipo = '$tipo'";
+$query = "SELECT * FROM proyectos where tipo = '$tipo' and sector = '$sectorUsuario'";
 //bandera para que desaparezca boton volver a la lista
 $flag = false;
 
@@ -53,6 +53,7 @@ if (isset($_POST['volver'])) {
     <title>Proyectos</title>
     <?php include('header.php'); ?>
 </head>
+
 
 
 <body id="page-top">
@@ -81,7 +82,7 @@ if (isset($_POST['volver'])) {
                 <div class="container-fluid">
                     <h3 class="text-dark mb-4">Proyectos</h3>
                     <div class="row">
-                        <div class="col-md-6 col-xl-3 mb-4">
+                        <div class="col-md-6 col-xl-3 mb-4" id="NuevoProyecto">
                             <div class="card shadow border-left-primary py-2">
                                 <div class="card-body">
                                     <div class="row align-items-center no-gutters">
@@ -193,8 +194,8 @@ if (isset($_POST['volver'])) {
                                             <th>Estado</th>
 
                                             <th>Detalles</th>
-                                            <th>Editar</th>
-                                            <th>Eliminar</th>
+                                            <th class="editar">Editar</th>
+                                            <th class="eliminar">Eliminar</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -217,49 +218,19 @@ if (isset($_POST['volver'])) {
                                                 <td><?php echo $fila["estado"] ?></td>
                                                 <script src="cartel.js"> </script>
                                                 <!-- <td><a class="btn btn-primary mx-auto btn-circle ml-1"  role="button" href="crear_tarea.php?tareaId=<?php echo $fila["id_proyectos"]; ?>"><i class="fas fa-file-medical text-white"></i></a></td> -->
-                                                <td><a class="btn btn-secondary mx-auto btn-circle ml-1" role="button" href="detalle_proyecto.php?detalleid=<?php echo $fila["id_proyectos"]; ?>"><i class="fas fa-file-alt text-white"></i></a></td>
-                                                <td><a class="btn btn-info mx-auto btn-circle ml-1" role="button" href="actualizar_proyecto.php?editId=<?php echo $fila['id_proyectos'] ?>"><i class="fas fa-edit text-white"></i></a></td>
-                                                <td><a class="btn btn-danger mx-auto btn-circle ml-1" onclick="return confirmBorrar()" role="button" href="Lista_proyectos.php?borrarid=<?php echo $fila['id_proyectos'] ?>"><i class="fas fa-trash text-white"></i></a></td>
+                                                <td><a class="btn btn-secondary mx-auto btn-circle ml-1 " role="button" href="detalle_proyecto.php?detalleid=<?php echo $fila["id_proyectos"]; ?>"><i class="fas fa-file-alt text-white"></i></a></td>
+                                                <td><a class="btn btn-info mx-auto btn-circle ml-1 editar" role="button" href="actualizar_proyecto.php?editId=<?php echo $fila['id_proyectos'] ?>"><i class="fas fa-edit text-white"></i></a></td>
+                                                <td><a class="btn btn-danger mx-auto btn-circle ml-1 eliminar" onclick="return confirmBorrar()" role="button" href="Lista_proyectos.php?borrarid=<?php echo $fila['id_proyectos'] ?>"><i class="fas fa-trash text-white"></i></a></td>
 
                                             </tr>
                                         <?php }  ?>
 
 
                                     </tbody>
-                                    <tfoot class="thead-dark">
-                                        <tr>
-                                            <th>Id</th>
-                                            <th>Nombre</th>
-                                            <th>Fecha de Inicio</th>
-                                            <th>Tema</th>
 
-                                            <th>Fecha de Fin</th>
-                                            <th>Estado</th>
-
-                                            <th>Detalles</th>
-                                            <th>Editar</th>
-                                            <th>Eliminar</th>
-                                        </tr>
-                                    </tfoot>
                                 </table>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6 align-self-center">
-                                    <!-- <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Mostrando 1 al 10 de 27</p> -->
-
-                                </div>
-                                <!-- <div class="col-md-6"> 
-                                <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
-                                    <ul class="pagination">
-                                        <li class="page-item disabled"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
-                                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
-                                    </ul>
-                                </nav>
-                            </div>-->
-                            </div>
+                          
                         </div>
                     </div>
                 </div>
@@ -269,5 +240,16 @@ if (isset($_POST['volver'])) {
 
 </body>
 <?php include('footer.php'); ?>
+<script>
+    $("#NuevoProyecto").hide();
+    $(".editar").hide();
+    $(".eliminar").hide();
+    $(document).ready(function() {
+        
+        if (('Admin' == $row["rol"]) || ('Jefe Depto' == $row["rol"])) {
+            $("#NuevoProyecto").show();
+        }
+    });
+</script>
 
 </html>
