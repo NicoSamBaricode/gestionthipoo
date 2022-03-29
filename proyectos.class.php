@@ -284,4 +284,18 @@ class Proyecto_class extends conexionDb
 			echo "Base de datos vacia";
 		}
 	}
+	
+	public function mostrarNombreSector($id)
+	{
+		
+		$query = "SELECT sector.Nombre FROM proyectos LEFT JOIN sector ON proyectos.sector=sector.Sector_id where proyectos.id_proyectos= $id;";
+		$result = $this->conexion->query($query);
+	
+		if ($result->num_rows > 0) {
+			$row = $result->fetch_assoc();
+			return $row;
+		} else {
+			echo "<script> alert('No se encontro el registro '); </script>";
+		}
+	}
 }

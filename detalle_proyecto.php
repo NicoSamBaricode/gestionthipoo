@@ -4,7 +4,7 @@ session_start();
 if (!isset($_SESSION['user']) || (trim($_SESSION['user']) == '')) {
     header('location:index.php');
 }
-
+error_reporting(0);
 include_once('Usuarios.class.php');
 include_once('proyectos.class.php');
 include_once('tareas.class.php');
@@ -85,9 +85,11 @@ if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
                                                 <li class="nav-item" role="presentation">
                                                     <a class="nav-link" id="recursos-tab" data-toggle="tab" href="#recursos" role="tab" aria-controls="recursos" aria-selected="false">Recursos</a>
                                                 </li> -->
-                                                <li class="nav-item" role="presentation">
-                                                    <a class="nav-link" id="int-tab" data-toggle="tab" href="#int" role="tab" aria-controls="int" aria-selected="false">Integrantes</a>
-                                                </li>
+                                                <?php if ((('Admin' == $row["rol"]) || ('Jefe Depto' == $row["rol"]) || ('Jefe Division' == $row["rol"]))) { ?>
+                                                    <li class="nav-item" role="presentation">
+                                                        <a class="nav-link" id="int-tab" data-toggle="tab" href="#int" role="tab" aria-controls="int" aria-selected="false">Integrantes</a>
+                                                    </li>
+                                                <?php }  ?>
                                             </ul>
 
                                             <div class="tab-content" id="myTabContent">
@@ -95,7 +97,7 @@ if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
 
                                                     <form action="actualizar_proyecto.php" method="POST" class="formulario">
 
-                                                        <div class="form-row">
+                                                        <div class="container form-row">
                                                             <div class="col-md-3">
                                                                 <div class="form-group"><label for="nombre"><strong>Nombre&nbsp;</strong></label>
                                                                     <p><?php echo $fila_proy["nombre"] ?></p>
@@ -164,18 +166,20 @@ if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
                                                     </div>
                                                     
                                                 </div>-->
-                                                        <div class="form-row" style="margin-left:auto; right:0px; max-width:fit-content">
+                                                        <?php if ((('Admin' == $row["rol"]) || ('Jefe Depto' == $row["rol"]))) { ?>
+                                                            <div class="form-row" style="margin-left:auto; right:0px; max-width:fit-content">
 
 
-                                                            <div class="col" style="max-width:fit-content">
+                                                                <div class="col" style="max-width:fit-content">
 
 
-                                                                <a class="btn btn-info mx-auto  ml-1" role="button" href="actualizar_proyecto.php?editId=<?php echo $fila_proy['id_proyectos'] ?>">Actualizar</a>
+                                                                    <a class="btn btn-info mx-auto  ml-1" role="button" href="actualizar_proyecto.php?editId=<?php echo $fila_proy['id_proyectos'] ?>">Actualizar</a>
+                                                                </div>
+                                                                <div class="col" style="max-width:fit-content">
+                                                                    <a class="btn btn-danger mx-auto btn-circle ml-1" onclick="return confirmBorrar()" role="button" href="Lista_proyectos.php?borrarid=<?php echo $fila_proy['id_proyectos'] ?>"><i class="fas fa-trash text-white"></i></a>
+                                                                </div>
                                                             </div>
-                                                            <div class="col" style="max-width:fit-content">
-                                                                <a class="btn btn-danger mx-auto btn-circle ml-1" onclick="return confirmBorrar()" role="button" href="Lista_proyectos.php?borrarid=<?php echo $fila_proy['id_proyectos'] ?>"><i class="fas fa-trash text-white"></i></a>
-                                                            </div>
-                                                        </div>
+                                                        <?php } ?>
                                                     </form>
 
 
@@ -215,15 +219,14 @@ if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
                                                                         <td><?php echo $fila['f_inicio'] ?></td>
                                                                         <td><?php echo $fila['f_final'] ?></td>
                                                                         <td><?php echo $fila["Estado"] ?></td>
-                                                                        <
-
-                                                                        <script src="cartel.js"> </script>
-                                                                        <!-- <td><a class="btn btn-primary mx-auto btn-circle ml-1"  role="button" href="crear_tarea.php?tareaId=<?php //echo $fila["id_proyectos"]; 
-                                                                                                                                                                                    ?>"><i class="fas fa-file-medical text-white"></i></a></td> -->
-                                                                        <!-- <td><a class="btn btn-secondary mx-auto btn-circle ml-1"  role="button" href="detalle_proyecto.php?detalleid=<?php //echo $fila["id_proyectos"]; 
-                                                                                                                                                                                            ?>"><i class="fas fa-file-alt text-white"></i></a></td> -->
-                                                                        <td><a class="btn btn-info mx-auto btn-circle ml-1" role="button" href="actualizar_tarea.php?editId=<?php echo $fila['id_tareas'] ?>"><i class="fas fa-user-circle text-white"></i></a></td>
-                                                                        <td><a class="btn btn-danger mx-auto btn-circle ml-1" onclick="return confirmBorrar()" role="button" href="Lista_Tareas.php?borrarid=<?php echo $fila['id_tareas'] ?>"><i class="fas fa-trash text-white"></i></a></td>
+                                                                        < <script src="cartel.js">
+                                                                            </script>
+                                                                            <!-- <td><a class="btn btn-primary mx-auto btn-circle ml-1"  role="button" href="crear_tarea.php?tareaId=<?php //echo $fila["id_proyectos"]; 
+                                                                                                                                                                                        ?>"><i class="fas fa-file-medical text-white"></i></a></td> -->
+                                                                            <!-- <td><a class="btn btn-secondary mx-auto btn-circle ml-1"  role="button" href="detalle_proyecto.php?detalleid=<?php //echo $fila["id_proyectos"]; 
+                                                                                                                                                                                                ?>"><i class="fas fa-file-alt text-white"></i></a></td> -->
+                                                                            <td><a class="btn btn-info mx-auto btn-circle ml-1" role="button" href="actualizar_tarea.php?editId=<?php echo $fila['id_tareas'] ?>"><i class="fas fa-user-circle text-white"></i></a></td>
+                                                                            <td><a class="btn btn-danger mx-auto btn-circle ml-1" onclick="return confirmBorrar()" role="button" href="Lista_Tareas.php?borrarid=<?php echo $fila['id_tareas'] ?>"><i class="fas fa-trash text-white"></i></a></td>
 
                                                                     </tr>
                                                                 <?php }  ?>
@@ -249,8 +252,8 @@ if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
                                                                             <th data-field="Agente" data-sortable="true">Agente</th>
                                                                             <th data-field="Horas Dedicadas" data-sortable="true">Horas Dedicadas</th>
                                                                             <th data-field="Mes">Mes</th>
-                                                                            <th data-field="Anio">Año</th>                                                                          
-                                                                            
+                                                                            <th data-field="Anio">Año</th>
+
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody id="tablaDedicacionProyecto">
@@ -262,9 +265,9 @@ if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
                                                                             <tr>
                                                                                 <td><?php echo $fila['usuariosNombre'] ?></td>
                                                                                 <td><?php echo $fila['horas'] ?></td>
-                                                                                <td ><?php echo $fila['mes'] ?></td>
+                                                                                <td><?php echo $fila['mes'] ?></td>
                                                                                 <td><?php echo $fila['anio'] ?></td>
-                                                                                                                                                            
+
                                                                             </tr>
                                                                         <?php }  ?>
 

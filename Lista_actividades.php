@@ -35,16 +35,6 @@ $query = "SELECT proyectos.id_proyectos, proyectos.identificador,proyectos.nombr
 //bandera para que desaparezca boton volver a la lista
 $flag = false;
 
-//carga la consulta de busqueda
-if (isset($_POST['submit'])) {
-    $query = "SELECT * FROM actividades WHERE nombre LIKE '%" . $_POST['busqueda'] . "%'";
-    $flag = true;
-}
-//es lo que imprime al inicio.
-if (isset($_POST['volver'])) {
-    "SELECT 'identificador', 'nombre','descripcion','horas_dedicadas','sector 'FROM proyectos where tipo = '$tipo' ";
-    $flag = false;
-}
 
 ?>
 <!DOCTYPE html>
@@ -82,20 +72,21 @@ if (isset($_POST['volver'])) {
                 <div class="container-fluid">
                     <h3 class="text-dark mb-4">Actividades</h3>
                     <div class="row">
-                        <div class="col-md-6 col-xl-3 mb-4">
-                            <div class="card shadow border-left-primary py-2">
-                                <div class="card-body">
-                                    <div class="row align-items-center no-gutters">
-                                        <div class="col mr-2">
-                                            <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span>Nueva Actividad</span></div>
-                                            <div class="text-dark font-weight-bold h5 mb-0"><span></span></div>
+                        <?php if ((('Admin' == $row["rol"]) || ('Jefe Depto' == $row["rol"]))) { ?>
+                            <div class="col-md-6 col-xl-3 mb-4">
+                                <div class="card shadow border-left-primary py-2">
+                                    <div class="card-body">
+                                        <div class="row align-items-center no-gutters">
+                                            <div class="col mr-2">
+                                                <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span>Nueva Actividad</span></div>
+                                                <div class="text-dark font-weight-bold h5 mb-0"><span></span></div>
+                                            </div>
+                                            <div class="col-auto"><a class="btn btn-primary" href="crear_actividades.php"><i class="fas fa-folder-plus  text-gray-300"></i></a></div>
                                         </div>
-                                        <div class="col-auto"><a class="btn btn-primary" href="crear_actividades.php"><i class="fas fa-folder-plus  text-gray-300"></i></a></div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
+                        <?php }  ?>
                         <div class="col-md-6 col-xl-3 mb-4">
                             <div class="card shadow border-left-warning py-2">
                                 <div class="card-body">
@@ -124,43 +115,20 @@ if (isset($_POST['volver'])) {
                             <p class="text-primary m-0 font-weight-bold">Listado&nbsp;</p>
                         </div>
                         <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-6 text-nowrap">
-                                    <!-- <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label>Mostrar&nbsp;<select class="form-control form-control-sm custom-select custom-select-sm"><option value="10" selected="">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select>&nbsp;</label></div> -->
-                                    <?php
-                                    if ($flag == true) { ?>
-                                        <form method="POST" action="Lista_actividades.php">
-                                            <input style="display: none;" type="text" name="busqueda" id="volver">
-                                            <input type="submit" name="volver" class="btn btn-info btn-sm" value="Volver a la lista completa" />
 
-                                        </form>
-                                    <?php }
-                                    $flag = false; ?>
-                                </div>
-                                <div class="col-md-6">
-                                    <form method="POST" action="Lista_actividades.php">
-                                        <div class="row">
-                                            <div class="col" style="max-width: fit-content; margin-right: 0px; margin-left: auto;">
-                                                <input type="text" name="busqueda" id="busqueda" placeholder="Ingrese nombre">
-                                            </div>
-                                            <div class="col" style="padding: 0px; max-width: fit-content;">
-                                                <input type="submit" name="submit" class="btn btn-primary btn-sm" value="Buscar" />
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
                             <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
-                                <table class="table dataTable my-0" id="dataTable">
+                                <table class="table dataTable my-0" id="dataTable" data-show-export="true" data-force-export="true" data-toggle="table" data-search="true" data-pagination="true" data-show-columns="true" data-locale="es-ES">
                                     <thead class="thead-dark">
                                         <tr>
-                                            <th>Id</th>
-                                            <th>Nombre</th>
-                                            <th>Descripción</th>
+                                            <th data-field="Id" data-sortable="true">Id</th>
+                                            <th data-field="Nombre" data-sortable="true">Nombre</th>
+                                            <th data-field="Descripcion" data-sortable="true">Descripción</th>
                                             <th>Horas asignadas</th>
-                                            <th>Sector</th>
-                                            <th>Editar</th>
-                                            <th>Eliminar</th>
+                                            <th data-field="Sector" data-sortable="true">Sector</th>
+                                            <?php if ((('Admin' == $row["rol"]) || ('Jefe Depto' == $row["rol"]))) { ?>
+                                                <th class="editar">Editar</th>
+                                                <th class="eliminar">Eliminar</th>
+                                            <?php }  ?>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -172,7 +140,7 @@ if (isset($_POST['volver'])) {
                                             <tr>
 
 
-                                                <td hidden><?php echo $fila['id_proyectos'] ?></td>
+                                                <!-- <td hide="true"><?php echo $fila['id_proyectos'] ?></td> -->
                                                 <td><?php echo $fila['identificador'] ?></td>
                                                 <td><?php echo $fila['nombre'] ?></td>
                                                 <td><?php echo $fila['descripcion'] ?></td>
@@ -182,10 +150,12 @@ if (isset($_POST['volver'])) {
 
                                                 <script src="cartel.js"> </script>
                                                 <!-- <td><a class="btn btn-primary mx-auto btn-circle ml-1"  role="button" href="crear_tarea.php?tareaId=<?php echo $fila["id_proyectos"]; ?>"><i class="fas fa-file-medical text-white"></i></a></td> -->
+                                                <?php if ((('Admin' == $row["rol"]) || ('Jefe Depto' == $row["rol"]))) {
 
-                                                <td><a class="btn btn-info mx-auto btn-circle ml-1" role="button" href="actualizar_actividades.php?editId=<?php echo $fila['id_proyectos'] ?>"><i class="fas fa-edit text-white"></i></a></td>
-                                                <td><a class="btn btn-danger mx-auto btn-circle ml-1" onclick="return confirmBorrar()" role="button" href="Lista_actividades.php?borrarid=<?php echo $fila['id_proyectos'] ?>"><i class="fas fa-trash text-white"></i></a></td>
-
+                                                ?>
+                                                    <td><a class="btn btn-info mx-auto btn-circle ml-1" role="button" href="actualizar_actividades.php?editId=<?php echo $fila['id_proyectos'] ?>"><i class="fas fa-edit text-white"></i></a></td>
+                                                    <td><a class="btn btn-danger mx-auto btn-circle ml-1" onclick="return confirmBorrar()" role="button" href="Lista_actividades.php?borrarid=<?php echo $fila['id_proyectos'] ?>"><i class="fas fa-trash text-white"></i></a></td>
+                                                <?php }  ?>
                                             </tr>
                                         <?php }  ?>
 

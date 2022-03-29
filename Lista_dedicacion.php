@@ -134,7 +134,7 @@ $tipo = 2; // si es 0 es de actividad //1 si es proyectos
 
 
                     <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="dedicacion_todos" role="tabpanel" aria-labelledby="dedicacion_todos-tab">
+                        <div class="tab-pane fade show " id="dedicacion_todos" role="tabpanel" aria-labelledby="dedicacion_todos-tab">
 
                             <div class="card-body">
 
@@ -205,7 +205,7 @@ $tipo = 2; // si es 0 es de actividad //1 si es proyectos
 
                             </div>
                         </div>
-                        <div class="tab-pane fade show " id="mi_dedicacion" role="tabpanel" aria-labelledby="mi_dedicacion-tab">
+                        <div class="tab-pane fade show  active" id="mi_dedicacion" role="tabpanel" aria-labelledby="mi_dedicacion-tab">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col " style="text-align: right;">
