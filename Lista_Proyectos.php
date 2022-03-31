@@ -30,11 +30,9 @@ if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
     $proyecto->borrar_proyecto($borrarId, $tipo);
 }
 //carga los datos cuando recien entra a la pagina
-if($row['rol']=='Admin' || $row['rol']=='Jefe Depto' ){
+
     $query = "SELECT * FROM proyectos where tipo = '$tipo' ";
-}else{
-    $query = "SELECT * FROM proyectos where tipo = '$tipo' and sector = '$sectorUsuario'";
-}
+
 
 //bandera para que desaparezca boton volver a la lista
 $flag = false;

@@ -179,4 +179,18 @@ class Dedicacion_class extends conexionDb
 			return false;
 		}
 	}
+
+	public function contadorHorasPorProyecto($id_proyecto){
+		$query = "SELECT SUM(horas)total
+		FROM dedicacion
+		WHERE imputacion =$id_proyecto;";
+		$queryp_e = $this->conexion->query($query);
+		if ($queryp_e->num_rows > 0) {
+			$fila = $queryp_e->fetch_array();
+			return $fila['total'];
+		} else {
+			return false;
+		}
+
+	}
 }

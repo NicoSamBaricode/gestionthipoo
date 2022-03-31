@@ -145,6 +145,7 @@ $tipo = 2; // si es 0 es de actividad //1 si es proyectos
                                                 <thead class="thead-dark">
                                                     <tr>
                                                         <th data-field="Agente" data-sortable="true">Agente</th>
+                                                        <th data-field="Anio" data-sortable="true">Año</th>
                                                         <th data-field="Mes" data-sortable="true">Mes</th>
                                                         <th data-field="Horas P">Horas planificadas</th>
                                                         <th data-field="Horas R">Horas relevadas</th>
@@ -165,6 +166,7 @@ $tipo = 2; // si es 0 es de actividad //1 si es proyectos
                                                             $aux_u = $user->mostrarFilaPorId($fila["id_agente"]); //aca tengo el nombre del usuario
                                                             ?>
                                                             <td><?php echo $aux_u['nombre'] ?></td>
+                                                            <td><?php echo $fila['anio'] ?></td>
                                                             <td><?php echo $fila['mes'] ?></td>
                                                             <td class="centrarRegistros"><?php echo $fila['horas'] ?></td>
                                                             <td><?php echo $fila['horas_relevadas'] ?></td>
