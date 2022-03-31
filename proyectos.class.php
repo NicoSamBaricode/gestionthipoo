@@ -11,10 +11,14 @@ class Proyecto_class extends conexionDb
 		parent::__construct();
 	}
 	//contador general
-	public function cont_p()
+	public function cont_p($sector,$rol)
 	{
-
-		$contador_p = "SELECT COUNT(*) totalp FROM proyectos where tipo = '1'";
+		if ($rol == 'Administrador' || $rol == 'Jefe Depto') {
+			$contador_p = "SELECT COUNT(*) totalp FROM proyectos where tipo = '1'";
+		}else{
+			
+			$contador_p = "SELECT COUNT(*) totalp FROM proyectos where tipo = '1'and sector = '$sector'";
+		}
 
 		$queryp = $this->conexion->query($contador_p);
 
@@ -39,10 +43,15 @@ class Proyecto_class extends conexionDb
 		}
 	}
 	//contador de estados para graficos
-	public function cont_p_estado($estado)
+	public function cont_p_estado($estado,$rol,$sector)
 	{
-
-		$contador_estado = "SELECT COUNT(*) total FROM proyectos WHERE estado= '$estado' ";
+		if ($rol=='Admin' || $rol=='Jefe Depto') {
+			$contador_estado = "SELECT COUNT(*) total FROM proyectos WHERE estado= '$estado' and Tipo = '1'";
+		}else{
+			$contador_estado = "SELECT COUNT(*) total FROM proyectos WHERE estado= '$estado' and Tipo = '1' and sector = '$sector'";
+		}
+		
+		
 
 		$queryp_e = $this->conexion->query($contador_estado);
 

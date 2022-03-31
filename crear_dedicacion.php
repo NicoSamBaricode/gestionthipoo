@@ -16,7 +16,7 @@ $dedicacion = new Dedicacion_class();
 $proyecto = new Proyecto_class();
 $calendario = new calendario_class();
 
-$mesActual= date("n");
+$mesActual = date("n");
 
 
 //extrae datos de usuaio
@@ -82,19 +82,34 @@ if (isset($_POST['submit'])) {
                                         <div class="card-body">
                                             <form action="crear_dedicacion.php" method="POST">
                                                 <div class="form-row">
-                                                    <div class="col">
-                                                        <div class="form-group"><label for="id_agente"><strong>Agente</strong><br></label><select class="form-control" require name="id_agente" id="id_agente">
-                                                                <?php
-                                                                $filas = $user->mostrarDatos();
-                                                                foreach ($filas as $fila) {
-                                                                ?>
-                                                                    <option value="<?php echo $fila['id_usuario']; ?>">
-                                                                        <?php echo $fila['nombre'] ?>
-                                                                    </option>
-                                                                <?php }  ?>
-                                                            </select>
+                                                    <?php if ((('Admin' == $row["rol"]) || ('Jefe Depto' == $row["rol"]))) {
+
+                                                    ?>
+                                                        <div class="col">
+                                                            <div class="form-group"><label for="id_agente"><strong>Agente</strong><br></label><select class="form-control" require name="id_agente" id="id_agente">
+                                                                    <?php
+                                                                    $filas = $user->mostrarDatos();
+                                                                    foreach ($filas as $fila) {
+                                                                    ?>
+                                                                        <option value="<?php echo $fila['id_usuario']; ?>">
+                                                                            <?php echo $fila['nombre'] ?>
+                                                                        </option>
+                                                                    <?php }  ?>
+                                                                </select>
+                                                            </div>
                                                         </div>
-                                                    </div>
+                                                    <?php } else { ?>
+
+                                                        <div class="col" hidden>
+                                                            <div class="form-group"><label for="id_agente"><strong>Agente</strong><br></label><input class="form-control" value="<?php echo $usuario ?>" require name="id_agente" id="id_agente"  >
+                                                            
+                                                                    </input>
+                                                            </div>
+                                                        </div>
+                                                    
+
+
+                                                    <?php } ?>
                                                     <div class="col">
                                                         <div class="form-group"><label for="mes"><strong>Mes</strong><br></label><select class="form-control" require name="mes" id="mes">
                                                                 <?php

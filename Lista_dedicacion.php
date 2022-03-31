@@ -120,11 +120,11 @@ $tipo = 2; // si es 0 es de actividad //1 si es proyectos
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <?php if (('Admin' == $row["rol"]) || ('Jefe Division' == $row["rol"]) || ('Jefe Depto' == $row["rol"])) { ?>
                             <li class="nav-item" role="dedicacion_todos">
-                                <a class="nav-link active" id="dedicacion_todos-tab" data-toggle="tab" href="#dedicacion_todos" role="tab" aria-controls="dedicacion_todos" aria-selected="true">Dedicación Equipo</a>
+                                <a class="nav-link " id="dedicacion_todos-tab" data-toggle="tab" href="#dedicacion_todos" role="tab" aria-controls="dedicacion_todos" aria-selected="true">Dedicación Equipo</a>
                             </li>
                         <?php } ?>
                         <li class="nav-item" role="mi_dedicacion">
-                            <a class="nav-link" id="mi_dedicacion-tab" data-toggle="tab" href="#mi_dedicacion" role="tab" aria-controls="mi_dedicacion" aria-selected="false">Mi Dedicación</a>
+                            <a class="nav-link active" id="mi_dedicacion-tab" data-toggle="tab" href="#mi_dedicacion" role="tab" aria-controls="mi_dedicacion" aria-selected="false">Mi Dedicación</a>
                         </li>
                         <li class="nav-item" role="grafico">
                             <a class="nav-link" id="grafico-tab" data-toggle="tab" href="#grafico" role="tab" aria-controls="grafico" aria-selected="false">Grafico</a>
