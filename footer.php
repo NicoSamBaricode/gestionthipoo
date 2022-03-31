@@ -1,6 +1,6 @@
 <footer class="bg-white sticky-footer">
     <div class="container my-auto">
-        <div class="text-center my-auto copyright"><span>Copyright © Thi Programación</span></div>
+        <div class="text-center my-auto copyright"><span>Copyright © Thi Programación Realise:1.0</span></div>
     </div>
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
@@ -10,3 +10,4 @@
     <script src="assets/js/theme.js"></script>
 </footer>
 <a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+<!-- Programado y diseñado por Nicolas Sammarco  -->

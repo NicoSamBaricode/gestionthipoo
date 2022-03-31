@@ -1,0 +1,3 @@
+v1.0
+31/3/2022
+Cambios: Salida a produccion Todo funcionando y testeado
