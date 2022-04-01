@@ -181,9 +181,8 @@ class Dedicacion_class extends conexionDb
 	}
 
 	public function contadorHorasPorProyecto($id_proyecto){
-		$query = "SELECT SUM(horas)total
-		FROM dedicacion
-		WHERE imputacion =$id_proyecto;";
+		$query = "SELECT SUM(horas)total FROM dedicacion WHERE imputacion =$id_proyecto;";
+		
 		$queryp_e = $this->conexion->query($query);
 		if ($queryp_e->num_rows > 0) {
 			$fila = $queryp_e->fetch_array();
@@ -192,5 +191,47 @@ class Dedicacion_class extends conexionDb
 			return false;
 		}
 
+	}
+	public function contadorHorasPorProyectoRelevadas($id_proyecto){
+		$query = "SELECT SUM(horas_relevadas)total FROM dedicacion WHERE imputacion =$id_proyecto;";
+		
+		$queryp_e = $this->conexion->query($query);
+		if ($queryp_e->num_rows > 0) {
+			$fila = $queryp_e->fetch_array();
+			return $fila['total'];
+		} else {
+			return false;
+		}
+
+	}
+	public function actualizarHorasProyecto($idProyecto,$horas)
+
+	{
+		
+		if ( !empty($idProyecto) && !empty($horas) ) {
+
+			$query = "UPDATE proyectos SET horas_acumuladas = '$horas' WHERE id_proyectos = '$idProyecto'";
+			$sql = $this->conexion->query($query);
+			if ($sql == true) {
+				
+			} else {
+				echo "<script> alert('Fallo al actualizar datos');window.location='/GestionThi/gestionthipoo/Lista_dedicacion.php'</script>  </script>";
+			}
+		}
+	}
+	public function actualizarHorasRelevadasProyecto($idProyecto,$horas)
+
+	{
+		
+		if ( !empty($idProyecto) && !empty($horas) ) {
+
+			$query = "UPDATE proyectos SET horas_relevadas = '$horas' WHERE id_proyectos = '$idProyecto'";
+			$sql = $this->conexion->query($query);
+			if ($sql == true) {
+				
+			} else {
+				echo "<script> alert('Fallo al actualizar datos');window.location='/GestionThi/gestionthipoo/Lista_dedicacion.php'</script>  </script>";
+			}
+		}
 	}
 }

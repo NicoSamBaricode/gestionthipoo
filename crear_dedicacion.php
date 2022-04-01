@@ -101,12 +101,12 @@ if (isset($_POST['submit'])) {
                                                     <?php } else { ?>
 
                                                         <div class="col" hidden>
-                                                            <div class="form-group"><label for="id_agente"><strong>Agente</strong><br></label><input class="form-control" value="<?php echo $usuario ?>" require name="id_agente" id="id_agente"  >
-                                                            
-                                                                    </input>
+                                                            <div class="form-group"><label for="id_agente"><strong>Agente</strong><br></label><input class="form-control" value="<?php echo $usuario ?>" require name="id_agente" id="id_agente">
+
+                                                                </input>
                                                             </div>
                                                         </div>
-                                                    
+
 
 
                                                     <?php } ?>
@@ -141,7 +141,7 @@ if (isset($_POST['submit'])) {
                                                         <div class="form-group"><label for="restantes"><strong>Horas Restantes Mes</strong><br></label><input class="form-control" type="restantes" name="restante" id="restantes" readonly></input></div>
                                                     </div>
                                                     <div class="col">
-                                                        <div class="form-group"><label for="resp"><strong>Proyecto / Actividad</strong><br></label><select class="form-control" require name="imputacion" id="exampleFormControlSelect2">
+                                                        <div class="form-group"><label for="resp"><strong>Proyecto / Actividad</strong><br></label><select class="form-control" require name="imputacion" id="proyectoID">
                                                                 <?php
                                                                 $filas_p = $proyecto->mostrarDatosCompleto();
                                                                 foreach ($filas_p as $fila_p) {
@@ -155,7 +155,7 @@ if (isset($_POST['submit'])) {
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="col">
-                                                        <div class="form-group"><label for="obs"><strong>Metas/Observaciones</strong><br></label><textarea class="form-control" type="text" placeholder="Metas/Observaciones" name="obs"></textarea></div>
+                                                        <div class="form-group"><label for="obs"><strong>Metas/Observaciones</strong><br></label><textarea id="obs" class="form-control" type="text" placeholder="Metas/Observaciones" name="obs"></textarea></div>
                                                     </div>
                                                 </div>
 
@@ -173,7 +173,7 @@ if (isset($_POST['submit'])) {
                                                     </div>
                                                     <div class="col" style="max-width:fit-content">
 
-                                                        <input type="submit" name="submit" class="btn btn-primary " value="Asignar Horas" />
+                                                        <input type="submit" name="submit" class="btn btn-primary " id="guardarDedicacion" value="Asignar Horas" />
                                                     </div>
                                                 </div>
                                             </form>
@@ -283,17 +283,18 @@ if (isset($_POST['submit'])) {
                 $("#restantes").val(data);
             });
     });
-    // $("#planificadas").keyup("change", function() {
-    //     alert("cambioevento");
-    //     $.post("ajaxHorasRestantes.php", {
-    //            mes: $("#mes").val(),
+    $("#guardarDedicacion").on("click", function() {
 
-    //         })
-    //         .done(function(data) {
-    //           // alert("Data Loaded: " + data);
-    //              $("#totales").val(data);
-    //          });
-    // });
+        $.post("ajaxCalculoHorasProyecto.php", {
+                proyecto: $("#proyectoID").val(),
+            })
+            .done(function(data) {
+                console.log(data);
+                alert("Calculo horas por proyecto: " + data);
+
+            });
+       
+    });
 </script>
 
 </html>

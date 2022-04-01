@@ -391,16 +391,18 @@ $tipo = 2; // si es 0 es de actividad //1 si es proyectos
 <?php include('footer.php'); ?>
 
 <script>
-    $(document).ready(function() {
-
-        // $(document).on('click', '#imprimir', function() {
-        //     $("#table2").html().print();
-        // });
+    $("#guardarDedicacion").on("click", function() {
 
 
+        $.post("ajaxCalculoHorasProyectoRelevadas.php", {
+                proyecto: $("#proyectoID").val(),
+            })
+            .done(function(data) {
+                console.log(data);
+                alert("Calculo horas por proyecto: " + data);
+
+            });
     });
-
-
 
     $('#imprimir').on('click', function() {
         imprimir("table2");

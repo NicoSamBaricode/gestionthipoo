@@ -116,7 +116,7 @@ if (isset($_GET['editId']) && !empty($_GET['editId'])) {
                                                         <div class="form-group"><label for="horas"><strong>Horas Planificadas</strong><br></label><input class="form-control" type="text" placeholder="Ingrese cantidad de horas" value="<?php echo($dedicacion['horas']) ?>" name="horas" disabled></input></div>
                                                     </div>
                                                     <div class="col">
-                                                        <div class="form-group"><label for="resp"><strong>Proyecto</strong><br></label><select class="form-control" require name="imputacion" id="exampleFormControlSelect2" disabled>
+                                                        <div class="form-group"><label for="resp"><strong>Proyecto</strong><br></label><select class="form-control" require name="imputacion" id="proyectoID" disabled>
                                                                
                                                                     <option value="<?php echo  $aux_p['id_proyectos'] ?>"> <?php echo  $aux_p['nombre'] ?></option>
                                                                
@@ -140,7 +140,7 @@ if (isset($_GET['editId']) && !empty($_GET['editId'])) {
                                                         <a class="btn btn-secondary" href="Lista_dedicacion.php">Volver</a>
                                                     </div>
                                                     <div class="col" style="max-width:fit-content">
-                                                        <input type="submit" name="updateDedicacion" class="btn btn-primary " value="Guardar" />
+                                                        <input type="submit" name="updateDedicacion" class="btn btn-primary " id="guardarDedicacion" value="Guardar" />
                                                     </div>
                                             </form>
                                         </div>
@@ -158,5 +158,20 @@ if (isset($_GET['editId']) && !empty($_GET['editId'])) {
 
 </body>
 <?php include('footer.php'); ?>
+<script>
+    $("#guardarDedicacion").on("click", function() {
 
+
+        $.post("ajaxCalculoHorasProyectoRelevadas.php", {
+                proyecto: $("#proyectoID").val(),
+            })
+            .done(function(data) {
+                console.log(data);
+                alert("Calculo horas por proyecto: " + data);
+
+            });
+    });
+
+   
+</script>
 </html>
