@@ -1,6 +1,8 @@
 
 <?php
 include_once('DbConnection.php');
+include_once('logs.class.php');
+$log=new log_class();
 
 class Proyecto_class extends conexionDb
 {
@@ -111,6 +113,7 @@ class Proyecto_class extends conexionDb
 	// Insertar datos a la tabla de proyectos
 	public function insertarDatos($post, $tipo)
 	{
+		$log=new log_class();
 		if ($tipo == 1) {
 			$nombre = $this->conexion->real_escape_string($_POST['nombre']);
 			$fecha_i = $this->conexion->real_escape_string($_POST['fecha']);
@@ -134,8 +137,11 @@ class Proyecto_class extends conexionDb
 						 VALUES ('$identificador','$nombre','$fecha_i','$tema','$descrip','$sector','$resp','$fecha_r','$obs','$estado','$tipo','$horas')";
 				$sql = $this->conexion->query($query);
 				if ($sql == true) {
+					$log->insertarLog($_SESSION['user'],"Se ha creado Proyecto".$nombre);
+
 					echo "<script> alert('Se creo el proyecto con exito'); window.location='/GestionThi/gestionthipoo/Lista_proyectos.php'</script> ";
 				} else {
+					$log->insertarLog($_SESSION['user'],"Fallo al crear proyecto");
 					echo "<script> alert('Fallo al insertar datos'); </script>";
 				}
 			}
@@ -157,9 +163,11 @@ class Proyecto_class extends conexionDb
 				VALUES ('$identificador','$nombre','$descrip','$tipo','$sector','$horas','$color')";
 				$sql = $this->conexion->query($query);
 				if ($sql == true) {
+					$log->insertarLog($_SESSION['user'],"Se ha creado una Actividad".$nombre);
 
 					echo "<script> alert('Se creo la Actividad con exito'); window.location='/GestionThi/gestionthipoo/Lista_actividades.php'</script> ";
 				} else {
+					$log->insertarLog($_SESSION['user'],"Fallo al crear Actividad");
 					echo "<script> alert('Fallo al insertar datos'); </script>";
 				}
 			}
@@ -167,17 +175,22 @@ class Proyecto_class extends conexionDb
 	}
 	//borrar usuarios
 	public function borrar_proyecto($id, $tipo)
-	{
+	{ $log=new log_class();
 		$query = "DELETE FROM proyectos WHERE id_proyectos = '$id'";
 		$sql = $this->conexion->query($query);
 		if ($sql == true) {
 			if ($tipo == 1) {
+				$log->insertarLog($_SESSION['user'],"Se borro el Proyecto con id: ".$id);
+
 				echo "<script> alert('Se borraron los datos con exito'); window.location='/GestionThi/gestionthipoo/Lista_Proyectos.php'</script> ";
 			}
 			if ($tipo == 0) {
+				$log->insertarLog($_SESSION['user'],"Se borro la actividad con id: ".$id);
+
 				echo "<script> alert('Se borraron los datos con exito'); window.location='/GestionThi/gestionthipoo/Lista_actividades.php'</script> ";
 			}
 		} else {
+			$log->insertarLog($_SESSION['user'],"Fallo al borrar proyecto/actividad");
 			echo "<script> alert('Fallo al borrar datos'); </script>";
 		}
 	}
@@ -202,8 +215,8 @@ class Proyecto_class extends conexionDb
 
 	// actualiza datos en la tabla
 	public function actualizarFila($postData, $tipo)
-
-	{
+	
+	{$log=new log_class();
 		if ($tipo == 1) {
 			$id_p = $this->conexion->real_escape_string($_POST['id_proyectos']);
 			$nombre = $this->conexion->real_escape_string($_POST['nombre']);
@@ -223,8 +236,11 @@ class Proyecto_class extends conexionDb
              , observaciones = '$obs', estado = '$estado' WHERE id_proyectos = '$id_p'";
 			$sql = $this->conexion->query($query);
 			if ($sql == true) {
+				$log->insertarLog($_SESSION['user'],"Se ha modificado el proyecto con id: ".$id_p);
+
 				echo "<script> alert('Se actualizaron los datos con exito'); window.location='/GestionThi/gestionthipoo/Lista_Proyectos.php'</script> ";
 			} else {
+				$log->insertarLog($_SESSION['user'],"Fallo al actualizar proyecto");
 				echo "<script> alert('Fallo al actualizar datos');window.location='/GestionThi/gestionthipoo/Lista_Proyectos.php'</script>  </script>";
 			}
 		}
@@ -238,9 +254,11 @@ class Proyecto_class extends conexionDb
 			$query = "UPDATE proyectos SET nombre = '$nombre', identificador = '$identificador', descripcion = '$descrip', horas_dedicadas = '$horas', color_act = '$color' WHERE id_proyectos = '$id_a'";
 			$sql = $this->conexion->query($query);
 			if ($sql == true) {
+				$log->insertarLog($_SESSION['user'],"Se ha modificado la actividad con id: ".$id_a);
 
 				echo "<script> alert('Se actualizaron los datos con exito'); window.location='/GestionThi/gestionthipoo/Lista_actividades.php'</script> ";
 			} else {
+				$log->insertarLog($_SESSION['user'],"Fallo al actualizar actividad");
 				echo "<script> alert('Fallo al actualizar datos');window.location='/GestionThi/gestionthipoo/Lista_actividades.php'</script>  </script>";
 			}
 		}

@@ -8,16 +8,18 @@ if (!isset($_SESSION['user']) || (trim($_SESSION['user']) == '')) {
 include_once('Usuarios.class.php');
 include_once('proyectos.class.php');
 include_once('sectores.class.php');
+include_once('logs.class.php');
 $sector = new Sector();
 $user = new Usuario();
 $proyecto = new Proyecto_class();
-
+$log = new log_class();
 //extrae datos de usuaio
 $sql = "SELECT * FROM usuarios WHERE id_usuario = '" . $_SESSION['user'] . "'";
 $row = $user->detalle($sql);
 //llama a la funcion de insertar datos
 if (isset($_POST['submit'])) {
-    $user->insertarDatos($_POST);
+    $user->insertarDatos($_POST,$_SESSION['user']);
+    
 }
 
 ?>

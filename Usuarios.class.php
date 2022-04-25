@@ -1,6 +1,8 @@
 <?php
 include_once('DbConnection.php');
- 
+include_once('logs.class.php');
+$log=new log_class();
+
 class Usuario extends conexionDb{
 
     public function __construct(){
@@ -70,7 +72,7 @@ class Usuario extends conexionDb{
 
     // Insertar datos a la tabla de usuarios
 		public function insertarDatos($post)
-		{
+		{	$log=new log_class();
 			$nombre = $this->conexion->real_escape_string($_POST['nombre']);
 			$apellido = $this->conexion->real_escape_string($_POST['apellido']);
 			$contr = $this->conexion->real_escape_string($_POST['pasword']);
@@ -82,25 +84,29 @@ class Usuario extends conexionDb{
 			$sql = $this->conexion->query($query);
 			if ($sql==true) {
 			    echo"<script> alert('Se insertaron los datos con exito'); window.location='/GestionThi/gestionthipoo/Lista_Usuarios.php'</script> ";
+				$log->insertarLog($_SESSION['user'],"Se ha creado un nuevo Usuario");
 			}else{
 			    echo"<script> alert('Fallo al insertar datos'); </script>";
+				$log->insertarLog($_SESSION['user'],"Fallo al crear nuevo Usuario");
 			}
             
 		}
         //borrar usuarios
         public function borrar_usuario($id)
-		{
+		{   $log=new log_class();
 		    $query = "DELETE FROM usuarios WHERE id_usuario = '$id'";
 		    $sql = $this->conexion->query($query);
 		if ($sql==true) {
+			$log->insertarLog($_SESSION['user'],"Se borro el Usuario con id: ".$id);
 			echo"<script> alert('Se borraron los datos con exito'); window.location='/GestionThi/gestionthipoo/Lista_Usuarios.php'</script> ";
 		}else{
 			echo"<script> alert('Fallo al borrar datos'); </script>";
+			$log->insertarLog($_SESSION['user'],"Fallo al borrar nuevo Usuario");
 		    }
 		}
         // Saca datos de una sola fila filtrado por id
 		public function mostrarFilaPorId($id)
-		{
+		{   $log=new log_class();
 		    $query = "SELECT * FROM usuarios WHERE id_usuario = '$id'";
 		    $result = $this->conexion->query($query);
 		if ($result->num_rows > 0) {
@@ -114,7 +120,8 @@ class Usuario extends conexionDb{
 		// actualiza datos en la tabla
 		public function actualizarFila($postData)
 		
-		{   $id = $this->conexion->real_escape_string($_POST['id_usuario']);
+		{   $log=new log_class();
+			 $id = $this->conexion->real_escape_string($_POST['id_usuario']);
 			$nombre = $this->conexion->real_escape_string($_POST['nombre']);
 			$apellido = $this->conexion->real_escape_string($_POST['apellido']);
 			$contr = $this->conexion->real_escape_string($_POST['pasword']);
@@ -128,9 +135,12 @@ class Usuario extends conexionDb{
 			$query = "UPDATE usuarios SET nombre = '$nombre', apellido = '$apellido', mail = '$mail', alias = '$alias', rol = '$rol', pasword = '$contr' WHERE id_usuario = '$id'";
 			$sql = $this->conexion->query($query);
 			if ($sql==true) {
+				$log->insertarLog($_SESSION['user'],"Se ha modificado el Usuario con id: ".$id);
 			    echo"<script> alert('Se actualizaron los datos con exito'); window.location='/GestionThi/gestionthipoo/Lista_Usuarios.php'</script> ";
 			}else{
+				$log->insertarLog($_SESSION['user'],"Fallo al modificar Usuario");
 			    echo"<script> alert('Fallo al actualizar datos');window.location='/GestionThi/gestionthipoo/Lista_Usuarios.php'</script>  </script>";
+
 			}
 		    }
 			

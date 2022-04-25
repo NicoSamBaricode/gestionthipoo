@@ -1,7 +1,8 @@
-
+<!-- Clase para horaas laborables -->
 <?php
 include_once('DbConnection.php');
- 
+include_once('logs.class.php');
+$log=new log_class();
 class calendario_class extends conexionDb{
 
     public function __construct(){
@@ -58,7 +59,7 @@ class calendario_class extends conexionDb{
 		// actualiza datos en la tabla
 		public function actualizarFila($postData)
 		  
-		{   
+		{   $log=new log_class();
 			 $id = $this->conexion->real_escape_string($postData['id_Mes']);
             $horas = $this->conexion->real_escape_string($postData['horas']);
 			
@@ -69,8 +70,10 @@ class calendario_class extends conexionDb{
 			
 			$sql = $this->conexion->query($query);
 			if ($sql==true) {
+				$log->insertarLog($_SESSION['user'],"Se modifico hora laborable mes id: ".$id);
 			    echo"<script> alert('Se actualizaron los datos con exito'); window.location='/GestionThi/gestionthipoo/Configuracion.php'</script> ";
 			}else{
+				$log->insertarLog($_SESSION['user'],"fallo al modificar hora laborable");
 			    echo"<script> alert('Fallo al actualizar datos');window.location='/GestionThi/gestionthipoo/Configuracion.php'</script>  </script>";
 			}
 		    }

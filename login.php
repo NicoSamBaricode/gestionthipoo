@@ -3,8 +3,10 @@
 session_start();
 
 include_once('Usuarios.class.php');
+include_once('logs.class.php');
 
 $user = new Usuario();
+$log = new log_class();
 
 if(isset($_POST['login'])){
 	$username = $user->escape_string($_POST['alias']);
@@ -19,7 +21,9 @@ if(isset($_POST['login'])){
 	else{
 		//si no rechaza la conexion puede entrar
 		$_SESSION['user'] = $auth;
+	    $log->insertarLog($_SESSION['user'], "Ingreso al sistema");
 		header('location:panel.php');
+		
 	}
 }
 else{
