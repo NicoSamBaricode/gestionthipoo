@@ -64,14 +64,19 @@ foreach ($tables as $table) {
 if(!empty($sqlScript))
 {
     // Save the SQL script to a backup file
-    $backup_file_name = $database_name . '_backup_' . $fecha . '.sql';
+    $location = '//10.73.34.78/Lab_TIAC/BackUpGestion/';
+    $backup_file_name =$database_name . '_backup_' . $fecha . '.sql';
     $fileHandler = fopen($backup_file_name, 'w+');
     $number_of_lines = fwrite($fileHandler, $sqlScript);
     fclose($fileHandler); 
-
+    $fileMoved = rename($backup_file_name,$location.$backup_file_name);
     ob_clean();
     flush();
-    $log->insertarLog("21","Se ha creado un nuevo Backup");
+    if($fileMoved){
+        echo 'Se creo con exito el backup!'; 
+        $log->insertarLog("21","Se ha creado un nuevo Backup");
+    }else{
+        echo ("Fallo al crear backup");}
+   
 }
 mysqli_close($conn);
-?>
