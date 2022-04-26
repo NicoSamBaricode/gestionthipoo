@@ -1,4 +1,4 @@
-<!-- Clase para horaas laborables -->
+
 <?php
 include_once('DbConnection.php');
 include_once('logs.class.php');

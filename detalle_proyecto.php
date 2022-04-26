@@ -142,11 +142,7 @@ if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
                                                                 </div>
                                                             </div>
 
-                                                            <div class="col-md-3">
-                                                                <div class="form-group"><label for="obs"><strong>Observaciones</strong><br></label>
-                                                                    <p><?php echo $fila_proy["observaciones"] ?></p>
-                                                                </div>
-                                                            </div>
+                                                            
                                                             <div class="col-md-3">
                                                                 <div class="form-group"><label for="estado"><strong>Estado</strong><br></label>
                                                                     <p><?php echo $fila_proy["estado"] ?></p>
@@ -165,6 +161,11 @@ if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
                                                             <div class="col-md-3">
                                                                 <div class="form-group"><label for="horasR" ><strong>Horas Relevadas</strong><br></label>
                                                                     <p><?php echo $fila_proy["horas_totales_relevadas"] ?></p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <div class="form-group"><label for="obs"><strong>Observaciones</strong><br></label>
+                                                                    <p><?php echo $fila_proy["observaciones"] ?></p>
                                                                 </div>
                                                             </div>
                                                         </div>

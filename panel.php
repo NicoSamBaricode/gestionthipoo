@@ -21,11 +21,11 @@ $row = $user->detalle($sql);
 $cont = $user->cont_u();
 
 //contador proyectos
-$cont_p = $proyecto->cont_p($row['sector_id'],$row['rol']);
+$cont_p = $proyecto->cont_p($row['sector_id'], $row['rol']);
 
 
 
-$id_usuario=$row['id_usuario'];
+$id_usuario = $row['id_usuario'];
 
 
 ?>
@@ -55,7 +55,9 @@ $id_usuario=$row['id_usuario'];
                             <li class="nav-item dropdown no-arrow" role="presentation">
                                 <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small"><?php echo $row['nombre']; ?></span><img class="border rounded-circle img-profile" src="/GestionThi/gestionthipoo/assets/img/logo-cnea2.png"></a>
                                     <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in" role="menu"><a class="dropdown-item" role="presentation" href="#"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Editar perfil</a><a class="dropdown-item" role="presentation" href="#"><i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Settings</a>
-                                        <a class="dropdown-item" role="presentation" href="#"><i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Registro de actividades</a>
+                                        <?php if (('Admin' == $row["rol"])) { ?>
+                                            <a class="dropdown-item" role="presentation" href="backupAutomatico.php"><i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Backup de base de datos</a>
+                                        <?php } ?>
                                         <div class="dropdown-divider"></div><a class="dropdown-item" role="presentation" href="cerrar_sesion.php"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Cerrar Sesion</a>
                                     </div>
                                 </div>
@@ -135,7 +137,7 @@ $id_usuario=$row['id_usuario'];
                                             function showGraph() {
                                                 {
                                                     $.post("grafico.php", {
-                                                       
+
                                                             id_usuario: <?php echo $id_usuario; ?>
 
 
@@ -191,9 +193,9 @@ $id_usuario=$row['id_usuario'];
 
                                         <?php //contador proyectos realiados
                                         $estado = 'Realizado';
-                                        $cont_p_c = $proyecto->cont_p_estado($estado,$row['rol'],$row['sector_id']);
+                                        $cont_p_c = $proyecto->cont_p_estado($estado, $row['rol'], $row['sector_id']);
                                         $porcentaje = ($cont_p_c * 100) / $cont_p;
-                                        
+
                                         ?>
 
                                         <h4 class="small font-weight-bold">Realizados<span class="float-right"><?php echo  $porcentaje . "%"; ?></span></h4>
@@ -207,7 +209,7 @@ $id_usuario=$row['id_usuario'];
 
                                         <?php //contador proyectos cancelados
                                         $estado = 'Cancelado';
-                                        $cont_p_c = $proyecto->cont_p_estado($estado,$row['rol'],$row['sector_id']);
+                                        $cont_p_c = $proyecto->cont_p_estado($estado, $row['rol'], $row['sector_id']);
                                         $porcentaje = ($cont_p_c * 100) / $cont_p;
                                         ?>
 
@@ -222,7 +224,7 @@ $id_usuario=$row['id_usuario'];
 
                                         <?php //contador proyectos en proceso
                                         $estado = 'En proceso';
-                                        $cont_p_c = $proyecto->cont_p_estado($estado,$row['rol'],$row['sector_id']);
+                                        $cont_p_c = $proyecto->cont_p_estado($estado, $row['rol'], $row['sector_id']);
                                         $porcentaje = ($cont_p_c * 100) / $cont_p;
                                         ?>
 
@@ -237,9 +239,9 @@ $id_usuario=$row['id_usuario'];
 
                                         <?php //contador proyectos Pendiente
                                         $estado = 'Pendiente';
-                                        $cont_p_c = $proyecto->cont_p_estado($estado,$row['rol'],$row['sector_id']);
+                                        $cont_p_c = $proyecto->cont_p_estado($estado, $row['rol'], $row['sector_id']);
                                         $porcentaje = ($cont_p_c * 100) / $cont_p;
-                                       
+
                                         ?>
 
                                         <h4 class="small font-weight-bold">Pendientes<span class="float-right"><?php echo  $porcentaje . "%"; ?></span></h4>
@@ -253,7 +255,7 @@ $id_usuario=$row['id_usuario'];
 
                                         <?php //contador proyectos a revisar
                                         $estado = 'Revisar';
-                                        $cont_p_c = $proyecto->cont_p_estado($estado,$row['rol'],$row['sector_id']);
+                                        $cont_p_c = $proyecto->cont_p_estado($estado, $row['rol'], $row['sector_id']);
                                         $porcentaje = ($cont_p_c * 100) / $cont_p;
                                         ?>
 
