@@ -1,3 +1,6 @@
 v1.0
 31/3/2022
 Cambios: Salida a produccion Todo funcionando y testeado
+v1.1
+31/3/2022
+Cambios: Agregue sistema de logs y de guardado de bd
