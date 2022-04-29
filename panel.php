@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 session_start();
 //vuelve a la pagina de inicio si no esta registrado
 if (!isset($_SESSION['user']) || (trim($_SESSION['user']) == '')) {

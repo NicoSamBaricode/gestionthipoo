@@ -158,14 +158,15 @@ $tipo = 2; // si es 0 es de actividad //1 si es proyectos
                                                 <tbody id="tablaDedicacion">
 
                                                     <?php
-                                                    $filas = $dedicacion->mostrarDatosBusqueda($query);
+                                                    
+                                                    $filas = $dedicacion->mostrarDatosPorSector($row['rol'],$row['sector_id']);
                                                     foreach ($filas as $fila) {
                                                     ?>
                                                         <tr>
                                                             <?php $aux_p = $proyecto->mostrarFilaPorId($fila["imputacion"], $tipo);
-                                                            $aux_u = $user->mostrarFilaPorId($fila["id_agente"]); //aca tengo el nombre del usuario
+                                                          
                                                             ?>
-                                                            <td><?php echo $aux_u['nombre'] ?></td>
+                                                            <td><?php echo $fila['usuariosNombre']." ".$fila['apellido'] ?></td>
                                                             <td><?php echo $fila['anio'] ?></td>
                                                             <td><?php echo $fila['mes'] ?></td>
                                                             <td class="centrarRegistros"><?php echo $fila['horas'] ?></td>

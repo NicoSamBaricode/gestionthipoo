@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 session_start();
 //vuelve a la pagina de inicio si no esta registrado
 if (!isset($_SESSION['user']) || (trim($_SESSION['user']) == '')) {
@@ -135,7 +136,7 @@ if (isset($_POST['submit'])) {
                                                 <div class="form-row">
 
                                                     <div class="col">
-                                                        <div class="form-group"><label for="horas"><strong>Horas Planificadas Mes</strong><br></label><input class="form-control" type="number" placeholder="Ingrese cantidad de horas" name="horas" id="planificadas"></input></div>
+                                                        <div class="form-group"><label for="horas"><strong>Horas Planificadas Mes</strong><br></label><input class="form-control" type="number" min="1" placeholder="Ingrese cantidad de horas" name="horas" id="planificadas"></input></div>
                                                     </div>
                                                     <div class="col">
                                                         <div class="form-group"><label for="restantes"><strong>Horas Restantes Mes</strong><br></label><input class="form-control" type="restantes" name="restante" id="restantes" readonly></input></div>
@@ -242,6 +243,7 @@ if (isset($_POST['submit'])) {
 </body>
 <?php include('footer.php'); ?>
 <script>
+    $("#planificadas").val(1);
     $(document).ready(function() {
         const d = new Date();
         let year = d.getFullYear();
@@ -250,6 +252,7 @@ if (isset($_POST['submit'])) {
         $("#mes").focus();
         $("#mes").val(month + 1);
         $("#anio").val(year);
+
         $.post("ajaxHorasMes.php", {
                 mes: $("#mes").val(),
 
@@ -257,18 +260,23 @@ if (isset($_POST['submit'])) {
             .done(function(data) {
                 // alert("Data Loaded: " + data);
                 $("#totales").val(data);
-            });
-    });
-    $("#mes").on("change", function() {
-        $.post("ajaxHorasMes.php", {
+                $.post("ajaxHorasRestantes.php", {
                 mes: $("#mes").val(),
-
+                planificadas: $("#planificadas").val(),
+                anio: $("#anio").val(),
+                agente: $("#id_agente").val(),
+                totales: $("#totales").val(),
             })
             .done(function(data) {
                 // alert("Data Loaded: " + data);
-                $("#totales").val(data);
+                $("#restantes").val(data);
             });
+            });
+
+
+
     });
+
     $("#planificadas").on("change", function() {
 
         $.post("ajaxHorasRestantes.php", {
@@ -283,6 +291,18 @@ if (isset($_POST['submit'])) {
                 $("#restantes").val(data);
             });
     });
+
+    $("#mes").on("change", function() {
+        $.post("ajaxHorasMes.php", {
+                mes: $("#mes").val(),
+
+            })
+            .done(function(data) {
+                // alert("Data Loaded: " + data);
+                $("#totales").val(data);
+            });
+    });
+
     $("#guardarDedicacion").on("click", function() {
 
         $.post("ajaxCalculoHorasProyecto.php", {
@@ -290,10 +310,10 @@ if (isset($_POST['submit'])) {
             })
             .done(function(data) {
                 console.log(data);
-                alert("Calculo horas por proyecto: " + data);
+                // alert("Calculo horas por proyecto: " + data);
 
             });
-       
+
     });
 </script>
 
