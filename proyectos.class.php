@@ -97,7 +97,7 @@ class Proyecto_class extends conexionDb
 	}
 	public function mostrarDatosCompleto()
 	{
-		$query = "SELECT * FROM proyectos";
+		$query = "SELECT * FROM proyectos order by nombre";
 		$result = $this->conexion->query($query);
 		if ($result->num_rows > 0) {
 			$data = array();
