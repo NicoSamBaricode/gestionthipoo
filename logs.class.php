@@ -37,5 +37,21 @@ class log_class extends conexionDb
 			echo "<script> console.log('error al guardar log'); </script>";
 		}
 	}
+
+	 // mostrar datos de la tabla de logs
+	 public function mostrarDatos()
+	 {
+		 $query = "SELECT usuarios.alias, Accion,TimeStamp FROM `logs` LEFT JOIN usuarios on Usuario=id_usuario ";
+		 $result = $this->conexion->query($query);
+	 if ($result->num_rows > 0) {
+		 $data = array();
+		 while ($row = $result->fetch_assoc()) {
+				$data[] = $row;
+		 }
+		  return $data;
+		 }else{
+		  echo "Base de datos vacia";
+		 }
+	 }
 	
 }
