@@ -14,12 +14,11 @@ $user = new Usuario();
 $proyecto = new Proyecto_class();
 $log = new log_class();
 //extrae datos de usuaio
-$sql = "SELECT * FROM usuarios WHERE id_usuario = '" . $_SESSION['user'] . "'";
-$row = $user->detalle($sql);
+
+$row = $user->mostrarFilaPorIdConNombre($_SESSION['user']);
 //llama a la funcion de insertar datos
 if (isset($_POST['submit'])) {
-    $user->insertarDatos($_POST,$_SESSION['user']);
-    
+    $user->insertarDatos($_POST, $_SESSION['user']);
 }
 
 ?>
@@ -38,11 +37,11 @@ if (isset($_POST['submit'])) {
         <?php include('navbar.php'); ?>
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
-            <?php include('navbar_superior.php'); ?>
+                <?php include('navbar_superior.php'); ?>
                 <div class="container-fluid">
                     <h3 class="text-dark mb-4">Nuevo Usuario</h3>
                     <div class="row mb-3">
-                        
+
                         <div class="col-lg-12">
 
                             <div class="row">
@@ -67,7 +66,7 @@ if (isset($_POST['submit'])) {
                                                     <div class="col">
                                                         <div class="form-group"><label for="rol"><strong>Tipo de Usuario</strong></label><select class="form-control" required name="rol" placeholder="Tipo de usuario" id="rol">
                                                                 <option selected>Agente</option>
-                                                                <option>Admin</option>                                                                
+                                                                <option>Admin</option>
                                                                 <option>Jefe Division</option>
                                                                 <option>Jefe Depto</option>
                                                             </select></div>
@@ -106,11 +105,17 @@ if (isset($_POST['submit'])) {
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
-                                                    <div class="col">
-                                                        <!-- <div class="form-group"><label for="imagen"><strong>Imagen de Perfil</strong><br></label><br><input type="file" required class="btn btn-secondary btn-sm" name="imagen" value="agregar imagen"/></div> -->
-                                                    </div>
 
+                                                    
+                                                    <div class="col">
+                                                        <div class="form-group"><label for="text"><strong>Legajo</strong></label><input class="form-control" type="number" required="Ingrese dato valido" placeholder="Legajo" name="legajo"></div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="form-group"><label for="text"><strong>Usuario Gde</strong></label><input class="form-control" type="text" required="Ingrese dato valido" placeholder="Gde" name="gde"></div>
+                                                    </div>
+                                                   
                                                 </div>
+
                                                 <div class="form-row" style="margin-left:auto; right:0px; max-width:fit-content">
 
                                                     <div class="col" style="max-width:fit-content">

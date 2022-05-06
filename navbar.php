@@ -24,6 +24,7 @@
                     <!-- arranca jefe division -->
                     <?php if ('Jefe Division' == $row["rol"]) { ?>
                         <li class="nav-item" role="presentation"><a class="nav-link active" href="panel.php"><i class="fas fa-tachometer-alt"></i><span>Panel Principal</span></a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link" href="Lista_Usuarios.php"><i class="fas fa-user"></i><span>Usuarios</span></a></li>
                         <li class="nav-item" role="presentation"><a class="nav-link " href="Lista_Dedicacion.php"><i class="fas fa-list"></i><span>Mi Dedicación</span></a></li>
                         <li class="nav-item" role="presentation"><a class="nav-link" href="Lista_Proyectos.php"><i class="fas fa-table"></i><span>Proyectos</span></a></li>
                         <li class="nav-item" role="presentation"><a class="nav-link" href="Lista_actividades.php"><i class="fas fa-chart-pie"></i><span>Actividades</span></a></li>
@@ -40,7 +41,7 @@
                         <li class="nav-item" role="presentation"><a class="nav-link " href="Configuracion.php"><i class="fas fa-cog"></i><span>Configuración</span></a></li>
                         <li class="nav-item" role="presentation"><a class="nav-link " href="Lista_Dedicacion.php"><i class="fas fa-list"></i><span>Mi Dedicación</span></a></li>
                         <li class="nav-item" role="presentation"><a class="nav-link" href="Lista_actividades.php"><i class="fas fa-chart-pie"></i><span>Actividades</span></a></li>
-
+                        <li class="nav-item" role="presentation"><a class="nav-link" href="Lista_Usuarios.php"><i class="fas fa-user"></i><span>Usuarios</span></a></li>
                         <li class="nav-item" role="presentation"><a class="nav-link" href="cerrar_sesion.php"><i class="fas fa-user-circle"></i><span>Cerrar Sesión</span></a></li>
                     <?php } ?>
                     <!-- termina jefe depto -->

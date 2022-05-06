@@ -13,13 +13,13 @@ $user = new Usuario();
 
 
 //extrae datos de usuaio
-$sql = "SELECT * FROM usuarios WHERE id_usuario = '" . $_SESSION['user'] . "'";
-$row = $user->detalle($sql);
+
+$row = $user->mostrarFilaPorIdConNombre($_SESSION['user']);
 
 // funcion edita
 if (isset($_GET['editId']) && !empty($_GET['editId'])) {
     $editId = $_GET['editId'];
-    $usuario = $user->mostrarFilaPorId($editId);
+    $usuario = $user->mostrarFilaPorIdConNombre($editId);
 }
 
 // actualiza
@@ -82,9 +82,10 @@ if (isset($_POST['update'])) {
                                                     </div>
                                                     <div class="col">
                                                         <div class="form-group"><label for="sector"><strong>Sector</strong><br></label><select class="form-control" name="sector" id="exampleFormControlSelect2">
+                                                                <option  selected value="<?php echo $usuario['sector_id'] ?>"> <?php echo $usuario['NombreSector'] ?></option>
                                                                 <?php
                                                                 $filas = $sector->mostrarDatos();
-
+                                                                
                                                                 foreach ($filas as $fila) {
                                                                 ?>
                                                                     <tr>
@@ -108,6 +109,29 @@ if (isset($_POST['update'])) {
                                                     </div>
                                                     <div class="col">
                                                         <div class="form-group"><label for="mail"><strong>Email</strong><br></label><input class="form-control" type="email" required="Ingrese dato valido" placeholder="usuario@cab.cnea.gov.ar" name="mail" value="<?php echo $usuario['mail']; ?>"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="col">
+                                                        <div class="form-group"><label for="legajo"><strong>Legajo</strong><br></label><input class="form-control" type="number" required="Ingrese dato valido" placeholder="legajo" value="<?php echo $usuario['legajo']; ?>" name="legajo"></div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="form-group"><label for="gde"><strong>Usuario Gde</strong><br></label><input class="form-control" type="text" required="Ingrese dato valido" placeholder="gde" name="gde" value="<?php echo $usuario['gde']; ?>"></div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="form-group"><label for="estado"><strong>Estado</strong></label><select class="form-control" required name="estado"  id="estado" value="<?php echo $usuario['estado']; ?>">
+                                                                <option selected value="<?php echo ($usuario['estado'])?>" ><strong><?php
+                                                                 if($usuario['estado']==1){echo("-Activo-");} 
+                                                                 if($usuario['estado']==0){echo("-Inactivo-");} 
+                                                                 if($usuario['estado']==2){echo("-Licencia-");} 
+                                                                
+                                                                
+                                                                ?></strong></option>
+                                                                <option value="1" >Activo</option>
+                                                                <option value="0" >Inactivo</option>                                                                
+                                                                <option value="2" >Licencia</option>
+                                                              
+                                                            </select></div>
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
