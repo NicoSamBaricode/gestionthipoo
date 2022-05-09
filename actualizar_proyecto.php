@@ -83,8 +83,42 @@ if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="col">
-                                                        <div class="form-group"><label for="descripcion"><strong>Descripcion</strong><br></label><input class="form-control" type="text" placeholder="Descripcion" name="descrip" value="<?php echo $proyecto['descripcion']; ?>"></div>
+                                                        <div class="form-group"><label for="descripcion"><strong>Descripcion</strong><br></label><textarea class="form-control" type="text"  name="descrip" ><?php echo $proyecto['descripcion']; ?></textarea></div>
                                                     </div>
+                                                   
+                                                   
+                                                </div>
+                                                <div class="form-row">
+                                                   
+                                                    <div class="col">
+                                                        <div class="form-group"><label for="sector"><strong>Responsable</strong><br></label><select class="form-control" name="resp" >
+                                                                 
+                                                        <?php 
+                                                        $aux=$user->mostrarFilaPorId($proyecto['responsable']);
+                                                        ?> 
+                                                        <option selected value="<?php echo $proyecto['responsable']; ?>"> <?php echo "- ". $aux['nombre']." ". $aux['apellido'] ." -"?></option>
+                                                                <?php
+                                                                $filas = $user->mostrarDatosOrdenado();
+                                                                
+
+                                                                foreach ($filas as $fila) {
+                                                                    
+                                                                ?>
+                                                                   
+
+                                                                        <option value="<?php echo $fila['id_usuario']; ?>"> <?php echo $fila['nombre']." ". $fila['apellido'] ?></option>
+
+
+                                                                    
+                                                                <?php }  ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="form-group"><label for="frealizacion"><strong>Fecha finalizacion</strong><br></label><input class="form-control" type="date" placeholder="Ingrese fecha de finalizacion" name="frealizado" value="<?php echo $proyecto['fecha_realizado']; ?>"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
                                                     <div class="col">
                                                         <div class="form-group"><label for="sector"><strong>Sector</strong><br></label><select class="form-control" name="sector" id="exampleFormControlSelect2">
                                                             
@@ -103,20 +137,6 @@ if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
                                                             </select>
                                                         </div>
                                                     </div>
-                                                   
-                                                </div>
-                                                <div class="form-row">
-                                                    <div class="col">
-                                                        <div class="form-group"><label for="resp"><strong>Responsable</strong><br></label><input class="form-control" type="text" required="Ingrese dato valido" placeholder="Responsable" name="resp" value="<?php echo $proyecto['responsable']; ?>"></div>
-                                                    </div>
-                                                    <div class="col">
-                                                        <div class="form-group"><label for="frealizacion"><strong>Fecha finalizacion</strong><br></label><input class="form-control" type="date" placeholder="Ingrese fecha de finalizacion" name="frealizado" value="<?php echo $proyecto['fecha_realizado']; ?>"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-row">
-                                                    <div class="col">
-                                                        <div class="form-group"><label for="obs"><strong>Observaciones</strong><br></label><input class="form-control" type="text" placeholder="Observaciones" name="obs" value="<?php echo $proyecto['observaciones']; ?>"></div>
-                                                    </div>
                                                     <div class="col">
                                                         <div class="form-group"><label for="estado"><strong>Estado</strong><br></label><select class="form-control" require name="estado" id="exampleFormControlSelect1" value="<?php echo $proyecto['estado']; ?>">
 
@@ -129,11 +149,14 @@ if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
                                                             </select>
                                                         </div>
                                                     </div>
+                                                   
                                                 </div>
                                                 <div class="form-row">
-                                                    <div class="col">
-                                                        <!-- <div class="form-group"><label for="imagen"><strong>Imagen de Perfil</strong><br></label><br><input type="file" required class="btn btn-secondary btn-sm" name="imagen" value="agregar imagen"/></div> -->
+                                                 
+                                                    <div class="col-md-12">
+                                                        <div class="form-group"><label for="obs"><strong>Observaciones</strong><br></label><textarea class="form-control" type="text" placeholder="Observaciones" name="obs" ></textarea><?php echo $proyecto['observaciones']; ?></div>
                                                     </div>
+                                                    
                                                     <input type="hidden" name="id_proyectos" value="<?php echo $proyecto['id_proyectos']; ?>">
                                                 </div>
                                                 <div class="form-row" style="margin-left:auto; right:0px; max-width:fit-content">

@@ -82,7 +82,7 @@ if (isset($_POST['update'])) {
                                                     </div>
                                                     <div class="col">
                                                         <div class="form-group"><label for="sector"><strong>Sector</strong><br></label><select class="form-control" name="sector" id="exampleFormControlSelect2">
-                                                                <option  selected value="<?php echo $usuario['sector_id'] ?>"> <?php echo $usuario['NombreSector'] ?></option>
+                                                                <option  selected value="<?php echo $usuario['sector_id'] ?>"> <?php echo $usuario['NombreSector']?></option>
                                                                 <?php
                                                                 $filas = $sector->mostrarDatos();
                                                                 

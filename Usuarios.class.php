@@ -71,6 +71,20 @@ class Usuario extends conexionDb
 			echo "Base de datos vacia";
 		}
 	}
+	public function mostrarDatosOrdenado()
+	{
+		$query = "SELECT * FROM usuarios order by nombre";
+		$result = $this->conexion->query($query);
+		if ($result->num_rows > 0) {
+			$data = array();
+			while ($row = $result->fetch_assoc()) {
+				$data[] = $row;
+			}
+			return $data;
+		} else {
+			echo "Base de datos vacia";
+		}
+	}
 	public function mostrarDatosCompletos()
 	{
 		$query = "SELECT usuarios.id_usuario,usuarios.nombre,usuarios.apellido,usuarios.mail,usuarios.alias,usuarios.rol,usuarios.legajo,usuarios.gde,usuarios.estado,sector.nombre as NombreSector FROM `usuarios` left JOIN `sector` on sector.Sector_id = usuarios.sector_id;";
@@ -136,7 +150,7 @@ class Usuario extends conexionDb
 	}
 	public function mostrarFilaPorIdConNombre($id)
 	{
-		$query = "SELECT usuarios.id_usuario,usuarios.nombre,usuarios.pasword,usuarios.apellido,usuarios.mail,usuarios.alias,usuarios.rol,usuarios.legajo,usuarios.gde,usuarios.estado,sector.nombre as NombreSector FROM `usuarios` left JOIN `sector` on sector.Sector_id = usuarios.sector_id WHERE id_usuario = '$id'";
+		$query = "SELECT usuarios.sector_id,usuarios.id_usuario,usuarios.nombre,usuarios.pasword,usuarios.apellido,usuarios.mail,usuarios.alias,usuarios.rol,usuarios.legajo,usuarios.gde,usuarios.estado,sector.nombre as NombreSector FROM `usuarios` left JOIN `sector` on sector.Sector_id = usuarios.sector_id WHERE id_usuario = '$id'";
 		$result = $this->conexion->query($query);
 		if ($result->num_rows > 0) {
 			$row = $result->fetch_assoc();
@@ -166,6 +180,7 @@ class Usuario extends conexionDb
 		if (!empty($id) && !empty($postData)) {
 
 			$query = "UPDATE usuarios SET nombre = '$nombre', apellido = '$apellido', mail = '$mail', alias = '$alias', rol = '$rol', pasword = '$contr',legajo = '$legajo',gde = '$gde',estado = '$estado',sector_id = '$sector' WHERE id_usuario = '$id'";
+			
 			$sql = $this->conexion->query($query);
 			if ($sql == true) {
 				$log->insertarLog($_SESSION['user'], "Se ha modificado el Usuario con id: " . $id);
