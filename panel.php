@@ -45,63 +45,178 @@ $id_usuario = $row['id_usuario'];
         <?php include('navbar.php'); ?>
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
-            <?php include('navbar_superior.php'); ?>
+                <?php include('navbar_superior.php'); ?>
 
                 <!-- arranca Admin -->
                 <?php if (('Admin' == $row["rol"]) or ('Jefe Depto' == $row["rol"]) or ('Jefe Division' == $row["rol"])) { ?>
 
                     <div class="container-fluid">
                         <div class="d-sm-flex justify-content-between align-items-center mb-4">
-                            <h3 class="text-dark mb-0">Panel principal</h3><a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="javascript:window.print()"><i class="fas fa-download fa-sm text-white-50"></i>&nbsp;Generar Reporte</a>
+                            <!-- <h3 class="text-dark mb-0">Panel principal</h3> -->
+                            <a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="javascript:window.print()"><i class="fas fa-download fa-sm text-white-50"></i>&nbsp;Generar Reporte</a>
                         </div>
-                        <!-- <div class="row" >
-                            <div class="col-md-6 col-xl-3 mb-4">
-                                <div class="card shadow border-left-info py-2">
-                                    <div class="card-body">
-                                        <div class="row align-items-center no-gutters">
-                                            <div class="col mr-2">
-                                                <div class="text-uppercase text-info font-weight-bold text-xs mb-1"><span>Usuarios Registrados</span></div>
-                                                <div class="row no-gutters align-items-center">
-                                                    <div class="col-auto">
-                                                        <div class="text-dark font-weight-bold h5 mb-0 mr-3"><span>
-                                                                <?php echo  $cont; ?>
-                                                            </span></div>
+
+
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-6 col-xl-3 mb-4">
+                                    <a class="card shadow border-left-info py-2 btn" href="crear_dedicacion.php">
+                                        <div class="card-body">
+                                            <div class="row align-items-center no-gutters">
+                                                <div class="col mr-2">
+                                                    <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span>Agregar Dedicación</span></div>
+                                                    <div class="row no-gutters align-items-center">
+                                                        <div class="col-auto">
+
+                                                            <!-- Contenido -->
+
+                                                        </div>
+
                                                     </div>
-
                                                 </div>
+                                                <div class="col-auto"><i class="fas fa-clipboard-list fa-2x text-gray-300"></i></div>
                                             </div>
-                                            <div class="col-auto"><i class="fas fa-clipboard-list fa-2x text-gray-300"></i></div>
                                         </div>
-                                    </div>
+                                    </a>
                                 </div>
-                            </div>
-                            <div class="col-md-6 col-xl-3 mb-4">
-                                <div class="card shadow border-left-warning py-2">
-                                    <div class="card-body">
-                                        <div class="row align-items-center no-gutters">
-                                            <div class="col mr-2">
-                                                <div class="text-uppercase text-warning font-weight-bold text-xs mb-1"><span>Proyectos</span></div>
-                                                <div class="text-dark font-weight-bold h5 mb-0"><span>
-                                                        <?php echo $cont_p; ?>
-                                                    </span></div>
+                                <div class="col-md-6 col-xl-3 mb-4">
+                                    <a class="card shadow border-left-primary  py-2 btn" href="https://portal.cnea.gob.ar/app/web/ " target="_blank">
+                                        <div class="card-body">
+                                            <div class="row align-items-center no-gutters">
+                                                <div class="col mr-2">
+                                                    <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span>Portal Teletrabajo</span></div>
+                                                    <div class="row no-gutters align-items-center">
+                                                        <div class="col-auto">
+
+                                                            <!-- Contenido -->
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-auto"><i class="fas fa-briefcase fa-2x text-gray-300"></i></div>
                                             </div>
-                                            <div class="col-auto"><i class="fas fa-comments fa-2x text-gray-300"></i></div>
                                         </div>
-                                    </div>
+                                    </a>
                                 </div>
-                            </div>
-                        </div> -->
+                                <div class="col-md-6 col-xl-3 mb-4">
+                                    <a class="card shadow border-left-warning  py-2 btn" href="https://portal.cnea.gob.ar/app/web/buscador-agenda/index " target="_blank">
+                                        <div class="card-body">
+                                            <div class="row align-items-center no-gutters">
+                                                <div class="col mr-2">
+                                                    <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span>Agenda Institucional</span></div>
+                                                    <div class="row no-gutters align-items-center">
+                                                        <div class="col-auto">
+
+                                                            <!-- Contenido -->
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-auto"><i class="fas fa-atlas fa-2x text-gray-300"></i></div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-md-6 col-xl-3 mb-4">
+                                    <a class="card shadow border-left-secondary  py-2 btn" href="https://comunidades.cnea.gob.ar/new/ " target="_blank">
+                                        <div class="card-body">
+                                            <div class="row align-items-center no-gutters">
+                                                <div class="col mr-2">
+                                                    <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span>Comunidades-News</span></div>
+                                                    <div class="row no-gutters align-items-center">
+                                                        <div class="col-auto">
+
+                                                            <!-- Contenido -->
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-auto"><i class="fas fa-bullhorn fa-2x text-gray-300"></i></div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-md-6 col-xl-3 mb-4">
+                                    <a class="card shadow border-left-danger  py-2 btn" href="https://gestion.cab.cnea.gov.ar/ " target="_blank">
+                                        <div class="card-body">
+                                            <div class="row align-items-center no-gutters">
+                                                <div class="col mr-2">
+                                                    <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span>Gestion Cab</span></div>
+                                                    <div class="row no-gutters align-items-center">
+                                                        <div class="col-auto">
+
+                                                            <!-- Contenido -->
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-auto"><i class="fas fa-chart-pie fa-2x text-gray-300"></i></div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-md-6 col-xl-3 mb-4">
+                                    <a class="card shadow border-left-success  py-2 btn" href="https://webmail.cab.cnea.gov.ar/ " target="_blank">
+                                        <div class="card-body">
+                                            <div class="row align-items-center no-gutters">
+                                                <div class="col mr-2">
+                                                    <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span>WebMail</span></div>
+                                                    <div class="row no-gutters align-items-center">
+                                                        <div class="col-auto">
+
+                                                            <!-- Contenido -->
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-auto"><i class="fas fa-mail-bulk fa-2x text-gray-300"></i></div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-md-6 col-xl-3 mb-4">
+                                    <a class="card shadow border-left-primary py-2  btn" href="file://10.73.34.78/Publico/01.Accesos%20Directos/" target="_blank">
+                                        <div class="card-body">
+                                            <div class="row align-items-center no-gutters">
+                                                <div class="col mr-2">
+                                                    <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span>Ingresar a Nas</span></div>
+                                                    <div class="row no-gutters align-items-center">
+                                                        <div class="col-auto">
 
 
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-auto"><i class="fas fa-archive fa-2x text-gray-300"></i></div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="row">
                             <div class="col">
                                 <div class="card shadow mb-4">
                                     <div class="card-header d-flex justify-content-between align-items-center">
-                                        <h6 class="text-primary font-weight-bold m-0">Ocupación del personal</h6>
+                                        <h6 class="text-primary font-weight-bold m-0">Proyectos y actividades del departamento</h6>
 
                                     </div>
-
+                                    <div class="col">
+                                        <label for="filtros">Ordenar por:</label>
+                                        <select class="form-control" id="filtros">
+                                            <option value="nombre">Nombre</option>
+                                            <option value="horas_dedicadas">Cantidad de horas</option>
+                                            
+                                        </select>
+                                    </div>
 
                                     <!-- grafico de torta -->
                                     <div class="card-body">
@@ -113,14 +228,24 @@ $id_usuario = $row['id_usuario'];
                                             $(document).ready(function() {
                                                 showGraph();
                                             });
+                                            var resetCanvass = function() {
+                                                $('#graphCanvas').remove(); // this is my <canvas> element
+                                                $('#chart-container').append('<canvas id="graphCanvas"><canvas>');
+                                                canvas = document.querySelector('#graphCanvas');
+                                                ctx = canvas.getContext('2d');
 
+                                            };
+                                            $("#filtros").on("change", function() {
+                                                resetCanvass();
+                                                showGraph();
+                                            });
 
                                             function showGraph() {
                                                 {
                                                     $.post("grafico.php", {
 
-                                                            id_usuario: <?php echo $id_usuario; ?>
-
+                                                            id_usuario: <?php echo $id_usuario; ?>,
+                                                            filtro:  $("#filtros").val(),
 
                                                         },
                                                         function(data) {
@@ -136,10 +261,12 @@ $id_usuario = $row['id_usuario'];
                                                             }
 
                                                             var chartdata = {
+
                                                                 labels: name,
                                                                 datasets: [{
                                                                     label: 'Ocupacion',
                                                                     backgroundColor: color,
+                                                                    borderColor: 'rgba(200, 200, 200, 0.75)',
                                                                     borderColor: '#ffff',
                                                                     hoverBackgroundColor: '#CCCCCC',
                                                                     hoverBorderColor: '#666666',
@@ -150,7 +277,15 @@ $id_usuario = $row['id_usuario'];
                                                             var graphTarget = $("#graphCanvas");
 
                                                             var barGraph = new Chart(graphTarget, {
-                                                                type: 'doughnut',
+                                                                options: {
+                                                                    legend: {
+                                                                        position: "left",
+                                                                        align: 'start',
+                                                                        textAlign: 'left',
+
+                                                                    }
+                                                                },
+                                                                type: 'bar',
                                                                 data: chartdata
                                                             });
                                                         });
@@ -161,255 +296,12 @@ $id_usuario = $row['id_usuario'];
                                 </div>
                             </div>
 
-
-
-
-                            <!-- grafico de barra -->
-                            <div class="col">
-                                <div class="card shadow mb-4">
-                                    <div class="card-header py-3">
-                                        <h6 class="text-primary font-weight-bold m-0">Proyectos</h6>
-                                    </div>
-                                    <div class="card-body">
-
-                                        <?php //contador proyectos realiados
-                                        $estado = 'Realizado';
-                                        $cont_p_c = $proyecto->cont_p_estado($estado, $row['rol'], $row['sector_id']);
-                                        $porcentaje = ($cont_p_c * 100) / $cont_p;
-
-                                        ?>
-
-                                        <h4 class="small font-weight-bold">Realizados<span class="float-right"><?php echo  $porcentaje . "%"; ?></span></h4>
-                                        <div class="progress mb-4">
-                                            <div class="progress-bar bg-success" aria-valuenow="" aria-valuemin="0" aria-valuemax="100%" style="width:<?php echo  $porcentaje; ?>%"><span class="sr-only"></span></div>
-                                        </div>
-                                        <?php unset($porcentaje);
-                                        unset($estado) ?>
-
-                                        <!-- Termina realizados -->
-
-                                        <?php //contador proyectos cancelados
-                                        $estado = 'Cancelado';
-                                        $cont_p_c = $proyecto->cont_p_estado($estado, $row['rol'], $row['sector_id']);
-                                        $porcentaje = ($cont_p_c * 100) / $cont_p;
-                                        ?>
-
-                                        <h4 class="small font-weight-bold">Cancelados<span class="float-right"><?php echo  $porcentaje . "%"; ?></span></h4>
-                                        <div class="progress mb-4">
-                                            <div class="progress-bar bg-danger" aria-valuenow="" aria-valuemin="0" aria-valuemax="100%" style="width:<?php echo  $porcentaje; ?>%"><span class="sr-only"></span></div>
-                                        </div>
-                                        <?php unset($porcentaje);
-                                        unset($estado) ?>
-
-                                        <!-- Termina cancelados -->
-
-                                        <?php //contador proyectos en proceso
-                                        $estado = 'En proceso';
-                                        $cont_p_c = $proyecto->cont_p_estado($estado, $row['rol'], $row['sector_id']);
-                                        $porcentaje = ($cont_p_c * 100) / $cont_p;
-                                        ?>
-
-                                        <h4 class="small font-weight-bold">En proceso<span class="float-right"><?php echo  $porcentaje . "%"; ?></span></h4>
-                                        <div class="progress mb-4">
-                                            <div class="progress-bar bg-primary" aria-valuenow="" aria-valuemin="0" aria-valuemax="100%" style="width:<?php echo  $porcentaje; ?>%"><span class="sr-only"></span></div>
-                                        </div>
-                                        <?php unset($porcentaje);
-                                        unset($estado) ?>
-
-                                        <!-- Termina En proceso -->
-
-                                        <?php //contador proyectos Pendiente
-                                        $estado = 'Pendiente';
-                                        $cont_p_c = $proyecto->cont_p_estado($estado, $row['rol'], $row['sector_id']);
-                                        $porcentaje = ($cont_p_c * 100) / $cont_p;
-
-                                        ?>
-
-                                        <h4 class="small font-weight-bold">Pendientes<span class="float-right"><?php echo  $porcentaje . "%"; ?></span></h4>
-                                        <div class="progress mb-4">
-                                            <div class="progress-bar bg-warning" aria-valuenow="" aria-valuemin="0" aria-valuemax="100%" style="width:<?php echo  $porcentaje; ?>%"><span class="sr-only"></span></div>
-                                        </div>
-                                        <?php unset($porcentaje);
-                                        unset($estado) ?>
-
-                                        <!-- Termina pendientes -->
-
-                                        <?php //contador proyectos a revisar
-                                        $estado = 'Revisar';
-                                        $cont_p_c = $proyecto->cont_p_estado($estado, $row['rol'], $row['sector_id']);
-                                        $porcentaje = ($cont_p_c * 100) / $cont_p;
-                                        ?>
-
-                                        <h4 class="small font-weight-bold">A revisar<span class="float-right"><?php echo  $porcentaje . "%"; ?></span></h4>
-                                        <div class="progress mb-4">
-                                            <div class="progress-bar bg-info" aria-valuenow="" aria-valuemin="0" aria-valuemax="100%" style="width:<?php echo  $porcentaje; ?>%"><span class="sr-only"></span></div>
-                                        </div>
-                                        <?php unset($porcentaje);
-                                        unset($estado) ?>
-
-                                        <!-- Termina pendientes -->
-
-                                    </div> <!-- termina CARD -->
-
-                                </div>
-
-                            </div>
                         </div>
 
 
 
                     <?php } ?>
-                    <!-- termina Admin -->
 
-
-                    <!-- arranca agente -->
-
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-6 col-xl-3 mb-4">
-                                <a class="card shadow border-left-info py-2 btn" href="crear_dedicacion.php">
-                                    <div class="card-body">
-                                        <div class="row align-items-center no-gutters">
-                                            <div class="col mr-2">
-                                                <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span>Agregar Dedicación</span></div>
-                                                <div class="row no-gutters align-items-center">
-                                                    <div class="col-auto">
-
-                                                        <!-- Contenido -->
-
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            <div class="col-auto"><i class="fas fa-clipboard-list fa-2x text-gray-300"></i></div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-md-6 col-xl-3 mb-4">
-                                <a class="card shadow border-left-primary  py-2 btn" href="https://portal.cnea.gob.ar/app/web/ " target="_blank">
-                                    <div class="card-body">
-                                        <div class="row align-items-center no-gutters">
-                                            <div class="col mr-2">
-                                                <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span>Portal Teletrabajo</span></div>
-                                                <div class="row no-gutters align-items-center">
-                                                    <div class="col-auto">
-
-                                                        <!-- Contenido -->
-
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            <div class="col-auto"><i class="fas fa-briefcase fa-2x text-gray-300"></i></div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-md-6 col-xl-3 mb-4">
-                                <a class="card shadow border-left-warning  py-2 btn" href="https://portal.cnea.gob.ar/app/web/buscador-agenda/index " target="_blank">
-                                    <div class="card-body">
-                                        <div class="row align-items-center no-gutters">
-                                            <div class="col mr-2">
-                                                <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span>Agenda Institucional</span></div>
-                                                <div class="row no-gutters align-items-center">
-                                                    <div class="col-auto">
-
-                                                        <!-- Contenido -->
-
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            <div class="col-auto"><i class="fas fa-atlas fa-2x text-gray-300"></i></div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-md-6 col-xl-3 mb-4">
-                                <a class="card shadow border-left-secondary  py-2 btn" href="https://comunidades.cnea.gob.ar/new/ " target="_blank">
-                                    <div class="card-body">
-                                        <div class="row align-items-center no-gutters">
-                                            <div class="col mr-2">
-                                                <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span>Comunidades-News</span></div>
-                                                <div class="row no-gutters align-items-center">
-                                                    <div class="col-auto">
-
-                                                        <!-- Contenido -->
-
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            <div class="col-auto"><i class="fas fa-bullhorn fa-2x text-gray-300"></i></div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-md-6 col-xl-3 mb-4">
-                                <a class="card shadow border-left-danger  py-2 btn" href="https://gestion.cab.cnea.gov.ar/ " target="_blank">
-                                    <div class="card-body">
-                                        <div class="row align-items-center no-gutters">
-                                            <div class="col mr-2">
-                                                <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span>Gestion Cab</span></div>
-                                                <div class="row no-gutters align-items-center">
-                                                    <div class="col-auto">
-
-                                                        <!-- Contenido -->
-
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            <div class="col-auto"><i class="fas fa-chart-pie fa-2x text-gray-300"></i></div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-md-6 col-xl-3 mb-4">
-                                <a class="card shadow border-left-success  py-2 btn" href="https://webmail.cab.cnea.gov.ar/ " target="_blank">
-                                    <div class="card-body">
-                                        <div class="row align-items-center no-gutters">
-                                            <div class="col mr-2">
-                                                <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span>WebMail</span></div>
-                                                <div class="row no-gutters align-items-center">
-                                                    <div class="col-auto">
-
-                                                        <!-- Contenido -->
-
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            <div class="col-auto"><i class="fas fa-mail-bulk fa-2x text-gray-300"></i></div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-md-6 col-xl-3 mb-4">
-                                <a class="card shadow border-left-primary py-2  btn" href="file://10.73.34.78/Publico/01.Accesos%20Directos/" target="_blank">
-                                    <div class="card-body">
-                                        <div class="row align-items-center no-gutters">
-                                            <div class="col mr-2">
-                                                <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span>Ingresar a Nas</span></div>
-                                                <div class="row no-gutters align-items-center">
-                                                    <div class="col-auto">
-
-
-
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            <div class="col-auto"><i class="fas fa-archive fa-2x text-gray-300"></i></div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- termina agente -->
                     </div>
             </div>
 
