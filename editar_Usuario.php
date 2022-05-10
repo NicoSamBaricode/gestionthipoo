@@ -97,7 +97,7 @@ if (isset($_POST['update'])) {
                                                 <div class="form-row" style="margin-left:auto; right:0px; max-width:fit-content">
 
                                                     <div class="col" style="max-width:fit-content">
-                                                        <a class="btn btn-secondary" href="Lista_Usuarios.php">Volver</a>
+                                                        <a class="btn btn-secondary" href="panel.php">Volver</a>
 
                                                     </div>
                                                     <div class="col" style="max-width:fit-content">
