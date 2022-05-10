@@ -153,7 +153,9 @@ $nombreSector=$sector->mostrarFilaPorId($proyecto['sector']);
                                                             </select>
                                                         </div>
                                                     </div>
-                                                   
+                                                    <div class="col">
+                                                        <div class="form-group"><label for="color"><strong>Color de grafico</strong><br></label><input class="form-control" type="color" placeholder="Color" name="color" value="<?php echo $proyecto['color_act']; ?>"></div>
+                                                    </div>
                                                 </div>
                                                 <div class="form-row">
                                                  

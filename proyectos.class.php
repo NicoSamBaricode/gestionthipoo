@@ -2,7 +2,7 @@
 <?php
 include_once('DbConnection.php');
 include_once('logs.class.php');
-$log=new log_class();
+$log = new log_class();
 
 class Proyecto_class extends conexionDb
 {
@@ -13,12 +13,12 @@ class Proyecto_class extends conexionDb
 		parent::__construct();
 	}
 	//contador general
-	public function cont_p($sector,$rol)
+	public function cont_p($sector, $rol)
 	{
 		if ($rol == 'Administrador' || $rol == 'Jefe Depto') {
 			$contador_p = "SELECT COUNT(*) totalp FROM proyectos where tipo = '1'";
-		}else{
-			
+		} else {
+
 			$contador_p = "SELECT COUNT(*) totalp FROM proyectos where tipo = '1'and sector = '$sector'";
 		}
 
@@ -45,15 +45,15 @@ class Proyecto_class extends conexionDb
 		}
 	}
 	//contador de estados para graficos
-	public function cont_p_estado($estado,$rol,$sector)
+	public function cont_p_estado($estado, $rol, $sector)
 	{
-		if ($rol=='Admin' || $rol=='Jefe Depto') {
+		if ($rol == 'Admin' || $rol == 'Jefe Depto') {
 			$contador_estado = "SELECT COUNT(*) total FROM proyectos WHERE estado= '$estado' and Tipo = '1'";
-		}else{
+		} else {
 			$contador_estado = "SELECT COUNT(*) total FROM proyectos WHERE estado= '$estado' and Tipo = '1' and sector = '$sector'";
 		}
-		
-		
+
+
 
 		$queryp_e = $this->conexion->query($contador_estado);
 
@@ -113,8 +113,12 @@ class Proyecto_class extends conexionDb
 	// Insertar datos a la tabla de proyectos
 	public function insertarDatos($post, $tipo)
 	{
-		$log=new log_class();
+
+		$log = new log_class();
 		if ($tipo == 1) {
+			$color =  mt_rand(0, 0xFFFFFF);
+			$color = "#" . dechex($color);
+			//generador random de colores
 			$nombre = $this->conexion->real_escape_string($_POST['nombre']);
 			$fecha_i = $this->conexion->real_escape_string($_POST['fecha']);
 			$identificador = $this->conexion->real_escape_string($_POST['identificador']);
@@ -133,15 +137,15 @@ class Proyecto_class extends conexionDb
 			if ($result->num_rows > 0) {
 				echo "<script> alert('El identificador ingresado ya existe, por favor ingrese uno diferente.'); window.location='/GestionThi/gestionthipoo/crear_proyecto.php'</script> ";
 			} else {
-				$query = "INSERT INTO proyectos(identificador,nombre,fecha_inicio,tema,descripcion,sector,responsable,fecha_realizado,observaciones,estado,Tipo,horas_dedicadas) 
-						 VALUES ('$identificador','$nombre','$fecha_i','$tema','$descrip','$sector','$resp','$fecha_r','$obs','$estado','$tipo','$horas')";
+				$query = "INSERT INTO proyectos(identificador,nombre,fecha_inicio,tema,descripcion,sector,responsable,fecha_realizado,observaciones,estado,Tipo,horas_dedicadas,color_act) 
+						 VALUES ('$identificador','$nombre','$fecha_i','$tema','$descrip','$sector','$resp','$fecha_r','$obs','$estado','$tipo','$horas','$color')";
 				$sql = $this->conexion->query($query);
 				if ($sql == true) {
-					$log->insertarLog($_SESSION['user'],"Se ha creado Proyecto".$nombre);
+					$log->insertarLog($_SESSION['user'], "Se ha creado Proyecto" . $nombre);
 
 					echo "<script> alert('Se creo el proyecto con exito'); window.location='/GestionThi/gestionthipoo/Lista_proyectos.php'</script> ";
 				} else {
-					$log->insertarLog($_SESSION['user'],"Fallo al crear proyecto");
+					$log->insertarLog($_SESSION['user'], "Fallo al crear proyecto");
 					echo "<script> alert('Fallo al insertar datos'); </script>";
 				}
 			}
@@ -163,11 +167,11 @@ class Proyecto_class extends conexionDb
 				VALUES ('$identificador','$nombre','$descrip','$tipo','$sector','$horas','$color')";
 				$sql = $this->conexion->query($query);
 				if ($sql == true) {
-					$log->insertarLog($_SESSION['user'],"Se ha creado una Actividad".$nombre);
+					$log->insertarLog($_SESSION['user'], "Se ha creado una Actividad" . $nombre);
 
 					echo "<script> alert('Se creo la Actividad con exito'); window.location='/GestionThi/gestionthipoo/Lista_actividades.php'</script> ";
 				} else {
-					$log->insertarLog($_SESSION['user'],"Fallo al crear Actividad");
+					$log->insertarLog($_SESSION['user'], "Fallo al crear Actividad");
 					echo "<script> alert('Fallo al insertar datos'); </script>";
 				}
 			}
@@ -175,22 +179,23 @@ class Proyecto_class extends conexionDb
 	}
 	//borrar usuarios
 	public function borrar_proyecto($id, $tipo)
-	{ $log=new log_class();
+	{
+		$log = new log_class();
 		$query = "DELETE FROM proyectos WHERE id_proyectos = '$id'";
 		$sql = $this->conexion->query($query);
 		if ($sql == true) {
 			if ($tipo == 1) {
-				$log->insertarLog($_SESSION['user'],"Se borro el Proyecto con id: ".$id);
+				$log->insertarLog($_SESSION['user'], "Se borro el Proyecto con id: " . $id);
 
 				echo "<script> alert('Se borraron los datos con exito'); window.location='/GestionThi/gestionthipoo/Lista_Proyectos.php'</script> ";
 			}
 			if ($tipo == 0) {
-				$log->insertarLog($_SESSION['user'],"Se borro la actividad con id: ".$id);
+				$log->insertarLog($_SESSION['user'], "Se borro la actividad con id: " . $id);
 
 				echo "<script> alert('Se borraron los datos con exito'); window.location='/GestionThi/gestionthipoo/Lista_actividades.php'</script> ";
 			}
 		} else {
-			$log->insertarLog($_SESSION['user'],"Fallo al borrar proyecto/actividad");
+			$log->insertarLog($_SESSION['user'], "Fallo al borrar proyecto/actividad");
 			echo "<script> alert('Fallo al borrar datos'); </script>";
 		}
 	}
@@ -215,8 +220,9 @@ class Proyecto_class extends conexionDb
 
 	// actualiza datos en la tabla
 	public function actualizarFila($postData, $tipo)
-	
-	{$log=new log_class();
+
+	{
+		$log = new log_class();
 		if ($tipo == 1) {
 			$id_p = $this->conexion->real_escape_string($_POST['id_proyectos']);
 			$nombre = $this->conexion->real_escape_string($_POST['nombre']);
@@ -230,17 +236,21 @@ class Proyecto_class extends conexionDb
 			$obs = $this->conexion->real_escape_string($_POST['obs']);
 			$estado = $this->conexion->real_escape_string($_POST['estado']);
 			$horas = $this->conexion->real_escape_string($_POST['horas']);
-
+			$color = $this->conexion->real_escape_string($_POST['color']);
 			$query = "UPDATE proyectos SET nombre = '$nombre', identificador = '$identificador', id_proyectos = '$id_p',
              fecha_inicio = '$fecha_i', tema = '$tema', descripcion = '$descrip', sector = '$sector', responsable = '$resp', fecha_realizado = '$fecha_r'
-             , observaciones = '$obs', estado = '$estado' WHERE id_proyectos = '$id_p'";
-			$sql = $this->conexion->query($query);
+             , observaciones = '$obs', estado = '$estado', color_act = '$color' WHERE id_proyectos = '$id_p'";
+			 ?>
+
+			 <script> console.log(<?echo $query?>);</script>
+			 <?php		
+			 	$sql = $this->conexion->query($query);
 			if ($sql == true) {
-				$log->insertarLog($_SESSION['user'],"Se ha modificado el proyecto con id: ".$id_p);
+				$log->insertarLog($_SESSION['user'], "Se ha modificado el proyecto con id: " . $id_p);
 
 				echo "<script> alert('Se actualizaron los datos con exito'); window.location='/GestionThi/gestionthipoo/Lista_Proyectos.php'</script> ";
 			} else {
-				$log->insertarLog($_SESSION['user'],"Fallo al actualizar proyecto");
+				$log->insertarLog($_SESSION['user'], "Fallo al actualizar proyecto");
 				echo "<script> alert('Fallo al actualizar datos');window.location='/GestionThi/gestionthipoo/Lista_Proyectos.php'</script>  </script>";
 			}
 		}
@@ -254,11 +264,11 @@ class Proyecto_class extends conexionDb
 			$query = "UPDATE proyectos SET nombre = '$nombre', identificador = '$identificador', descripcion = '$descrip', horas_dedicadas = '$horas', color_act = '$color' WHERE id_proyectos = '$id_a'";
 			$sql = $this->conexion->query($query);
 			if ($sql == true) {
-				$log->insertarLog($_SESSION['user'],"Se ha modificado la actividad con id: ".$id_a);
+				$log->insertarLog($_SESSION['user'], "Se ha modificado la actividad con id: " . $id_a);
 
 				echo "<script> alert('Se actualizaron los datos con exito'); window.location='/GestionThi/gestionthipoo/Lista_actividades.php'</script> ";
 			} else {
-				$log->insertarLog($_SESSION['user'],"Fallo al actualizar actividad");
+				$log->insertarLog($_SESSION['user'], "Fallo al actualizar actividad");
 				echo "<script> alert('Fallo al actualizar datos');window.location='/GestionThi/gestionthipoo/Lista_actividades.php'</script>  </script>";
 			}
 		}
@@ -311,14 +321,14 @@ class Proyecto_class extends conexionDb
 			echo "Base de datos vacia";
 		}
 	}
-	
+
 	public function mostrarNombreSector($id)
 	{
-		
+
 		$query = "SELECT sector.Nombre FROM proyectos LEFT JOIN sector ON proyectos.sector=sector.Sector_id where proyectos.id_proyectos= $id;";
-	
+
 		$result = $this->conexion->query($query);
-	
+
 		if ($result->num_rows > 0) {
 			$row = $result->fetch_assoc();
 			return $row;

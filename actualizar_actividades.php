@@ -41,7 +41,12 @@ $nombreSector=$sector->mostrarFilaPorId($actividad['sector']);
 
 <head>
     <title>Actualizar Actividad</title>
-    <?php include('header.php'); ?>
+    <?php include('header.php');
+    
+
+    
+    ?>
+    
 
 <body id="page-top">
     <div id="wrapper">
