@@ -33,7 +33,7 @@ if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
     $borrarId = $_GET['borrarid'];
     $actividad->borrar_actividad($borrarId);
 }
-
+$nombreSector=$sector->mostrarFilaPorId($actividad['sector']);
 ?>
 
 <!DOCTYPE html>
@@ -74,6 +74,7 @@ if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
                                                     </div>
                                                     <div class="col">
                                                         <div class="form-group"><label for="sector"><strong>Sector</strong><br></label><select class="form-control" name="sector" id="exampleFormControlSelect2">
+                                                        <option selected value="<?php echo $actividad['sector'] ?>"> <?php echo "-". ($nombreSector['Nombre']) ."-"  ?></option>
                                                                 <?php
                                                                 $filas = $sector->mostrarDatos();
 
