@@ -191,6 +191,35 @@ class Usuario extends conexionDb
 			}
 		}
 	}
+		// actualiza datos en la tabla
+		public function actualizarDatosParaUsuario($postData)
+
+		{
+			$log = new log_class();
+			$id = $this->conexion->real_escape_string($_POST['id_usuario']);
+		
+			$contr = $this->conexion->real_escape_string($_POST['pasword']);
+		
+			$mail = $this->conexion->real_escape_string($_POST['mail']);
+			
+			$gde = $this->conexion->real_escape_string($_POST['gde']);
+			$legajo = $this->conexion->real_escape_string($_POST['legajo']);
+		
+	
+			if (!empty($id) && !empty($postData)) {
+	
+				$query = "UPDATE usuarios SET  mail = '$mail', pasword = '$contr',legajo = '$legajo',gde = '$gde' WHERE id_usuario = '$id'";
+				
+				$sql = $this->conexion->query($query);
+				if ($sql == true) {
+					$log->insertarLog($_SESSION['user'], "Se ha modificado el Usuario con id: " . $id);
+					echo "<script> alert('Se actualizaron los datos con exito'); window.location='/GestionThi/gestionthipoo/panel.php'</script> ";
+				} else {
+					$log->insertarLog($_SESSION['user'], "Fallo al modificar Usuario");
+					echo "<script> alert('Fallo al actualizar datos');window.location='/GestionThi/gestionthipoo/panel.php'</script>  </script>";
+				}
+			}
+		}
 
 	public function mostrarDatosBusqueda($query)
 	{
@@ -209,28 +238,5 @@ class Usuario extends conexionDb
 			return array();
 		}
 	}
-		// actualiza datos en la tabla
-		public function actualizarPasword($postData)
 		
-		{   $log=new log_class();
-			 $id = $this->conexion->real_escape_string($_POST['id_usuario']);
-			
-			$contr = $this->conexion->real_escape_string($_POST['pasword']);
-			
-		    
-		if (!empty($id) && !empty($postData)) {
-			
-			$query = "UPDATE usuarios SET  pasword = '$contr' WHERE id_usuario = '$id'";
-			$sql = $this->conexion->query($query);
-			if ($sql==true) {
-				$log->insertarLog($_SESSION['user'],"Se ha modificado el Usuario con id: ".$id);
-			    echo"<script> alert('Se actualizaron los datos con exito'); window.location='/GestionThi/gestionthipoo/Lista_Usuarios.php'</script> ";
-			}else{
-				$log->insertarLog($_SESSION['user'],"Fallo al modificar Usuario");
-			    echo"<script> alert('Fallo al actualizar datos');window.location='/GestionThi/gestionthipoo/Lista_Usuarios.php'</script>  </script>";
-
-			}
-		    }
-			
-		}
 }

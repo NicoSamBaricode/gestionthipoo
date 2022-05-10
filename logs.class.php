@@ -41,7 +41,7 @@ class log_class extends conexionDb
 	 // mostrar datos de la tabla de logs
 	 public function mostrarDatos()
 	 {
-		 $query = "SELECT usuarios.alias, Accion,TimeStamp FROM `logs` LEFT JOIN usuarios on Usuario=id_usuario ";
+		 $query = "SELECT usuarios.alias, Accion,TimeStamp FROM `logs` LEFT JOIN usuarios on Usuario=id_usuario order by TimeStamp desc";
 		 $result = $this->conexion->query($query);
 	 if ($result->num_rows > 0) {
 		 $data = array();
