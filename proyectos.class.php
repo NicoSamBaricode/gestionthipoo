@@ -316,6 +316,7 @@ class Proyecto_class extends conexionDb
 	{
 		
 		$query = "SELECT sector.Nombre FROM proyectos LEFT JOIN sector ON proyectos.sector=sector.Sector_id where proyectos.id_proyectos= $id;";
+	
 		$result = $this->conexion->query($query);
 	
 		if ($result->num_rows > 0) {

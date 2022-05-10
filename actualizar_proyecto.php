@@ -14,13 +14,15 @@ $proyecto_obj = new Proyecto_class();
 $tipo = 1;
 
 //extrae datos de usuaio
-$sql = "SELECT * FROM usuarios WHERE id_usuario = '" . $_SESSION['user'] . "'";
-$row = $user->detalle($sql);
+
+$row = $user->mostrarFilaPorIdConNombre($_SESSION['user']);
 
 // funcion edita
 if (isset($_GET['editId']) && !empty($_GET['editId'])) {
     $editId = $_GET['editId'];
     $proyecto = $proyecto_obj->mostrarFilaPorId($editId,$tipo);
+
+    $nombreProyecto=$proyecto_obj->mostrarNombreSector($proyecto['sector']);
 }
 
 // actualiza
@@ -32,7 +34,7 @@ if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
     $borrarId = $_GET['borrarid'];
     $proyecto->borrar_proyecto($borrarId);
 }
-
+$nombreSector=$sector->mostrarFilaPorId($proyecto['sector']);
 ?>
 
 <!DOCTYPE html>
@@ -121,8 +123,10 @@ if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
                                                 <div class="form-row">
                                                     <div class="col">
                                                         <div class="form-group"><label for="sector"><strong>Sector</strong><br></label><select class="form-control" name="sector" id="exampleFormControlSelect2">
-                                                            
+                                                             
+                                                                <option selected value="<?php echo $proyecto['sector'] ?>"> <?php echo "-". ($nombreSector['Nombre']) ."-"  ?></option>
                                                                 <?php
+                                                               
                                                                 $filas = $sector->mostrarDatos();
 
                                                                 foreach ($filas as $fila) {
