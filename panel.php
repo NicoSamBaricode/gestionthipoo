@@ -288,7 +288,10 @@ $id_usuario = $row['id_usuario'];
                                                                 type: 'bar',
                                                                 data: chartdata
                                                             });
-                                                        });
+                                                         
+                                                        }
+                                                        );
+                                                        
                                                 }
                                             }
                                         </script>

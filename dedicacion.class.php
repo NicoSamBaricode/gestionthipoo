@@ -80,7 +80,7 @@ class Dedicacion_class extends conexionDb
 	// Insertar datos a la tabla de dedicacion
 	public function insertarDatos($post)
 	{
-
+		
 		$id_agente = $this->conexion->real_escape_string($_POST['id_agente']);
 		$mes = $this->conexion->real_escape_string($_POST['mes']);
 		$anio = $this->conexion->real_escape_string($_POST['anio']);
@@ -93,18 +93,19 @@ class Dedicacion_class extends conexionDb
             VALUES ('$id_agente','$mes','$anio','$horas','$imputacion','$obs')";
 		$sql = $this->conexion->query($query);
 		if ($sql == true) {
-			echo "<script> window.location='/GestionThi/gestionthipoo/crear_dedicacion.php'</script> ";
+
+			echo "<script>  window.location='/GestionThi/gestionthipoo/crear_dedicacion.php'</script> ";
 		} else {
 			echo "<script> alert('Fallo al insertar datos'); </script>";
 		}
 	}
 	//borrar tarea
 	public function borrar_dedic($id)
-	{
+	{echo ("<script src='cartel.js'></script>");
 		$query = "DELETE FROM dedicacion WHERE id_dedicacion = '$id'";
 		$sql = $this->conexion->query($query);
 		if ($sql == true) {
-			echo "<script> alert('Se borraron los datos con exito'); window.location='/GestionThi/gestionthipoo/Lista_dedicacion.php'</script> ";
+			echo "<script> confirmBorrar();alert('Se borraron los datos con exito'); window.location='/GestionThi/gestionthipoo/Lista_dedicacion.php'</script> ";
 		} else {
 			echo "<script> alert('Fallo al borrar datos'); </script>";
 		}

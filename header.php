@@ -10,3 +10,4 @@
 <script src="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.js"></script>
 <script src="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table-locale-all.min"></script>
 <script type="text/javascript" src="assets/bootstrap/js/printThis.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>

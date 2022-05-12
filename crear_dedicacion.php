@@ -261,7 +261,6 @@ if (isset($_POST['submit'])) {
     });
 
     $("#planificadas").on("change", function() {
-
         $.post("ajaxHorasRestantes.php", {
                 mes: $("#mes").val(),
                 planificadas: $("#planificadas").val(),

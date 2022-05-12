@@ -51,11 +51,11 @@ $flag = false;
         <?php include('navbar.php'); ?>
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
-            <?php include('navbar_superior.php'); ?>
+                <?php include('navbar_superior.php'); ?>
                 <div class="container-fluid">
                     <h3 class="text-dark mb-4">Actividades</h3>
                     <div class="row">
-                        <?php if ((('Admin' == $row["rol"]) || ('Jefe Depto' == $row["rol"]))) { ?>
+                        <?php if (('Agente' != $row["rol"])) { ?>
                             <div class="col-md-6 col-xl-3 mb-4">
                                 <div class="card shadow border-left-primary py-2">
                                     <div class="card-body">
@@ -64,7 +64,12 @@ $flag = false;
                                                 <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span>Nueva Actividad</span></div>
                                                 <div class="text-dark font-weight-bold h5 mb-0"><span></span></div>
                                             </div>
-                                            <div class="col-auto"><a class="btn btn-primary" href="crear_actividades.php"><i class="fas fa-folder-plus  text-gray-300"></i></a></div>
+
+                                            <?php if ($row['rol'] == 'Admin' || ('Jefe Depto' == $row["rol"])) { ?>
+                                                <div class="col-auto"><a class="btn btn-primary" href="crear_actividades.php"><i class="fas fa-user-plus  text-gray-300"></i></a></div>
+                                            <?php } else { ?>
+                                                <div class="col-auto"><a class="btn btn-primary" target="_blank" href="mailto:agustin.coleff@cab.cnea.gov.ar "><i class="fas fa-user-plus  text-gray-300"></i></a></div>
+                                            <?php  } ?>
                                         </div>
                                     </div>
                                 </div>

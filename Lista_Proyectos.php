@@ -31,7 +31,7 @@ if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
 }
 //carga los datos cuando recien entra a la pagina
 
-    $query = "SELECT * FROM proyectos where tipo = '$tipo' ";
+$query = "SELECT * FROM proyectos where tipo = '$tipo' ";
 
 
 //bandera para que desaparezca boton volver a la lista
@@ -55,10 +55,10 @@ $flag = false;
         <?php include('navbar.php'); ?>
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
-            <?php include('navbar_superior.php'); ?>
+                <?php include('navbar_superior.php'); ?>
                 <div class="container-fluid">
                     <h3 class="text-dark mb-4">Proyectos</h3>
-                    <?php if ((('Admin' == $row["rol"]) || ('Jefe Depto' == $row["rol"]))) {
+                    <?php if ('Agente' != $row["rol"]) {
 
                     ?>
                         <div class="row">
@@ -70,7 +70,11 @@ $flag = false;
                                                 <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span>Nuevo Proyecto</span></div>
                                                 <div class="text-dark font-weight-bold h5 mb-0"><span></span></div>
                                             </div>
-                                            <div class="col-auto"><a class="btn btn-primary" href="crear_proyecto.php"><i class="fas fa-folder-plus  text-gray-300"></i></a></div>
+                                            <?php if ($row['rol'] == 'Admin' || ('Jefe Depto' == $row["rol"])) { ?>
+                                                <div class="col-auto"><a class="btn btn-primary" href="crear_proyecto.php"><i class="fas fa-user-plus  text-gray-300"></i></a></div>
+                                            <?php } else { ?>
+                                                <div class="col-auto"><a class="btn btn-primary" target="_blank" href="mailto:agustin.coleff@cab.cnea.gov.ar "><i class="fas fa-user-plus  text-gray-300"></i></a></div>
+                                            <?php  } ?>
                                         </div>
                                     </div>
                                 </div>
