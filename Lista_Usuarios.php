@@ -97,10 +97,11 @@ if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
                                 <table class="table dataTable my-0" id="dataTable" data-show-export="true" data-force-export="true" data-toggle="table" data-search="true" data-pagination="true" data-show-columns="true" data-locale="es-ES">
                                     <thead class="thead-dark">
                                         <tr>
-                                            <th data-field="id" data-sortable="false">id</th>
+                                            <th class="esconder" >id</th>
                                             <th data-field="Nombre" data-sortable="true">Nombre</th>
                                             <th data-field="Apellido" data-sortable="true">Apellido</th>
                                             <th data-field="Sector" data-sortable="true">División</th>
+                                            <th data-field="Interno" data-sortable="true">Interno</th>
 
                                             <th data-field="Email" data-sortable="true">Email</th>
                                             <th data-field="Usuario" data-sortable="true">Usuario</th>
@@ -127,10 +128,11 @@ if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
                                         ?>
                                             <tr>
 
-                                                <td><?php echo $fila['id_usuario'] ?></td>
+                                                <td style="display: none;"><?php echo $fila['id_usuario'] ?></td>
                                                 <td><?php echo $fila['nombre'] ?></td>
                                                 <td><?php echo $fila['apellido'] ?></td>
                                                 <td><?php echo $fila["NombreSector"] ?></td>
+                                                <td><?php echo $fila["interno"] ?></td>
                                                 <td><?php echo $fila['mail'] ?></td>
                                                 <td><?php echo $fila["alias"] ?></td>
                                                 <td><?php echo $fila["legajo"] ?></td>
@@ -171,5 +173,9 @@ if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
     </div>
 </body>
 <?php include('footer.php'); ?>
-
+<script>
+    $(document).ready(function() {
+        $('.esconder').hide();
+    });
+    </script>
 </html>

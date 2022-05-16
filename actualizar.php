@@ -42,11 +42,11 @@ if (isset($_POST['update'])) {
         <?php include('navbar.php'); ?>
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
-            <?php include('navbar_superior.php'); ?>
+                <?php include('navbar_superior.php'); ?>
                 <div class="container-fluid">
                     <h3 class="text-dark mb-4">Editar Usuario</h3>
                     <div class="row mb-3">
-                        
+
                         <div class="col-lg-12">
 
                             <div class="row">
@@ -70,11 +70,11 @@ if (isset($_POST['update'])) {
 
                                                     <div class="col">
                                                         <div class="form-group"><label for="rol"><strong>Tipo de Usuario</strong></label><select class="form-control" required name="rol" placeholder="Tipo de usuario" id="rol" value="<?php echo $usuario['rol']; ?>">
-                                                                <option selected><strong><?php echo $usuario['rol']; ?></strong></option>
-                                                                <option >Agente</option>
-                                                                <option>Admin</option>                                                                
-                                                                <option>Jefe Division</option>
-                                                                <option>Jefe Depto</option>
+                                                                <option selected value="<?php echo $usuario['rol']; ?>"><strong><?php echo $usuario['rol']; ?></strong></option>
+                                                                <option value="Agente">Agente</option>
+                                                                <option value="Admin">Admin</option>
+                                                                <option value="Jefe Division">Jefe Division</option>
+                                                                <option value="Jefe Depto">Jefe Depto</option>
                                                             </select></div>
                                                     </div>
                                                     <div class="col">
@@ -82,10 +82,10 @@ if (isset($_POST['update'])) {
                                                     </div>
                                                     <div class="col">
                                                         <div class="form-group"><label for="sector"><strong>Sector</strong><br></label><select class="form-control" name="sector" id="exampleFormControlSelect2">
-                                                                <option  selected value="<?php echo $usuario['sector_id'] ?>"> <?php echo $usuario['NombreSector']?></option>
+                                                                <option selected value="<?php echo $usuario['sector_id'] ?>"> <?php echo $usuario['NombreSector'] ?></option>
                                                                 <?php
                                                                 $filas = $sector->mostrarDatos();
-                                                                
+
                                                                 foreach ($filas as $fila) {
                                                                 ?>
                                                                     <tr>
@@ -100,7 +100,7 @@ if (isset($_POST['update'])) {
                                                     </div>
                                                 </div>
 
-                                                
+
 
 
                                                 <div class="form-row">
@@ -119,20 +119,64 @@ if (isset($_POST['update'])) {
                                                         <div class="form-group"><label for="gde"><strong>Usuario Gde</strong><br></label><input class="form-control" type="text" required="Ingrese dato valido" placeholder="gde" name="gde" value="<?php echo $usuario['gde']; ?>"></div>
                                                     </div>
                                                     <div class="col">
-                                                        <div class="form-group"><label for="estado"><strong>Estado</strong></label><select class="form-control" required name="estado"  id="estado" value="<?php echo $usuario['estado']; ?>">
-                                                                <option selected value="<?php echo ($usuario['estado'])?>" ><strong><?php
-                                                                 if($usuario['estado']==1){echo("-Activo-");} 
-                                                                 if($usuario['estado']==0){echo("-Inactivo-");} 
-                                                                 if($usuario['estado']==2){echo("-Licencia-");} 
-                                                                
-                                                                
-                                                                ?></strong></option>
-                                                                <option value="1" >Activo</option>
-                                                                <option value="0" >Inactivo</option>                                                                
-                                                                <option value="2" >Licencia</option>
-                                                              
+                                                        <div class="form-group"><label for="estado"><strong>Estado</strong></label><select class="form-control" required name="estado" id="estado" value="<?php echo $usuario['estado']; ?>">
+                                                                <option selected value="<?php echo ($usuario['estado']) ?>"><strong><?php
+                                                                                                                                    if ($usuario['estado'] == 1) {
+                                                                                                                                        echo ("-Activo-");
+                                                                                                                                    }
+                                                                                                                                    if ($usuario['estado'] == 0) {
+                                                                                                                                        echo ("-Inactivo-");
+                                                                                                                                    }
+                                                                                                                                    if ($usuario['estado'] == 2) {
+                                                                                                                                        echo ("-Licencia-");
+                                                                                                                                    }
+
+
+                                                                                                                                    ?></strong></option>
+                                                                <option value="1">Activo</option>
+                                                                <option value="0">Inactivo</option>
+                                                                <option value="2">Licencia</option>
+
                                                             </select></div>
                                                     </div>
+                                                </div>
+                                                <div class="form-row">
+
+                                                    <div class="col">
+                                                        <div class="form-group"><label for="edificio"><strong>Edificio</strong></label><select class="form-control" required name="edificio" value="<?php echo $usuario['edificio']; ?>" placeholder=" Lugar de trabajo" id="edificio">
+
+                                                                <option selected value="<?php echo $usuario['edificio']; ?>"><?php echo $usuario['edificio']; ?></option>
+                                                                <option>Oficinas Uain A</option>
+                                                                <option>Oficinas Uain B</option>
+                                                                <option>Taller Uain B</option>
+                                                                <option>Laboratorio Uain B</option>
+                                                                <option>Ampliacion Uain B</option>
+                                                            </select></div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="form-group"><label for="cuil"><strong>Cuil</strong></label><input class="form-control" type="number" required="Ingrese dato valido" value="<?php echo $usuario['cuil']; ?>" placeholder="Cuil" name="cuil"></div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="form-group"><label for="interno"><strong>Interno</strong></label><input class="form-control" type="number" required="Ingrese dato valido" placeholder="Interno" name="interno" value="<?php echo $usuario['interno']; ?>"></div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-row">
+
+                                                    <div class="col">
+                                                        <div class="form-group"><label for="contratacion"><strong>Contratación</strong></label><input class="form-control" type="text" required="Ingrese dato valido" value="<?php echo $usuario['contratacion']; ?>" placeholder="Ingrese tipo de Contratacion" name="contratacion"></div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="form-group"><label for="tng"><strong>Tng</strong></label><input class="form-control" type="number"  placeholder="Ingrese Tng" name="tng" value="<?php echo $usuario['tng']; ?>"></div>
+                                                    </div>
+
+
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="col">
+                                                        <div class="form-group"><label for="obs"><strong>Observaciones</strong></label><textarea class="form-control" type="text" value="<?php echo $usuario['obs']; ?>" name="obs"><?php echo $usuario['obs']; ?></textarea></div>
+                                                    </div>
+
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="col">

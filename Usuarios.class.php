@@ -87,7 +87,7 @@ class Usuario extends conexionDb
 	}
 	public function mostrarDatosCompletos()
 	{
-		$query = "SELECT usuarios.id_usuario,usuarios.nombre,usuarios.apellido,usuarios.mail,usuarios.alias,usuarios.rol,usuarios.legajo,usuarios.gde,usuarios.estado,sector.nombre as NombreSector FROM `usuarios` left JOIN `sector` on sector.Sector_id = usuarios.sector_id;";
+		$query = "SELECT usuarios.interno,usuarios.id_usuario,usuarios.nombre,usuarios.apellido,usuarios.mail,usuarios.alias,usuarios.rol,usuarios.legajo,usuarios.gde,usuarios.estado,sector.nombre as NombreSector FROM `usuarios` left JOIN `sector` on sector.Sector_id = usuarios.sector_id;";
 		$result = $this->conexion->query($query);
 		if ($result->num_rows > 0) {
 			$data = array();
@@ -112,7 +112,13 @@ class Usuario extends conexionDb
 		$rol = $this->conexion->real_escape_string($_POST['rol']);
 		$gde = $this->conexion->real_escape_string($_POST['gde']);
 		$legajo = $this->conexion->real_escape_string($_POST['legajo']);
-		$query = "INSERT INTO usuarios(nombre,apellido,mail,alias,rol,sector_id,pasword,legajo,gde) VALUES ('$nombre','$apellido','$mail','$alias','$rol','$sector','$contr','$legajo','$gde')";
+		$edificio = $this->conexion->real_escape_string($_POST['edificio']);
+		$cuil = $this->conexion->real_escape_string($_POST['cuil']);
+		$interno = $this->conexion->real_escape_string($_POST['interno']);
+		$contratacion = $this->conexion->real_escape_string($_POST['contratacion']);
+		$tng = $this->conexion->real_escape_string($_POST['tng']);
+		$obs = $this->conexion->real_escape_string($_POST['obs']);
+		$query = "INSERT INTO usuarios(nombre,apellido,mail,alias,rol,sector_id,pasword,legajo,gde,edificio,cuil,interno,contratacion,tng,obs) VALUES ('$nombre','$apellido','$mail','$alias','$rol','$sector','$contr','$legajo','$gde','$edificio','$cuil','$interno','$contratacion','$tng','$obs')";
 		$sql = $this->conexion->query($query);
 		if ($sql == true) {
 			echo "<script> alert('Se insertaron los datos con exito'); window.location='/GestionThi/gestionthipoo/Lista_Usuarios.php'</script> ";
@@ -150,7 +156,7 @@ class Usuario extends conexionDb
 	}
 	public function mostrarFilaPorIdConNombre($id)
 	{
-		$query = "SELECT usuarios.sector_id,usuarios.id_usuario,usuarios.nombre,usuarios.pasword,usuarios.apellido,usuarios.mail,usuarios.alias,usuarios.rol,usuarios.legajo,usuarios.gde,usuarios.estado,sector.nombre as NombreSector FROM `usuarios` left JOIN `sector` on sector.Sector_id = usuarios.sector_id WHERE id_usuario = '$id'";
+		$query = "SELECT usuarios.edificio,usuarios.cuil,usuarios.interno,usuarios.contratacion,usuarios.tng,usuarios.obs, usuarios.sector_id,usuarios.id_usuario,usuarios.nombre,usuarios.pasword,usuarios.apellido,usuarios.mail,usuarios.alias,usuarios.rol,usuarios.legajo,usuarios.gde,usuarios.estado,sector.nombre as NombreSector FROM `usuarios` left JOIN `sector` on sector.Sector_id = usuarios.sector_id WHERE id_usuario = '$id'";
 		$result = $this->conexion->query($query);
 		if ($result->num_rows > 0) {
 			$row = $result->fetch_assoc();
@@ -176,11 +182,17 @@ class Usuario extends conexionDb
 		$legajo = $this->conexion->real_escape_string($_POST['legajo']);
 		$estado = $this->conexion->real_escape_string($_POST['estado']);
 		$sector = $this->conexion->real_escape_string($_POST['sector']);
+		$edificio = $this->conexion->real_escape_string($_POST['edificio']);
+		$cuil = $this->conexion->real_escape_string($_POST['cuil']);
+		$interno = $this->conexion->real_escape_string($_POST['interno']);
+		$contratacion = $this->conexion->real_escape_string($_POST['contratacion']);
+		$tng = $this->conexion->real_escape_string($_POST['tng']);
+		$obs = $this->conexion->real_escape_string($_POST['obs']);
 
 		if (!empty($id) && !empty($postData)) {
 
-			$query = "UPDATE usuarios SET nombre = '$nombre', apellido = '$apellido', mail = '$mail', alias = '$alias', rol = '$rol', pasword = '$contr',legajo = '$legajo',gde = '$gde',estado = '$estado',sector_id = '$sector' WHERE id_usuario = '$id'";
-			
+			$query = "UPDATE usuarios SET edificio ='$edificio', cuil='$cuil', interno='$interno',contratacion='$contratacion',tng='$tng',obs='$obs', nombre = '$nombre', apellido = '$apellido', mail = '$mail', alias = '$alias', rol = '$rol', pasword = '$contr',legajo = '$legajo',gde = '$gde',estado = '$estado',sector_id = '$sector' WHERE id_usuario = '$id'";
+
 			$sql = $this->conexion->query($query);
 			if ($sql == true) {
 				$log->insertarLog($_SESSION['user'], "Se ha modificado el Usuario con id: " . $id);
@@ -191,35 +203,41 @@ class Usuario extends conexionDb
 			}
 		}
 	}
-		// actualiza datos en la tabla
-		public function actualizarDatosParaUsuario($postData)
+	// actualiza datos en la tabla
+	public function actualizarDatosParaUsuario($postData)
 
-		{
-			$log = new log_class();
-			$id = $this->conexion->real_escape_string($_POST['id_usuario']);
-		
-			$contr = $this->conexion->real_escape_string($_POST['pasword']);
-		
-			$mail = $this->conexion->real_escape_string($_POST['mail']);
-			
-			$gde = $this->conexion->real_escape_string($_POST['gde']);
-			$legajo = $this->conexion->real_escape_string($_POST['legajo']);
-		
-	
-			if (!empty($id) && !empty($postData)) {
-	
-				$query = "UPDATE usuarios SET  mail = '$mail', pasword = '$contr',legajo = '$legajo',gde = '$gde' WHERE id_usuario = '$id'";
-				
-				$sql = $this->conexion->query($query);
-				if ($sql == true) {
-					$log->insertarLog($_SESSION['user'], "Se ha modificado el Usuario con id: " . $id);
-					echo "<script> alert('Se actualizaron los datos con exito'); window.location='/GestionThi/gestionthipoo/panel.php'</script> ";
-				} else {
-					$log->insertarLog($_SESSION['user'], "Fallo al modificar Usuario");
-					echo "<script> alert('Fallo al actualizar datos');window.location='/GestionThi/gestionthipoo/panel.php'</script>  </script>";
-				}
+	{
+		$log = new log_class();
+		$id = $this->conexion->real_escape_string($_POST['id_usuario']);
+
+		$contr = $this->conexion->real_escape_string($_POST['pasword']);
+
+		$mail = $this->conexion->real_escape_string($_POST['mail']);
+
+		$gde = $this->conexion->real_escape_string($_POST['gde']);
+		$legajo = $this->conexion->real_escape_string($_POST['legajo']);
+		$edificio = $this->conexion->real_escape_string($_POST['edificio']);
+		$cuil = $this->conexion->real_escape_string($_POST['cuil']);
+		$interno = $this->conexion->real_escape_string($_POST['interno']);
+		$contratacion = $this->conexion->real_escape_string($_POST['contratacion']);
+		$tng = $this->conexion->real_escape_string($_POST['tng']);
+		$obs = $this->conexion->real_escape_string($_POST['obs']);
+
+
+		if (!empty($id) && !empty($postData)) {
+
+			$query = "UPDATE usuarios SET edificio ='$edificio', cuil='$cuil', interno='$interno',contratacion='$contratacion',tng='$tng',obs='$obs', mail = '$mail', pasword = '$contr',legajo = '$legajo',gde = '$gde' WHERE id_usuario = '$id'";
+
+			$sql = $this->conexion->query($query);
+			if ($sql == true) {
+				$log->insertarLog($_SESSION['user'], "Se ha modificado el Usuario con id: " . $id);
+				echo "<script> alert('Se actualizaron los datos con exito'); window.location='/GestionThi/gestionthipoo/panel.php'</script> ";
+			} else {
+				$log->insertarLog($_SESSION['user'], "Fallo al modificar Usuario");
+				echo "<script> alert('Fallo al actualizar datos');window.location='/GestionThi/gestionthipoo/panel.php'</script>  </script>";
 			}
 		}
+	}
 
 	public function mostrarDatosBusqueda($query)
 	{
@@ -238,5 +256,4 @@ class Usuario extends conexionDb
 			return array();
 		}
 	}
-		
 }

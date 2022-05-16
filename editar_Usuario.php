@@ -89,6 +89,45 @@ if (isset($_POST['update'])) {
 
                                                 </div>
                                                 <div class="form-row">
+
+                                                    <div class="col">
+                                                        <div class="form-group"><label for="edificio"><strong>Edificio</strong></label><select class="form-control"  name="edificio" value="<?php echo $usuario['edificio']; ?>" placeholder=" Lugar de trabajo" id="edificio">
+
+                                                                <option selected value="<?php echo $usuario['edificio']; ?>"><?php echo $usuario['edificio']; ?></option>
+                                                                <option>Oficinas Uain A</option>
+                                                                <option>Oficinas Uain B</option>
+                                                                <option>Taller Uain B</option>
+                                                                <option>Laboratorio Uain B</option>
+                                                                <option>Ampliacion Uain B</option>
+                                                            </select></div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="form-group"><label for="cuil"><strong>Cuil</strong></label><input class="form-control" type="number"  value="<?php echo $usuario['cuil']; ?>" placeholder="Cuil" name="cuil"></div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="form-group"><label for="interno"><strong>Interno</strong></label><input class="form-control" type="number"  placeholder="Interno" name="interno" value="<?php echo $usuario['interno']; ?>"></div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-row">
+
+                                                    <div class="col">
+                                                        <div class="form-group"><label for="contratacion"><strong>Contratación</strong></label><input class="form-control" type="text" value="<?php echo $usuario['contratacion']; ?>" placeholder="Ingrese tipo de Contratacion" name="contratacion"></div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="form-group"><label for="tng"><strong>Tng</strong></label><input class="form-control" type="number" placeholder="Ingrese Tng" name="tng" value="<?php echo $usuario['tng']; ?>"></div>
+                                                    </div>
+
+
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="col">
+                                                        <div class="form-group"><label for="obs"><strong>Observaciones</strong></label><textarea class="form-control" type="text" value="<?php echo $usuario['obs']; ?>" name="obs"><?php echo $usuario['obs']; ?></textarea></div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="form-row">
                                                     <div class="col">
                                                         <!-- <div class="form-group"><label for="imagen"><strong>Imagen de Perfil</strong><br></label><br><input type="file" required class="btn btn-secondary btn-sm" name="imagen" value="agregar imagen"/></div> -->
                                                     </div>

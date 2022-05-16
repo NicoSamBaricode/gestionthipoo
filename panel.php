@@ -89,7 +89,7 @@ $id_usuario = $row['id_usuario'];
                             </a>
                         </div>
                         <div class="col-md-6 col-xl-3 mb-4">
-                            <a class="card shadow border-left-warning  py-2 btn" href="https://portal.cnea.gob.ar/app/web/buscador-agenda/index " target="_blank">
+                            <a class="card shadow border-left-warning  py-2 btn" href=" https://sistemas.cnea.gov.ar/agenda/web/ " target="_blank">
                                 <div class="card-body">
                                     <div class="row align-items-center no-gutters">
                                         <div class="col mr-2">
@@ -209,14 +209,26 @@ $id_usuario = $row['id_usuario'];
                                         <h6 class="text-primary font-weight-bold m-0">Proyectos y actividades del departamento</h6>
 
                                     </div>
-                                    <div class="col">
+                                    <div class="row p-3">
+                                      <div class="col-md-6">
+                                        <label for="opcion">Ver:</label>
+                                        <select class="form-control" id="opcion">
+                                            <option value="todos">Proyectos y Actividades</option>
+                                            <option value="proyectos">Proyectos</option>
+                                            <option value="actividades">Actividades</option>
+
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
                                         <label for="filtros">Ordenar por:</label>
                                         <select class="form-control" id="filtros">
                                             <option value="nombre">Nombre</option>
                                             <option value="horas_dedicadas">Cantidad de horas</option>
 
                                         </select>
+                                    </div>  
                                     </div>
+                                    
 
                                     <!-- grafico de torta -->
                                     <div class="card-body">
@@ -239,6 +251,10 @@ $id_usuario = $row['id_usuario'];
                                                 resetCanvass();
                                                 showGraph();
                                             });
+                                            $("#opcion").on("change", function() {
+                                                resetCanvass();
+                                                showGraph();
+                                            });
 
                                             function showGraph() {
                                                 {
@@ -246,32 +262,46 @@ $id_usuario = $row['id_usuario'];
 
                                                             id_usuario: <?php echo $id_usuario; ?>,
                                                             filtro: $("#filtros").val(),
+                                                            opcion: $("#opcion").val(),
 
                                                         },
                                                         function(data) {
 
                                                             var name = [];
                                                             var marks = [];
+                                                            var relev = [];
                                                             var color = [];
 
                                                             for (var i in data) {
                                                                 name.push(data[i].nombre);
                                                                 marks.push(data[i].horas_dedicadas);
+                                                                relev.push(data[i].horas_acumuladas);
                                                                 color.push(data[i].color_act);
                                                             }
 
                                                             var chartdata = {
 
                                                                 labels: name,
+
                                                                 datasets: [{
-                                                                    label: 'Ocupacion',
-                                                                    backgroundColor: color,
-                                                                    borderColor: 'rgba(200, 200, 200, 0.75)',
-                                                                    borderColor: '#ffff',
-                                                                    hoverBackgroundColor: '#CCCCCC',
-                                                                    hoverBorderColor: '#666666',
-                                                                    data: marks
-                                                                }]
+                                                                        type: "bubble",
+                                                                        label: "Relevadas",
+                                                                        data: relev,
+                                                                        backgroundColor: "#ffff",
+                                                                        borderColor: " #ffff",
+                                                                        pointStyle: 'line',
+                                                                        radius: 12,
+                                                                        borderWidth: 4,
+                                                                    }, {
+                                                                        type: "bar",
+                                                                        backgroundColor: color,
+                                                                        borderColor: color,
+                                                                        borderWidth: 1,
+                                                                        label: "Planificadas",
+                                                                        data: marks
+                                                                    },
+
+                                                                ]
                                                             };
 
                                                             var graphTarget = $("#graphCanvas");
@@ -288,10 +318,10 @@ $id_usuario = $row['id_usuario'];
                                                                 type: 'bar',
                                                                 data: chartdata
                                                             });
-                                                         
+
                                                         }
-                                                        );
-                                                        
+                                                    );
+
                                                 }
                                             }
                                         </script>

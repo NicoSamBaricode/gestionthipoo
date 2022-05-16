@@ -125,7 +125,27 @@ class Dedicacion_class extends conexionDb
 			return array();
 		}
 	}
+	public function mostrarFilaPorIdJoinNombres($id)
+	{   $query = "SELECT dedicacion.mes,dedicacion.anio,dedicacion.horas,dedicacion.horas_relevadas,dedicacion.obs,dedicacion.timeStamp,usuarios.nombre,usuarios.apellido,proyectos.nombre as nombreProyecto
+		FROM dedicacion
+		LEFT JOIN usuarios
+		ON dedicacion.id_agente = usuarios.id_usuario
+		LEFT JOIN proyectos
+		ON dedicacion.imputacion = proyectos.id_proyectos
+		WHERE dedicacion.id_dedicacion= '$id'
+		;";
+		
+		$result = $this->conexion->query($query);
+		if ($result->num_rows > 0) {
+			$row = $result->fetch_assoc();
 
+			return $row;
+		} else {
+			echo "<script> alert('No se encontro el registro'); </script>";
+			return array();
+		}
+	}
+	
 
 	// actualiza datos en la tabla
 	public function actualizarFilaD($postData)

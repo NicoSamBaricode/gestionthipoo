@@ -106,16 +106,51 @@ if (isset($_POST['submit'])) {
                                                 </div>
                                                 <div class="form-row">
 
-                                                    
+
                                                     <div class="col">
                                                         <div class="form-group"><label for="text"><strong>Legajo</strong></label><input class="form-control" type="number" required="Ingrese dato valido" placeholder="Legajo" name="legajo"></div>
                                                     </div>
                                                     <div class="col">
                                                         <div class="form-group"><label for="text"><strong>Usuario Gde</strong></label><input class="form-control" type="text" required="Ingrese dato valido" placeholder="Gde" name="gde"></div>
                                                     </div>
-                                                   
-                                                </div>
 
+                                                </div>
+                                                <div class="form-row">
+
+                                                    <div class="col">
+                                                        <div class="form-group"><label for="edificio"><strong>Edificio</strong></label><select class="form-control" required name="edificio" placeholder="Lugar de trabajo" id="edificio">
+                                                                <option selected>Oficinas Uain A</option>
+                                                                <option>Oficinas Uain B</option>
+                                                                <option>Taller Uain B</option>
+                                                                <option>Laboratorio Uain B</option>
+                                                                <option>Ampliacion Uain B</option>
+                                                            </select></div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="form-group"><label for="cuil"><strong>Cuil</strong></label><input class="form-control" type="number" required="Ingrese dato valido" placeholder="Cuil" name="cuil"></div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="form-group"><label for="interno"><strong>Interno</strong></label><input class="form-control" type="number" required="Ingrese dato valido" placeholder="Interno" name="interno"></div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-row">
+
+                                                    <div class="col">
+                                                        <div class="form-group"><label for="contratacion"><strong>Contratación</strong></label><input class="form-control" type="text" required="Ingrese dato valido" placeholder="Ingrese tipo de Contratacion" name="contratacion"></div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="form-group"><label for="tng"><strong>Tng</strong></label><input class="form-control" type="number" required="Ingrese dato valido" placeholder="Ingrese Tng" name="tng"></div>
+                                                    </div>
+
+
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="col">
+                                                        <div class="form-group"><label for="obs"><strong>Observaciones</strong></label><textarea class="form-control" type="text" required="Ingrese dato valido" placeholder="Observaciones" name="obs"></textarea></div>
+                                                    </div>
+
+                                                </div>
                                                 <div class="form-row" style="margin-left:auto; right:0px; max-width:fit-content">
 
                                                     <div class="col" style="max-width:fit-content">

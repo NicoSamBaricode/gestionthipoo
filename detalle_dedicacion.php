@@ -6,16 +6,17 @@ if (!isset($_SESSION['user']) || (trim($_SESSION['user']) == '')) {
 }
 error_reporting(0);
 include_once('Usuarios.class.php');
+include_once('dedicacion.class.php');
 
 
 $user = new Usuario();
 $row = $user->mostrarFilaPorIdConNombre($_SESSION['user']);
 
-
+$dedicacion_obj = new Dedicacion_class();
 // funcion edita
 if (isset($_GET['Id']) && !empty($_GET['Id'])) {
     $Id = $_GET['Id'];
-    $usuario = $user->mostrarFilaPorIdConNombre($Id);
+    $dedicacion = $dedicacion_obj->mostrarFilaPorIdJoinNombres($Id);
 }
 
 
