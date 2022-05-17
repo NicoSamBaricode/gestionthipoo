@@ -74,7 +74,7 @@ $nombreSector=$sector->mostrarFilaPorId($actividad['sector']);
                                                         <div class="form-group"><label for="nombre"><strong>Nombre&nbsp;</strong></label><input class="form-control" type="text" placeholder="Nombre " name="nombre" required="Ingrese dato valido" value="<?php echo $actividad['nombre']; ?>"></div>
                                                     </div>
                                                     <div class="col">
-                                                        <div class="form-group"><label for="identificador"><strong>Identificador&nbsp;</strong></label><input class="form-control" type="text" placeholder="Identificador" name="identificador" required="Ingrese dato valido" value="<?php echo $actividad['identificador']; ?>"></div>
+                                                        <div class="form-group"><label for="identificador"><strong>Acronimo&nbsp;</strong></label><input class="form-control" type="text" placeholder="Identificador" name="identificador" required="Ingrese dato valido" value="<?php echo $actividad['identificador']; ?>"></div>
 
                                                     </div>
                                                     <div class="col">

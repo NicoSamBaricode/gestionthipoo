@@ -155,7 +155,7 @@ $tipo = 2; // si es 0 es de actividad //1 si es proyectos
                                                             <td class="centrarRegistros"><?php echo $fila['horas'] ?></td>
                                                             <td><?php echo $fila['horas_relevadas'] ?></td>
                                                             <td><?php echo $aux_p['nombre'] ?></td>
-                                                            <td><?php echo $fila['obs'] ?></td>
+                                                            <td><a href="detalle_dedicacion.php?Id=<?php echo $fila['id_dedicacion'] ?>"class="btn btn-secondary btn-sm"><i class="fas fa-search-plus" style="color:white"></i></a></td>
                                                             <script src="cartel.js"> </script>
                                                             <!-- <td><a class="btn btn-primary mx-auto btn-circle ml-1"  role="button" href="crear_tarea.php?tareaId=<?php //echo $fila["id_proyectos"]; 
                                                                                                                                                                         ?>"><i class="fas fa-file-medical text-white"></i></a></td> -->
@@ -237,7 +237,8 @@ $tipo = 2; // si es 0 es de actividad //1 si es proyectos
                                                                 </div>
                                                             </td>
                                                             <td><?php echo $aux_p['nombre'] ?></td>
-                                                            <td><?php echo $fila['obs'] ?></td>
+                                                            
+                                                            <td><?php echo $fila['obs'] ?><a href="detalle_dedicacion.php?Id=<?php echo $fila['id_dedicacion'] ?>"class="btn btn-secondary btn-sm"><i class="fas fa-search-plus" style="color:white"></i></a></td>
                                                             <script src="cartel.js"> </script>
                                                             <!-- <td><a class="btn btn-primary mx-auto btn-circle ml-1"  role="button" href="crear_tarea.php?tareaId=<?php //echo $fila["id_proyectos"]; 
                                                                                                                                                                         ?>"><i class="fas fa-file-medical text-white"></i></a></td> -->
@@ -349,7 +350,7 @@ $tipo = 2; // si es 0 es de actividad //1 si es proyectos
                                                             var graphTarget = $("#graphCanvas2");
 
                                                             var barGraph = new Chart(graphTarget, {
-                                                                type: 'doughnut',
+                                                                type: 'bar',
                                                                 data: chartdata
                                                             });
                                                         },

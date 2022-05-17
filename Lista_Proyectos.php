@@ -145,8 +145,9 @@ $flag = false;
                                 <table class="table dataTable my-0" id="dataTable" data-show-export="true" data-force-export="true" data-toggle="table" data-search="true" data-pagination="true" data-show-columns="true" data-locale="es-ES">
                                     <thead class="thead-dark">
                                         <tr>
-                                            <th data-field="Id" data-sortable="true">Id</th>
+                                            <th data-field="Id" data-sortable="true">Codigo Acronimo</th>
                                             <th data-field="Nombre" data-sortable="true">Nombre</th>
+                                            <th data-field="Tema" data-sortable="true">Tema</th>
                                             <th data-field="Sector" data-sortable="true">Sector</th>
                                             <th data-field="proyectadas" data-sortable="true">Horas Proyectadas Total</th>
 
@@ -178,6 +179,7 @@ $flag = false;
                                                             ?></td> -->
                                                 <td><?php echo $fila['identificador'] ?></td>
                                                 <td><?php echo $fila['nombre'] ?></td>
+                                                <td><?php echo $fila['tema'] ?></td>
                                                 <td><?php echo ($nombreSector['Nombre']) ?></td>
 
                                                 <td><?php echo $fila['horas_dedicadas'] ?></td>

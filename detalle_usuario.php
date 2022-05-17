@@ -82,7 +82,7 @@ if (isset($_GET['Id']) && !empty($_GET['Id'])) {
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-3">
-                                                                    <div class="form-group"><label for="fecha"><strong>row</strong></label>
+                                                                    <div class="form-group"><label for="fecha"><strong>Usuario</strong></label>
                                                                         <p><?php echo $usuario["alias"] ?></p>
                                                                     </div>
                                                                 </div>
@@ -92,7 +92,7 @@ if (isset($_GET['Id']) && !empty($_GET['Id'])) {
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-3">
-                                                                    <div class="form-group"><label for="fecha"><strong>row Gde</strong></label>
+                                                                    <div class="form-group"><label for="fecha"><strong>Usuario Gde</strong></label>
                                                                         <p><?php echo $usuario["gde"] ?></p>
                                                                     </div>
                                                                 </div>

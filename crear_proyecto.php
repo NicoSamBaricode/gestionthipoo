@@ -8,10 +8,12 @@ if (!isset($_SESSION['user']) || (trim($_SESSION['user']) == '')) {
 include_once('Usuarios.class.php');
 include_once('proyectos.class.php');
 include_once('sectores.class.php');
+include_once('temas.class.php');
 
 $user = new Usuario();
 $proyecto = new Proyecto_class();
 $sector = new Sector();
+$tema = new Temas_class();
 
 //extrae datos de usuaio
 $sql = "SELECT * FROM usuarios WHERE id_usuario = '" . $_SESSION['user'] . "'";
@@ -62,10 +64,28 @@ if (isset($_POST['submit'])) {
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="col">
-                                                        <div class="form-group"><label for="identificador"><strong>Identificador&nbsp;</strong></label><input class="form-control" type="text" placeholder="Identificador" name="identificador" required="Ingrese dato valido"></div>
+                                                        <div class="form-group"><label for="identificador"><strong>Código Acronimo&nbsp;</strong></label><input class="form-control" type="text" placeholder="Identificador" name="identificador" required="Ingrese dato valido"></div>
                                                     </div>
                                                     <div class="col">
-                                                        <div class="form-group"><label for="tema"><strong>Tema</strong></label><input class="form-control" type="text" placeholder="Tema" name="tema"></div>
+                                                        <div class="form-group"><label for="acta"><strong>Acta Inicio&nbsp;</strong></label><input class="form-control" type="text" placeholder="Acta" name="acta" required="Ingrese dato valido"></div>
+                                                    </div>
+                                                   
+                                                    <div class="col">
+                                                        <div class="form-group"><label for="tema"><strong>Tema</strong><br></label><select class="form-control" name="tema" >
+                                                                <?php
+                                                                $filas = $tema->mostrarDatos();
+
+                                                                foreach ($filas as $fila) {
+                                                                ?>
+                                                                    <tr>
+
+                                                                        <option value="<?php echo $fila['id_tema'] ?>"> <?php echo $fila['nombre'] ?></option>
+
+
+                                                                    </tr>
+                                                                <?php }  ?>
+                                                            </select>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
@@ -128,9 +148,12 @@ if (isset($_POST['submit'])) {
                                                             </select>
                                                         </div>
                                                     </div>
+                                                    <div class="col">
+                                                        <div class="form-group"><label for="color"><strong>Color de grafico</strong><br></label><input class="form-control" type="color" placeholder="Color" name="color" ></div>
+                                                    </div>
                                                 </div>
                                                 <div class="form-row">
-                                                    <div class="col">
+                                                    <div class="col-md-12">
                                                         <div class="form-group"><label for="obs"><strong>Observaciones</strong><br></label><textarea class="form-control" type="text" placeholder="Observaciones" name="obs"></textarea></div>
                                                     </div>
                                                 </div>

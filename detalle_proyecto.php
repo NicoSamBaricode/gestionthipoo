@@ -4,11 +4,15 @@ session_start();
 if (!isset($_SESSION['user']) || (trim($_SESSION['user']) == '')) {
     header('location:index.php');
 }
-error_reporting(0);
+
 include_once('Usuarios.class.php');
 include_once('proyectos.class.php');
 include_once('tareas.class.php');
 
+include_once('temas.class.php');
+
+
+$temas=new Temas_class();
 $user = new Usuario();
 $proyecto = new Proyecto_class();
 $tarea = new Tarea_class();
@@ -21,6 +25,10 @@ $row = $user->detalle($sql);
 $id_proy = $_GET["detalleid"];
 $fila_proy = $proyecto->mostrarFilaPorId($id_proy, $tipo);
 $aux_u = $user->mostrarFilaPorId($fila_proy['responsable']);
+
+$temasProyecto=$temas->mostrarDatos_id($id_proy);
+$sectorProyecto=$proyecto-> mostrarNombreSector($id_proy);
+
 
 
 //llama funcion borrar
@@ -93,27 +101,27 @@ if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
                                                             </div>
 
                                                             <div class="col-md-3">
-                                                                <div class="form-group"><label for="identificador"><strong>Identificador&nbsp;</strong></label>
+                                                                <div class="form-group"><label for="identificador"><strong>Código Acronimo&nbsp;</strong></label>
                                                                     <p><?php echo $fila_proy["identificador"] ?></p>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-3">
                                                                 <div class="form-group"><label for="tema"><strong>Tema</strong></label>
-                                                                    <p><?php echo $fila_proy["tema"] ?></p>
+                                                                    <p><?php echo $temasProyecto[0]["nombre"] ?></p>
                                                                 </div>
                                                             </div>
 
-                                                            <div class="col-md-3">
+                                                            <div class="col-md-12">
                                                                 <div class="form-group"><label for="descripcion"><strong>Descripcion</strong><br></label>
                                                                     <p><?php echo $fila_proy["descripcion"] ?></p>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-3">
                                                                 <div class="form-group"><label for="sector"><strong>Sector</strong></label>
-                                                                    <p><?php echo $fila_proy["sector"] ?></p>
+                                                                    <p><?php echo $sectorProyecto["Nombre"] ?></p>
                                                                 </div>
                                                             </div>
-
+                                                            
                                                             <div class="col-md-3">
                                                                 <div class="form-group"><label for="resp"><strong>Responsable</strong><br></label>
                                                                     <p><?php echo $aux_u["nombre"] ?></p>
@@ -144,6 +152,11 @@ if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
                                                             <div class="col-md-3">
                                                                 <div class="form-group"><label for="horasR" ><strong>Horas Relevadas</strong><br></label>
                                                                     <p><?php echo $fila_proy["horas_totales_relevadas"] ?></p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <div class="form-group"><label for="horasR" ><strong>Acta</strong><br></label>
+                                                                    <p><?php echo $fila_proy["acta"] ?></p>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-12">

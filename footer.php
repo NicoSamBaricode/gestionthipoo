@@ -1,6 +1,6 @@
 <footer class="bg-white sticky-footer">
     <div class="container my-auto">
-        <div class="text-center my-auto copyright"><span>Copyright © Thi Programación Release:1.2</span></div>
+        <div class="text-center my-auto copyright"><span>Copyright © Thi Programación Release:1.3</span></div>
     </div>
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>

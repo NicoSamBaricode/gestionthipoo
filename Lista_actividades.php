@@ -108,7 +108,7 @@ $flag = false;
                                 <table class="table dataTable my-0" id="dataTable" data-show-export="true" data-force-export="true" data-toggle="table" data-search="true" data-pagination="true" data-show-columns="true" data-locale="es-ES">
                                     <thead class="thead-dark">
                                         <tr>
-                                            <th data-field="Id" data-sortable="true">Id</th>
+                                            <th data-field="Id" data-sortable="true">Acronimo</th>
                                             <th data-field="Nombre" data-sortable="true">Nombre</th>
                                             <th data-field="Descripcion" data-sortable="true">Descripción</th>
                                             <th>Horas asignadas</th>

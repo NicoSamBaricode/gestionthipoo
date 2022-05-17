@@ -8,3 +8,11 @@
     newWin.close();
   }
 </script>
+<?php
+function colorRandom(){
+  $color =  mt_rand(0, 0xFFFFFF);
+			$color = "#" . dechex($color);
+      return $color;
+}
+
+      

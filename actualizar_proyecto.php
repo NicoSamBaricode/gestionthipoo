@@ -8,6 +8,9 @@ if (!isset($_SESSION['user']) || (trim($_SESSION['user']) == '')) {
 include_once('Usuarios.Class.php');
 include_once('proyectos.class.php');
 include_once('sectores.class.php');
+include_once('temas.class.php');
+
+$temas = new Temas_class();
 $sector = new Sector();
 $user = new Usuario();
 $proyecto_obj = new Proyecto_class();
@@ -35,6 +38,9 @@ if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
     $proyecto->borrar_proyecto($borrarId);
 }
 $nombreSector=$sector->mostrarFilaPorId($proyecto['sector']);
+
+$auxTema=$temas->mostrarFilaPorId($proyecto['tema']);
+
 ?>
 
 <!DOCTYPE html>
@@ -76,11 +82,36 @@ $nombreSector=$sector->mostrarFilaPorId($proyecto['sector']);
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
+
                                                     <div class="col">
                                                         <div class="form-group"><label for="identificador"><strong>Identificador&nbsp;</strong></label><input class="form-control" type="text" placeholder="Identificador" name="identificador" required="Ingrese dato valido" value="<?php echo $proyecto['identificador']; ?>"></div>
                                                     </div>
                                                     <div class="col">
-                                                        <div class="form-group"><label for="tema"><strong>Tema</strong></label><input class="form-control" type="text" placeholder="Tema" name="tema" value="<?php echo $proyecto['tema']; ?>"></div>
+                                                        <div class="form-group"><label for="acta"><strong>Acta&nbsp;</strong></label><input class="form-control" type="text" placeholder="Acta" name="acta" required="Ingrese dato valido" value="<?php echo $proyecto['acta']; ?>"></div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="form-group"><label for="sector"><strong>Tema</strong><br></label><select class="form-control" name="tema" >
+                                                                 
+                                                        <?php 
+                                                       
+                                                        ?> 
+                                                        <option selected value="<?php echo $proyecto['tema']; ?>"> <?php echo "- ". $auxTema['nombre'] ." -"?></option>
+                                                                <?php
+                                                                $filas = $temas->mostrarDatos();
+                                                                
+
+                                                                foreach ($filas as $fila) {
+                                                                    
+                                                                ?>
+                                                                   
+
+                                                                        <option value="<?php echo $fila['id_tema']; ?>"> <?php echo $fila['nombre']?></option>
+
+
+                                                                    
+                                                                <?php }  ?>
+                                                            </select>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-row">

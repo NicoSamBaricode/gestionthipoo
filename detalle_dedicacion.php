@@ -17,6 +17,7 @@ $dedicacion_obj = new Dedicacion_class();
 if (isset($_GET['Id']) && !empty($_GET['Id'])) {
     $Id = $_GET['Id'];
     $dedicacion = $dedicacion_obj->mostrarFilaPorIdJoinNombres($Id);
+   
 }
 
 
@@ -26,7 +27,7 @@ if (isset($_GET['Id']) && !empty($_GET['Id'])) {
 <html>
 
 <head>
-    <title>Detalle row</title>
+    <title>Detalle Dedicación</title>
     <?php include('header.php'); ?>
 </head>
 
@@ -37,7 +38,7 @@ if (isset($_GET['Id']) && !empty($_GET['Id'])) {
             <div id="content">
                 <?php include('navbar_superior.php'); ?>
                 <div class="container-fluid">
-                    <h3 class="text-dark mb-4">Detalle Usuario</h3>
+                    <h3 class="text-dark mb-4">Detalle Dedicación</h3>
                     <div class="row mb-3">
 
                         <div class="col-lg-12">
@@ -46,7 +47,7 @@ if (isset($_GET['Id']) && !empty($_GET['Id'])) {
                                 <div class="col">
                                     <div class="card shadow mb-3">
                                         <div class="card-header py-3">
-                                            <p class="text-primary m-0 font-weight-bold"><?php echo $usuario["nombre"] . " " . $usuario["apellido"] ?></p>
+                                            <p class="text-primary m-0 font-weight-bold">Identificador #<?php echo($Id)?></p>
                                         </div>
                                         <div class="card-body">
                                             <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -64,91 +65,53 @@ if (isset($_GET['Id']) && !empty($_GET['Id'])) {
                                                             <div class="row ">
                                                                 <div class="col-md-3">
                                                                     <div class="form-group"><label for="nombre"><strong>Nombre&nbsp;</strong></label>
-                                                                        <p><?php echo $usuario["nombre"] ?></p>
+                                                                        <p><?php echo $dedicacion["nombre"] ?></p>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-3">
                                                                     <div class="form-group"><label for="fecha"><strong>Apellido</strong></label>
-                                                                        <p><?php echo $usuario["apellido"] ?></p>
+                                                                        <p><?php echo $dedicacion["apellido"] ?></p>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-3">
-                                                                    <div class="form-group"><label for="fecha"><strong>Rol</strong></label>
-                                                                        <p><?php echo $usuario["rol"] ?></p>
+                                                                    <div class="form-group"><label for="fecha"><strong>Mes</strong></label>
+                                                                        <p><?php echo $dedicacion["mes"] ?></p>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-3">
-                                                                    <div class="form-group"><label for="fecha"><strong>Email</strong></label>
-                                                                        <p><?php echo $usuario["mail"] ?></p>
+                                                                    <div class="form-group"><label for="fecha"><strong>Año</strong></label>
+                                                                        <p><?php echo $dedicacion["anio"] ?></p>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-3">
-                                                                    <div class="form-group"><label for="fecha"><strong>row</strong></label>
-                                                                        <p><?php echo $usuario["alias"] ?></p>
+                                                                    <div class="form-group"><label for="fecha"><strong>Proyecto/Actividad</strong></label>
+                                                                        <p><?php echo $dedicacion["nombreProyecto"] ?></p>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-3">
-                                                                    <div class="form-group"><label for="fecha"><strong>Legajo</strong></label>
-                                                                        <p><?php echo $usuario["legajo"] ?></p>
+                                                                    <div class="form-group"><label for="fecha"><strong>Horas Planificadas</strong></label>
+                                                                        <p><?php echo $dedicacion["horas"] ?></p>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-3">
-                                                                    <div class="form-group"><label for="fecha"><strong>row Gde</strong></label>
-                                                                        <p><?php echo $usuario["gde"] ?></p>
+                                                                    <div class="form-group"><label for="fecha"><strong>Horas Relevadas</strong></label>
+                                                                        <p><?php echo $dedicacion["horas_relevadas"] ?></p>
                                                                     </div>
                                                                 </div>
+                                                               
                                                                 <div class="col-md-3">
-                                                                    <div class="form-group"><label for="fecha"><strong>Estado</strong></label>
-                                                                        <p><?php
-                                                                            if ($usuario["estado"] == 1) {
-                                                                                echo "Activo";
-                                                                            }
-                                                                            if ($usuario["estado"] == 0) {
-                                                                                echo "Inactivo";
-                                                                            }
-                                                                            if ($usuario["estado"] == 2) {
-                                                                                echo "Licencia";
-                                                                            } ?></p>
+                                                                    <div class="form-group"><label for="sector"><strong>TimeStamp</strong></label>
+                                                                        <p><?php echo $dedicacion["timeStamp"] ?></p>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-group"><label for="sector"><strong>Sector</strong></label>
-                                                                        <p><?php echo $usuario["NombreSector"] ?></p>
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group"><label for="sector"><strong>Observaciones/Metas</strong></label>
+                                                                        <p><?php echo $dedicacion["obs"] ?></p>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-group"><label for="edificio"><strong>Edificio</strong></label>
-                                                                        <p><?php echo $usuario["edificio"] ?></p>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-group"><label for="cuil"><strong>Cuil</strong></label>
-                                                                        <p><?php echo $usuario["cuil"] ?></p>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-group"><label for="interno"><strong>Interno</strong></label>
-                                                                        <p><?php echo $usuario["interno"] ?></p>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3">
-                                                                    <div class="form-group"><label for="contratacion"><strong>Contratacion</strong></label>
-                                                                        <p><?php echo $usuario["contratacion"] ?></p>
-                                                                    </div>
-                                                                </div>
-                                                                
-                                                                <div class="col-md-3">
-                                                                    <div class="form-group"><label for="tng"><strong>Tng</strong></label>
-                                                                        <p><?php echo $usuario["tng"] ?></p>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col">
-                                                                    <div class="form-group"><label for="obs"><strong>Observaciones</strong></label>
-                                                                        <p><?php echo $usuario["obs"] ?></p>
-                                                                    </div>
-                                                                </div>
+                                                               
                                                             </div>
-                                                            <input type="hidden" name="id_proyectos" value="<?php echo $fila_proy['id_proyectos']; ?>">
+                                                            
                                                             <!--  
                                                 <div class="form-row">
                                                     <div class="col">
@@ -169,7 +132,7 @@ if (isset($_GET['Id']) && !empty($_GET['Id'])) {
                                         <div class="card-footer">
                                             <div class="row" id="boton-volver">
                                                 <div class="col" style="max-width:fit-content">
-                                                    <a class="btn btn-secondary" href="Lista_usuarios.php">Volver</a>
+                                                    <a class="btn btn-secondary" href="Lista_dedicacion.php">Volver</a>
                                                 </div>
                                             </div>
                                         </div>

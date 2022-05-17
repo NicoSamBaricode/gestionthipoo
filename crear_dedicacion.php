@@ -25,7 +25,7 @@ $sql = "SELECT * FROM usuarios WHERE id_usuario = '" . $_SESSION['user'] . "'";
 $row = $user->detalle($sql);
 $usuario =  $_SESSION['user']; //numero de usuario
 //tabla
-$queryMiDedicacion = "SELECT * FROM dedicacion where mes=$mesActual AND id_agente = $usuario ORDER by `timeStamp` DESC";
+$queryMiDedicacion = "SELECT * FROM dedicacion where id_agente = $usuario ORDER by `timeStamp` DESC";
 
 
 //llama a la funcion de insertar datos
@@ -127,7 +127,7 @@ if (isset($_POST['submit'])) {
                                                     <div class="col">
                                                         <div class="form-group"><label for="resp"><strong>Proyecto / Actividad</strong><br></label><select class="form-control" require name="imputacion" id="proyectoID">
                                                                 <?php
-                                                                $filas_p = $proyecto->mostrarDatosCompleto();
+                                                                $filas_p = $proyecto->mostrarproyectosactivos();
                                                                 foreach ($filas_p as $fila_p) {
                                                                 ?>
                                                                     <option value="<?php echo $fila_p['id_proyectos'] ?>"> <?php echo $fila_p['nombre'] ?></option>
@@ -181,7 +181,9 @@ if (isset($_POST['submit'])) {
                                             <th data-field="Mes" data-sortable="true">Mes</th>
                                             <th data-field="Horas P">Horas planificadas</th>
                                             <th data-field="Imputacion" data-sortable="true">Imputación</th>
+
                                             <th data-field="obse" data-sortable="true">Obs/Metas</th>
+                                            <th class="ocultar" data-field="id" data-sortable="true">id</th>
                                             <!-- <th data-field="Editar">Editar</th> -->
 
                                         </tr>
@@ -199,10 +201,11 @@ if (isset($_POST['submit'])) {
                                                 <td><?php echo $fila['anio'] ?></td>
                                                 <td><?php echo $fila['mes'] ?></td>
                                                 <td class="centrarRegistros"><?php echo $fila['horas'] ?></td>
-
+                                                
                                                 <td><?php echo $aux_p['nombre'] ?></td>
                                                 <!-- falta poner el indice a detalle -->
-                                                <td><?php echo $fila['obs'] ?><a href="detalle_dedicacion.php"class="btn btn-secondary btn-sm"><i class="fas fa-search-plus" style="color:white"></i></a></td>
+                                                <td><?php echo $fila['obs'] ?><a href="detalle_dedicacion.php?Id=<?php echo $fila['id_dedicacion'] ?>"class="btn btn-secondary btn-sm"><i class="fas fa-search-plus" style="color:white"></i></a></td>
+                                                <td style="display: none;"><?php echo $fila['id_dedicacion'] ?></td>
                                                 <script src="cartel.js"> </script>
                                                 <!-- <td><a class="btn btn-primary mx-auto btn-circle ml-1"  role="button" href="crear_tarea.php?tareaId=<?php //echo $fila["id_proyectos"]; 
                                                                                                                                                             ?>"><i class="fas fa-file-medical text-white"></i></a></td> -->
@@ -229,6 +232,7 @@ if (isset($_POST['submit'])) {
 <script>
     $("#planificadas").val(1);
     $(document).ready(function() {
+        $(".ocultar").hide();
         const d = new Date();
         let year = d.getFullYear();
         let month = d.getMonth();

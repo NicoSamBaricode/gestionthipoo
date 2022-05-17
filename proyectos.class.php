@@ -109,6 +109,20 @@ class Proyecto_class extends conexionDb
 			echo "Base de datos vacia";
 		}
 	}
+	public function mostrarproyectosactivos()
+	{
+		$query = "SELECT * FROM proyectos where estado!= 'Realizado' or estado!='Cancelado' order by nombre";
+		$result = $this->conexion->query($query);
+		if ($result->num_rows > 0) {
+			$data = array();
+			while ($row = $result->fetch_assoc()) {
+				$data[] = $row;
+			}
+			return $data;
+		} else {
+			echo "Base de datos vacia";
+		}
+	}
 
 	// Insertar datos a la tabla de proyectos
 	public function insertarDatos($post, $tipo)
@@ -116,8 +130,7 @@ class Proyecto_class extends conexionDb
 
 		$log = new log_class();
 		if ($tipo == 1) {
-			$color =  mt_rand(0, 0xFFFFFF);
-			$color = "#" . dechex($color);
+			
 			//generador random de colores
 			$nombre = $this->conexion->real_escape_string($_POST['nombre']);
 			$fecha_i = $this->conexion->real_escape_string($_POST['fecha']);
@@ -131,14 +144,16 @@ class Proyecto_class extends conexionDb
 			$estado = $this->conexion->real_escape_string($_POST['estado']);
 			$tipo = $this->conexion->real_escape_string($tipo);
 			$horas = $this->conexion->real_escape_string($_POST['horas']);
+			$color = $this->conexion->real_escape_string($_POST['color']);
+			$acta = $this->conexion->real_escape_string($_POST['acta']);
 
 			$queryident = "SELECT identificador FROM proyectos WHERE identificador=$identificador ";
 			$result = $this->conexion->query($queryident);
 			if ($result->num_rows > 0) {
 				echo "<script> alert('El identificador ingresado ya existe, por favor ingrese uno diferente.'); window.location='/GestionThi/gestionthipoo/crear_proyecto.php'</script> ";
 			} else {
-				$query = "INSERT INTO proyectos(identificador,nombre,fecha_inicio,tema,descripcion,sector,responsable,fecha_realizado,observaciones,estado,Tipo,horas_dedicadas,color_act) 
-						 VALUES ('$identificador','$nombre','$fecha_i','$tema','$descrip','$sector','$resp','$fecha_r','$obs','$estado','$tipo','$horas','$color')";
+				$query = "INSERT INTO proyectos(identificador,nombre,fecha_inicio,tema,descripcion,sector,responsable,fecha_realizado,observaciones,estado,Tipo,horas_dedicadas,color_act,acta) 
+						 VALUES ('$identificador','$nombre','$fecha_i','$tema','$descrip','$sector','$resp','$fecha_r','$obs','$estado','$tipo','$horas','$color','$acta')";
 				$sql = $this->conexion->query($query);
 				if ($sql == true) {
 					$log->insertarLog($_SESSION['user'], "Se ha creado Proyecto" . $nombre);
@@ -237,9 +252,10 @@ class Proyecto_class extends conexionDb
 			$estado = $this->conexion->real_escape_string($_POST['estado']);
 			$horas = $this->conexion->real_escape_string($_POST['horas']);
 			$color = $this->conexion->real_escape_string($_POST['color']);
+			$acta = $this->conexion->real_escape_string($_POST['acta']);
 			$query = "UPDATE proyectos SET nombre = '$nombre', identificador = '$identificador', id_proyectos = '$id_p',
              fecha_inicio = '$fecha_i', tema = '$tema', descripcion = '$descrip', sector = '$sector', responsable = '$resp', fecha_realizado = '$fecha_r'
-             , observaciones = '$obs', estado = '$estado', color_act = '$color' WHERE id_proyectos = '$id_p'";
+             , observaciones = '$obs', estado = '$estado', color_act = '$color', acta = '$acta' WHERE id_proyectos = '$id_p'";
 			 ?>
 
 			 <script> console.log(<?echo $query?>);</script>
