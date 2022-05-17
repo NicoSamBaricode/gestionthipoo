@@ -191,7 +191,7 @@ $auxTema=$temas->mostrarFilaPorId($proyecto['tema']);
                                                 <div class="form-row">
                                                  
                                                     <div class="col-md-12">
-                                                        <div class="form-group"><label for="obs"><strong>Observaciones</strong><br></label><textarea class="form-control" type="text" placeholder="Observaciones" name="obs" ></textarea><?php echo $proyecto['observaciones']; ?></div>
+                                                        <div class="form-group"><label for="obs"><strong>Observaciones</strong><br></label><textarea class="form-control" type="text" placeholder="Observaciones" name="obs" ><?php echo $proyecto['observaciones']; ?></textarea></div>
                                                     </div>
                                                     
                                                     <input type="hidden" name="id_proyectos" value="<?php echo $proyecto['id_proyectos']; ?>">

@@ -60,33 +60,33 @@ class Temas_class extends conexionDb
 			return array();
 		}
 	}
-	
+
 
 	// Insertar datos a la tabla de dedicacion
 	public function insertarDatos($post)
 	{
-		
-		
+
+
 		$nombre = $this->conexion->real_escape_string($_POST['nombre']);
-	
+
 
 		$query = "INSERT INTO temas(nombre) 
             VALUES ('$nombre')";
 		$sql = $this->conexion->query($query);
 		if ($sql == true) {
 
-			echo "<script>  window.location='/GestionThi/gestionthipoo/panel.php'</script> ";
+			echo "<script>  window.location='/GestionThi/gestionthipoo/crear_tema.php'</script> ";
 		} else {
 			echo "<script> alert('Fallo al insertar datos'); </script>";
 		}
 	}
 	//borrar tarea
-	public function borrar_dedic($id)
-	{echo ("<script src='cartel.js'></script>");
+	public function borrar_tema($id)
+	{
 		$query = "DELETE FROM temas WHERE id_tema = '$id'";
 		$sql = $this->conexion->query($query);
 		if ($sql == true) {
-			echo "<script> confirmBorrar();alert('Se borraron los datos con exito'); window.location='/GestionThi/gestionthipoo/panel.php'</script> ";
+			echo "<script> confirmBorrar();alert('Se borraron los datos con exito'); window.location='/GestionThi/gestionthipoo/crear_tema.php'</script> ";
 		} else {
 			echo "<script> alert('Fallo al borrar datos'); </script>";
 		}
@@ -106,31 +106,26 @@ class Temas_class extends conexionDb
 			return array();
 		}
 	}
-	
-	
+
+
 
 	// actualiza datos en la tabla
-	public function actualizarFilaD($postData)
+	public function actualizarFila($postData)
 
 	{
-		$id_d = $this->conexion->real_escape_string($_POST['id_dedicacion']);
-		$relevadas = $this->conexion->real_escape_string($_POST['horasR']);
+		$id = $this->conexion->real_escape_string($_POST['id_tema']);
+		$nombre = $this->conexion->real_escape_string($_POST['nombre']);
 
-		if (!empty($id_d) && !empty($postData)) {
+		if (!empty($id) && !empty($postData)) {
 
-			$query = "UPDATE dedicacion SET horas_relevadas = '$relevadas' WHERE id_dedicacion = '$id_d'";
+			$query = "UPDATE temas SET nombre = '$nombre' WHERE id_tema = '$id'";
+
 			$sql = $this->conexion->query($query);
 			if ($sql == true) {
-				echo "<script> alert('Se actualizo la dedicacion con exito'); window.location='/GestionThi/gestionthipoo/Lista_dedicacion.php'</script> ";
+				echo "<script> alert('Se actualizo el tema con exito'); window.location='/GestionThi/gestionthipoo/crear_tema.php'</script> ";
 			} else {
-				echo "<script> alert('Fallo al actualizar datos');window.location='/GestionThi/gestionthipoo/Lista_dedicacion.php'</script>  </script>";
+				echo "<script> alert('Fallo al actualizar datos');window.location='/GestionThi/gestionthipoo/crear_tema.php'</script>  </script>";
 			}
 		}
 	}
-
-
-
-
-
-
 }

@@ -71,9 +71,26 @@ $flag = false;
                                                 <div class="text-dark font-weight-bold h5 mb-0"><span></span></div>
                                             </div>
                                             <?php if ($row['rol'] == 'Admin' || ('Jefe Depto' == $row["rol"])) { ?>
-                                                <div class="col-auto"><a class="btn btn-primary" href="crear_proyecto.php"><i class="fas fa-user-plus  text-gray-300"></i></a></div>
+                                                <div class="col-auto"><a class="btn btn-primary" href="crear_proyecto.php"><i class="fas fa-plus  text-gray-300"></i></a></div>
                                             <?php } else { ?>
                                                 <div class="col-auto"><a class="btn btn-primary" target="_blank" href="mailto:agustin.coleff@cab.cnea.gov.ar "><i class="fas fa-user-plus  text-gray-300"></i></a></div>
+                                            <?php  } ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xl-3 mb-4" id="NuevoProyecto">
+                                <div class="card shadow border-left-secondary py-2">
+                                    <div class="card-body">
+                                        <div class="row align-items-center no-gutters">
+                                            <div class="col mr-2">
+                                                <div class="text-uppercase text-secondary font-weight-bold text-xs mb-1"><span>Nuevo Tema</span></div>
+                                                <div class="text-dark font-weight-bold h5 mb-0"><span></span></div>
+                                            </div>
+                                            <?php if ($row['rol'] == 'Admin' || ('Jefe Depto' == $row["rol"])) { ?>
+                                                <div class="col-auto"><a class="btn btn-secondary" href="crear_tema.php"><i class="fas fa-plus  text-gray-300"></i></a></div>
+                                            <?php } else { ?>
+                                                <div class="col-auto"><a class="btn btn-secondary" target="_blank" href="mailto:agustin.coleff@cab.cnea.gov.ar "><i class="fas fa-user-plus  text-gray-300"></i></a></div>
                                             <?php  } ?>
                                         </div>
                                     </div>

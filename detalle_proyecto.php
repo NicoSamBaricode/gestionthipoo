@@ -26,7 +26,7 @@ $id_proy = $_GET["detalleid"];
 $fila_proy = $proyecto->mostrarFilaPorId($id_proy, $tipo);
 $aux_u = $user->mostrarFilaPorId($fila_proy['responsable']);
 
-$temasProyecto=$temas->mostrarDatos_id($id_proy);
+$temasProyecto=$temas->mostrarDatos_id($fila_proy['tema']);
 $sectorProyecto=$proyecto-> mostrarNombreSector($id_proy);
 
 
