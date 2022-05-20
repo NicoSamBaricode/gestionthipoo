@@ -254,7 +254,7 @@ class Proyecto_class extends conexionDb
 			$color = $this->conexion->real_escape_string($_POST['color']);
 			$acta = $this->conexion->real_escape_string($_POST['acta']);
 			$query = "UPDATE proyectos SET nombre = '$nombre', identificador = '$identificador', id_proyectos = '$id_p',
-             fecha_inicio = '$fecha_i', tema = '$tema', descripcion = '$descrip', sector = '$sector', responsable = '$resp', fecha_realizado = '$fecha_r'
+             fecha_inicio = '$fecha_i',horas_dedicadas='$horas', tema = '$tema', descripcion = '$descrip', sector = '$sector', responsable = '$resp', fecha_realizado = '$fecha_r'
              , observaciones = '$obs', estado = '$estado', color_act = '$color', acta = '$acta' WHERE id_proyectos = '$id_p'";
 			 ?>
 

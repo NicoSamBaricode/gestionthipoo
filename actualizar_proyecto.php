@@ -150,6 +150,9 @@ $auxTema=$temas->mostrarFilaPorId($proyecto['tema']);
                                                     <div class="col">
                                                         <div class="form-group"><label for="frealizacion"><strong>Fecha finalizacion</strong><br></label><input class="form-control" type="date" placeholder="Ingrese fecha de finalizacion" name="frealizado" value="<?php echo $proyecto['fecha_realizado']; ?>"></div>
                                                     </div>
+                                                    <div class="col">
+                                                        <div class="form-group"><label for="horas"><strong>Horas totales</strong><br></label><input class="form-control" type="number" placeholder="Ingrese fecha de finalizacion" name="horas" value="<?php echo $proyecto['horas_dedicadas']; ?>"></div>
+                                                    </div>
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="col">
