@@ -188,6 +188,26 @@ $id_usuario = $row['id_usuario'];
                                 </div>
                             </a>
                         </div>
+                        <div class="col-md-6 col-xl-3 mb-4">
+                            <a class="card shadow border-left-danger py-2  btn" href="https://forms.gle/NXSHQo6eVvuv5dzy5" target="_blank">
+                                <div class="card-body">
+                                    <div class="row align-items-center no-gutters">
+                                        <div class="col mr-2">
+                                            <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span>Formulario para solicitar compra</span></div>
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col-auto">
+
+
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-auto"><i class="fas fa-file fa-2x text-gray-300"></i></div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
                     </div>
                 </div>
                 <!-- arranca Admin -->
