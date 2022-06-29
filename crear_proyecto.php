@@ -120,7 +120,7 @@ if (isset($_POST['submit'])) {
                                                                 ?>
                                                                     <tr>
 
-                                                                        <option value="<?php echo $fila['id_usuario'] ?>"> <?php echo $fila['nombre'] ?></option>
+                                                                        <option value="<?php echo $fila['id_usuario'] ?>"> <?php echo $fila['nombre']." ".$fila['apellido'] ?></option>
 
 
                                                                     </tr>
