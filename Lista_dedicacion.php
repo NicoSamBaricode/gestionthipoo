@@ -233,7 +233,7 @@ $tipo = 2; // si es 0 es de actividad //1 si es proyectos
                                                                     <div class="col-md-6" style="top: 9px;">
                                                                         <p><?php echo $fila['horas_relevadas'] ?></p>
                                                                     </div>
-                                                                    <div class="col-md-6 " style="text-align: right;"><a class="btn btn-light mx-auto btn-circle ml-1" style="color:black" role="button" href="actualizar_dedicacion.php?editId=<?php echo $fila['id_dedicacion'] ?>"><i class="fa fa-edit text-black"></i></a></div>
+                                                                    <div class="col-md-6 " style="text-align: right;"><a class="btn btn-light mx-auto btn-circle ml-1"  title="Para editar detalles y declarar horas relevadas" style="color:black" role="button" href="actualizar_dedicacion.php?editId=<?php echo $fila['id_dedicacion'] ?>"><i class="fa fa-edit text-black"></i></a></div>
                                                                 </div>
                                                             </td>
                                                             <td><?php echo $aux_p['nombre'] ?></td>

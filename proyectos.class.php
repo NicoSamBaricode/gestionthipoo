@@ -325,8 +325,9 @@ class Proyecto_class extends conexionDb
 
 	public function mostrarDatosPorImputacion($id_proyecto)
 	{
-		$query = "	SELECT dedicacion.id_dedicacion, dedicacion.mes, dedicacion.anio,dedicacion.horas, dedicacion.id_agente,dedicacion.imputacion,proyectos.nombre,usuarios.nombre AS usuariosNombre FROM dedicacion LEFT JOIN usuarios ON dedicacion.id_agente=usuarios.id_usuario LEFT JOIN proyectos ON dedicacion.imputacion=proyectos.id_proyectos where dedicacion.imputacion = $id_proyecto;";
+		$query = "	SELECT dedicacion.id_dedicacion, dedicacion.mes, dedicacion.anio,dedicacion.horas, dedicacion.id_agente,dedicacion.imputacion,proyectos.nombre,usuarios.nombre AS usuariosNombre,usuarios.apellido AS usuariosApellido FROM dedicacion LEFT JOIN usuarios ON dedicacion.id_agente=usuarios.id_usuario LEFT JOIN proyectos ON dedicacion.imputacion=proyectos.id_proyectos where dedicacion.imputacion = $id_proyecto;";
 		$result = $this->conexion->query($query);
+		
 		if ($result->num_rows > 0) {
 			$data = array();
 			while ($row = $result->fetch_assoc()) {
@@ -334,7 +335,8 @@ class Proyecto_class extends conexionDb
 			}
 			return $data;
 		} else {
-			echo "Base de datos vacia";
+			
+			return array();
 		}
 	}
 

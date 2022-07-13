@@ -151,7 +151,15 @@ $flag = false;
 
 
                         </div>
-                    <?php } ?>
+                        <?php } else {   ?>
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                <strong>Atención:</strong> Para agregar un nuevo proyecto, contactate con tu jefe directo.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                        <?php  } ?>
                     <div class="card shadow">
                         <div class="card-header py-3">
                             <p class="text-primary m-0 font-weight-bold">Información&nbsp;</p>

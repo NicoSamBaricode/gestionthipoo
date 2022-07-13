@@ -4,11 +4,9 @@ session_start();
 if (!isset($_SESSION['user']) || (trim($_SESSION['user']) == '')) {
     header('location:index.php');
 }
-
 include_once('Usuarios.class.php');
 include_once('proyectos.class.php');
 include_once('tareas.class.php');
-
 include_once('temas.class.php');
 
 
@@ -124,7 +122,7 @@ if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
                                                             
                                                             <div class="col-md-3">
                                                                 <div class="form-group"><label for="resp"><strong>Responsable</strong><br></label>
-                                                                    <p><?php echo $aux_u["nombre"] ?></p>
+                                                                    <p><?php echo $aux_u["nombre"]." ".$aux_u["apellido"] ?></p>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-3">
@@ -270,7 +268,7 @@ if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
                                                                         foreach ($filas as $fila) {
                                                                         ?>
                                                                             <tr>
-                                                                                <td><?php echo $fila['usuariosNombre'] ?></td>
+                                                                                <td><?php echo $fila['usuariosNombre']." ". $fila['usuariosApellido']?></td>
                                                                                 <td><?php echo $fila['horas'] ?></td>
                                                                                 <td><?php echo $fila['mes'] ?></td>
                                                                                 <td><?php echo $fila['anio'] ?></td>

@@ -1,18 +1,11 @@
-v1.3
-17/5/2022
-Cambios: Agregar boton que mande mail para solicitud de proyecto y actividades.
-
-
-poner en tabla cuanto se va gastando hasta el momento de gastadas(con puntito)
-Filtrar por proyectos y actividades.(hacer tres graficos). 
-
-EN patnalla editar usuario: agregar oficina, cuil, interno, edificio, modo de contratacion, tng, observaciones.
-En detalle usuario revisar que vean bien. Kusa ve siempre su detalle por mas que apriete de otro. BUG.
-En asignar horas, al cambiar de mes, reiniciar el horas restantes mes, queda pegado.
-Agregar detalle del registro en agregado de horas.
-En el listado de proyectos disponibles no mostrar los proyectos cerrados.
-
-Proyectos:
-En Tema, agregar desplegable para selección (agregar nueva tabla). Y agregarlo en columnoa de lista_proyectos.php, 
-Agregar campo Acta de inicio.
-Cambiar “id” por Codigo acronimo. En actividades tambien
+v1.4
+13/7/2022
+Cambios:
+ detalle_proyecto agregar nombre y apellido
+ agregar quienes imputaron en actividades
+ poner aviso para agregar nuevo proyecto o actividad debe consultar a su superior
+ grafico con filtro por horas relevadas 
+ Posibilidad de editar observaciones en dedicacion
+ indicadores de cuanto queda por cargar en ese mes.
+ arreglo de errores en el grafico de dedicaciones
+ arreglo de botonera de acceso directo e inclusion de acceso a gde y al sistema carem

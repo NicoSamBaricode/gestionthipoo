@@ -153,10 +153,11 @@ class Dedicacion_class extends conexionDb
 	{
 		$id_d = $this->conexion->real_escape_string($_POST['id_dedicacion']);
 		$relevadas = $this->conexion->real_escape_string($_POST['horasR']);
-
+		$obs = $this->conexion->real_escape_string($_POST['obs']);
 		if (!empty($id_d) && !empty($postData)) {
 
-			$query = "UPDATE dedicacion SET horas_relevadas = '$relevadas' WHERE id_dedicacion = '$id_d'";
+			$query = "UPDATE dedicacion SET horas_relevadas = '$relevadas', obs = '$obs' WHERE id_dedicacion = '$id_d'";
+			
 			$sql = $this->conexion->query($query);
 			if ($sql == true) {
 				echo "<script> alert('Se actualizo la dedicacion con exito'); window.location='/GestionThi/gestionthipoo/Lista_dedicacion.php'</script> ";
@@ -224,6 +225,24 @@ class Dedicacion_class extends conexionDb
 			return false;
 		}
 	}
+	public function contadorPorAgenteMesAnioRelevadas($agente, $mes, $anio)
+	{
+
+		$suma = "SELECT SUM(horas_relevadas)total
+		FROM dedicacion
+		WHERE id_agente =$agente AND mes=$mes
+		and anio=$anio;";
+		
+		$queryp_e = $this->conexion->query($suma);
+
+		if ($queryp_e->num_rows > 0) {
+			$fila = $queryp_e->fetch_array();
+
+			return $fila['total'];
+		} else {
+			return false;
+		}
+	}
 
 	public function contadorHorasPorProyecto($id_proyecto)
 	{
@@ -269,7 +288,7 @@ class Dedicacion_class extends conexionDb
 
 		if (!empty($idProyecto) && !empty($horas)) {
 
-			$query = "UPDATE proyectos SET horas_relevadas = '$horas' WHERE id_proyectos = '$idProyecto'";
+			$query = "UPDATE proyectos SET horas_totales_relevadas = '$horas' WHERE id_proyectos = '$idProyecto'";
 			$sql = $this->conexion->query($query);
 			if ($sql == true) {
 			} else {

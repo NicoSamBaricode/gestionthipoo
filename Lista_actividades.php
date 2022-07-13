@@ -74,7 +74,15 @@ $flag = false;
                                     </div>
                                 </div>
                             </div>
-                        <?php }  ?>
+                        <?php } else {   ?>
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                <strong>Atención:</strong> Para agregar una nueva actividad, contactate con tu jefe directo.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                        <?php  } ?>
                         <div class="col-md-6 col-xl-3 mb-4">
                             <div class="card shadow border-left-warning py-2">
                                 <div class="card-body">
@@ -113,6 +121,7 @@ $flag = false;
                                             <th data-field="Descripcion" data-sortable="true">Descripción</th>
                                             <th>Horas asignadas</th>
                                             <th data-field="Sector" data-sortable="true">Sector</th>
+                                            <th data-field="Detalles" data-sortable="true">Detalles</th>
                                             <?php if ((('Admin' == $row["rol"]) || ('Jefe Depto' == $row["rol"]))) { ?>
                                                 <th class="editar">Editar</th>
                                                 <th class="eliminar">Eliminar</th>
@@ -135,6 +144,7 @@ $flag = false;
 
                                                 <td><?php echo $fila['horas_dedicadas'] ?></td>
                                                 <td><?php echo $fila['nombreSector'] ?></td>
+                                                <td><a class="btn btn-secondary mx-auto btn-circle ml-1 " role="button" href="detalle_actividad.php?detalleid=<?php echo $fila["id_proyectos"]; ?>"><i class="fas fa-file-alt text-white"></i></a></td>
 
                                                 <script src="cartel.js"> </script>
                                                 <!-- <td><a class="btn btn-primary mx-auto btn-circle ml-1"  role="button" href="crear_tarea.php?tareaId=<?php echo $fila["id_proyectos"]; ?>"><i class="fas fa-file-medical text-white"></i></a></td> -->
