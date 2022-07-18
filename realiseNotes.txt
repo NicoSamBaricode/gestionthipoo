@@ -1,11 +1,4 @@
-v1.4
-13/7/2022
+v1.5
+18/7/2022
 Cambios:
- detalle_proyecto agregar nombre y apellido
- agregar quienes imputaron en actividades
- poner aviso para agregar nuevo proyecto o actividad debe consultar a su superior
- grafico con filtro por horas relevadas 
- Posibilidad de editar observaciones en dedicacion
- indicadores de cuanto queda por cargar en ese mes.
- arreglo de errores en el grafico de dedicaciones
- arreglo de botonera de acceso directo e inclusion de acceso a gde y al sistema carem
+listado de agentes sin informar horas de trabajo planificadas

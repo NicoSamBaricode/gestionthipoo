@@ -296,4 +296,30 @@ class Dedicacion_class extends conexionDb
 			}
 		}
 	}
+	// Saca datos de una sola fila filtrado por id
+	public function mostrarUsuariosSinCargarHoras($mes,$anio,$opcion=null)
+	{
+		if ($opcion != null){
+			$opcion = "and horas_relevadas != 0";
+		}else
+		{
+			$opcion = "";
+		}
+		$query = "SELECT nombre, apellido, id_usuario from usuarios where id_usuario not in (SELECT id_agente as id_usuario FROM `dedicacion` WHERE $mes = 7 and $anio = 2022  $opcion)";
+		//la funcion queda lista para utilizar mediante la opcion de filtro ver las horas relevadas
+		$result = $this->conexion->query($query);
+		if ($result->num_rows > 0) {
+			$data = array();
+			while ($row = $result->fetch_assoc()) {
+				$data[] = $row;
+			}
+			return $data;
+		} else {
+
+			echo "Todos los usuarios cargaron sus horas";
+
+			return array();
+		}
+	}
 }
+
