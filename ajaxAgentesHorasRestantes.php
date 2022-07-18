@@ -9,8 +9,9 @@ $dedicacion = new Dedicacion_class();
 $mes = $_POST[('mes')];
 $anio = $_POST[('anio')];
 $opcion = $_POST[('opcion')];
-
-$filas = $dedicacion->mostrarUsuariosSinCargarHoras($mes, $anio, $opcion);
+$rol= $_POST[('rol')];
+$sectorId = $_POST[('sectorId')];
+$filas = $dedicacion->mostrarUsuariosSinCargarHoras($mes, $anio, $opcion, $rol,$sectorId);
 
 ?>
 
@@ -20,9 +21,6 @@ $filas = $dedicacion->mostrarUsuariosSinCargarHoras($mes, $anio, $opcion);
             <tr>
                 <th data-field="Agente" data-sortable="true">Agente</th>
                 <th data-field="Mes" data-sortable="true">Mes</th>
-
-                <!-- <th data-field="Editar">Editar</th> -->
-
             </tr>
         </thead>
         <tbody>
@@ -31,7 +29,7 @@ $filas = $dedicacion->mostrarUsuariosSinCargarHoras($mes, $anio, $opcion);
             foreach ($filas as $fila) {
             ?>
                 <tr>
-                    <td><?php echo $fila['nombre'] . " " . $fila['apellido'] ?></td>
+                    <td><?php echo $fila['apellido'] . " " . $fila['nombre'] ?></td>
                     <td><?php echo $mes ?></td>
                 </tr>
             <?php }  ?>
@@ -40,3 +38,4 @@ $filas = $dedicacion->mostrarUsuariosSinCargarHoras($mes, $anio, $opcion);
 
     </table>
 </div>
+

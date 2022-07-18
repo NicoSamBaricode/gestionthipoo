@@ -271,7 +271,7 @@ $tipo = 2; // si es 0 es de actividad //1 si es proyectos
                         <div class="tab-pane fade show " id="faltantes" role="tabpanel" aria-labelledby="faltantes-tab">
                             <div class="card-body">
                                 <div class="alert alert-info alert-dismissible fade show" role="alert">
-                                    <strong>Info: </strong> Esta información muestra quien no completo las horas planificadas. No contempla si el agente no completó las horas relevadas.
+                                    <strong>Info: </strong> Esta información muestra quien no cargo ninguna hora planificada. No contempla si el agente no completó las horas relevadas.
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -422,8 +422,11 @@ $tipo = 2; // si es 0 es de actividad //1 si es proyectos
 
 <script>
     $(document).ready(function() {
-        $("#anioFaltante").val(2022);
-        $("#mesFaltante").val(7);
+        const d = new Date();
+        let year = d.getFullYear();
+        let month = d.getMonth();
+        $("#anioFaltante").val(year);
+        $("#mesFaltante").val(month+ 1);
         AgentesRestantes();
     });
     $("#guardarDedicacion").on("click", function() {
@@ -447,6 +450,8 @@ $tipo = 2; // si es 0 es de actividad //1 si es proyectos
                 mes: $("#mesFaltante").val(),
                 anio: $("#anioFaltante").val(),
                 opcion: null,
+                rol: "<?php echo $row["rol"]?>",
+                sectorId: <?php echo $row["sector_id"]?>,
             })
             .done(function(data) {
                 console.log(data);

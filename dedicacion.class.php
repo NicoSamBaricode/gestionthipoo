@@ -297,7 +297,7 @@ class Dedicacion_class extends conexionDb
 		}
 	}
 	// Saca datos de una sola fila filtrado por id
-	public function mostrarUsuariosSinCargarHoras($mes,$anio,$opcion=null)
+	public function mostrarUsuariosSinCargarHoras($mes,$anio,$opcion=null,$rol,$sectorID)
 	{
 		if ($opcion != null){
 			$opcion = "and horas_relevadas != 0";
@@ -305,8 +305,15 @@ class Dedicacion_class extends conexionDb
 		{
 			$opcion = "";
 		}
-		$query = "SELECT nombre, apellido, id_usuario from usuarios where id_usuario not in (SELECT id_agente as id_usuario FROM `dedicacion` WHERE $mes = 7 and $anio = 2022  $opcion)";
+        if ((  $rol=='Admin') || ( $rol =='Jefe Depto')) {
+		$query = "SELECT nombre, apellido, id_usuario from usuarios where id_usuario not in (SELECT id_agente as id_usuario FROM `dedicacion` WHERE mes=$mes  and $anio = anio  $opcion)order by apellido";
 		//la funcion queda lista para utilizar mediante la opcion de filtro ver las horas relevadas
+		}
+		if ('Jefe Division' == $rol) {
+			$query = "SELECT nombre, apellido, id_usuario,sector_id from usuarios where id_usuario not in (SELECT id_agente as id_usuario FROM `dedicacion` WHERE mes= $mes and $anio = anio  $opcion)and sector_id = $sectorID order by apellido";
+		
+			}
+			
 		$result = $this->conexion->query($query);
 		if ($result->num_rows > 0) {
 			$data = array();
