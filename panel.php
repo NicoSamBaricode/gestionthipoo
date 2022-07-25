@@ -358,7 +358,7 @@ $id_usuario = $row['id_usuario'];
 
                                                         },
                                                         function(data) {
-
+                                                            console.log(data)
                                                             var name = [];
                                                             var marks = [];
                                                             var relev = [];

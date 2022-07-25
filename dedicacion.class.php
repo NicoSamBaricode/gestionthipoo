@@ -89,7 +89,7 @@ class Dedicacion_class extends conexionDb
 		$obs = $this->conexion->real_escape_string($_POST['obs']);
 		//$timeStamp = $this->conexion->real_escape_string($_POST['tiempo']);
 
-		$query = "INSERT INTO dedicacion(id_agente,mes,anio,horas,imputacion,obs) 
+		$query = "INSERT INTO dedicacion(id_agente,mes,anio,horas_relevadas,imputacion,obs) 
             VALUES ('$id_agente','$mes','$anio','$horas','$imputacion','$obs')";
 		$sql = $this->conexion->query($query);
 		if ($sql == true) {
@@ -187,9 +187,9 @@ class Dedicacion_class extends conexionDb
 	public function mostrarDatosPorSector($rol, $sectorID)
 	{
 		if (('Admin' == $rol)  || ('Jefe Depto' == $rol)) {
-			$query = "SELECT dedicacion.id_dedicacion, dedicacion.mes, dedicacion.obs, dedicacion.anio,dedicacion.horas,dedicacion.horas_relevadas,dedicacion.imputacion,usuarios.apellido,usuarios.nombre AS usuariosNombre,usuarios.sector_id FROM dedicacion LEFT JOIN usuarios ON dedicacion.id_agente=usuarios.id_usuario";
+			$query = "SELECT dedicacion.id_dedicacion, dedicacion.mes, dedicacion.obs, dedicacion.anio,dedicacion.horas,dedicacion.horas_relevadas,dedicacion.imputacion,usuarios.apellido,usuarios.nombre AS usuariosNombre,usuarios.sector_id FROM dedicacion LEFT JOIN usuarios ON dedicacion.id_agente=usuarios.id_usuario order by dedicacion.mes desc ";
 		} else {
-			$query = "SELECT dedicacion.id_dedicacion, dedicacion.mes, dedicacion.obs, dedicacion.anio,dedicacion.horas,dedicacion.horas_relevadas,dedicacion.imputacion,usuarios.apellido,usuarios.nombre AS usuariosNombre,usuarios.sector_id FROM dedicacion LEFT JOIN usuarios ON dedicacion.id_agente=usuarios.id_usuario where usuarios.sector_id=$sectorID";
+			$query = "SELECT dedicacion.id_dedicacion, dedicacion.mes, dedicacion.obs, dedicacion.anio,dedicacion.horas,dedicacion.horas_relevadas,dedicacion.imputacion,usuarios.apellido,usuarios.nombre AS usuariosNombre,usuarios.sector_id FROM dedicacion LEFT JOIN usuarios ON dedicacion.id_agente=usuarios.id_usuario where usuarios.sector_id=$sectorID order by dedicacion.mes desc ";
 		}
        
 		$result = $this->conexion->query($query);

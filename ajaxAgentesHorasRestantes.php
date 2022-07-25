@@ -8,7 +8,7 @@ $dedicacion = new Dedicacion_class();
 
 $mes = $_POST[('mes')];
 $anio = $_POST[('anio')];
-$opcion = $_POST[('opcion')];
+$opcion = 1;
 $rol= $_POST[('rol')];
 $sectorId = $_POST[('sectorId')];
 $filas = $dedicacion->mostrarUsuariosSinCargarHoras($mes, $anio, $opcion, $rol,$sectorId);

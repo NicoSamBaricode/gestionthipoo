@@ -20,7 +20,7 @@ $totales=$_POST[('totales')];
 
 
 
-$suma=$dedicacion->contadorPorAgenteMesAnio($agente,$mes,$anio);
+$suma=$dedicacion->contadorPorAgenteMesAnioRelevadas($agente,$mes,$anio);
 $resultado=$totales-($horasPlanificadas+$suma);
 echo($resultado);
 

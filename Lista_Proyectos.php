@@ -174,9 +174,9 @@ $flag = false;
                                             <th data-field="Nombre" data-sortable="true">Nombre</th>
                                             <th data-field="Tema" data-sortable="true">Tema</th>
                                             <th data-field="Sector" data-sortable="true">Sector</th>
-                                            <th data-field="proyectadas" data-sortable="true">Horas Proyectadas Total</th>
+                                            
 
-                                            <th data-field="dedicadas" data-sortable="true">Horas Dedicadas</th>
+                                             <th data-field="dedicadas" data-sortable="true">Horas Totales</th> 
                                             <th data-field="relevadas" data-sortable="true">Horas Relevadas</th>
                                             <th data-field="Estado" data-sortable="true">Estado</th>
 
@@ -198,18 +198,18 @@ $flag = false;
                                         ?>
                                             <tr>
                                                 <?php
-                                                $nombreSector = $proyecto->mostrarNombreSector($fila['id_proyectos'])
+                                                $nombreSector = $proyecto->mostrarNombreSector( $fila['id_proyectos']);
+                                                $cantidadHorasProyecto= $proyecto->cantidadHorasRelevadasPorProyecto( $fila['id_proyectos']);
                                                 ?>
-                                                <!-- <td>/<?php //echo $fila['id_proyectos'] 
-                                                            ?></td> -->
+                                                
                                                 <td><?php echo $fila['identificador'] ?></td>
                                                 <td><?php echo $fila['nombre'] ?></td>
                                                 <td><?php echo $fila['tema'] ?></td>
                                                 <td><?php echo ($nombreSector['Nombre']) ?></td>
 
-                                                <td><?php echo $fila['horas_dedicadas'] ?></td>
-                                                <td><?php echo $fila["horas_acumuladas"] ?></td>
-                                                <td><?php echo $fila["horas_totales_relevadas"] ?></td>
+                                                 <td><?php echo $fila['horas_dedicadas'] ?></td> 
+                                                
+                                                <td><?php echo $cantidadHorasProyecto ?></td>
                                                 <td><?php echo $fila["estado"] ?></td>
                                                 <script src="cartel.js"> </script>
                                                 <!-- <td><a class="btn btn-primary mx-auto btn-circle ml-1"  role="button" href="crear_tarea.php?tareaId=<?php echo $fila["id_proyectos"]; ?>"><i class="fas fa-file-medical text-white"></i></a></td> -->

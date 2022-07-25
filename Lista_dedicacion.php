@@ -138,8 +138,8 @@ $tipo = 2; // si es 0 es de actividad //1 si es proyectos
                                                     <tr>
                                                         <th data-field="Agente" data-sortable="true">Agente</th>
                                                         <th data-field="Mes" data-sortable="true">Mes</th>
-                                                        <th data-field="Horas P">Horas planificadas</th>
-                                                        <th data-field="Horas R">Horas relevadas</th>
+                                                        <th data-field="Horas P">Horas Relevadas</th>
+                                                        <!-- <th data-field="Horas R">Horas relevadas</th> -->
                                                         <th data-field="Imputacion" data-sortable="true">Imputación</th>
                                                         <th data-field="obs2" data-sortable="true">Obs/Metas</th>
                                                         <!-- <th data-field="Editar">Editar</th> -->
@@ -158,15 +158,15 @@ $tipo = 2; // si es 0 es de actividad //1 si es proyectos
                                                             ?>
                                                             <td><?php echo $aux_u['nombre'] ?></td>
                                                             <td><?php echo $fila['mes'] ?></td>
-                                                            <td class="centrarRegistros"><?php echo $fila['horas'] ?></td>
-                                                            <td>
+                                                            <td class="centrarRegistros"><?php echo $fila['horas_relevadas'] ?></td>
+                                                            <!-- <td>
                                                                 <div class="row">
                                                                     <div class="col-md-6" style="top: 9px;">
                                                                         <p><?php echo $fila['horas_relevadas'] ?></p>
                                                                     </div>
                                                                     <div class="col-md-6 " style="text-align: right;"><a class="btn btn-light mx-auto btn-circle ml-1" title="Para editar detalles y declarar horas relevadas" style="color:black" role="button" href="actualizar_dedicacion.php?editId=<?php echo $fila['id_dedicacion'] ?>"><i class="fa fa-edit text-black"></i></a></div>
                                                                 </div>
-                                                            </td>
+                                                            </td> -->
                                                             <td><?php echo $aux_p['nombre'] ?></td>
 
                                                             <td><a href="detalle_dedicacion.php?Id=<?php echo $fila['id_dedicacion'] ?>" class="btn btn-secondary btn-sm"><i class="fas fa-search-plus" style="color:white"></i></a></td>
@@ -206,8 +206,8 @@ $tipo = 2; // si es 0 es de actividad //1 si es proyectos
                                                         <th data-field="Agente" data-sortable="true">Agente</th>
                                                         <th data-field="Anio" data-sortable="true">Año</th>
                                                         <th data-field="Mes" data-sortable="true">Mes</th>
-                                                        <th data-field="Horas P">Horas planificadas</th>
-                                                        <th data-field="Horas R">Horas relevadas</th>
+                                                        <th data-field="Horas P">Horas Relevadas</th>
+                                                        <!-- <th data-field="Horas R">Horas relevadas</th> -->
                                                         <th data-field="Imputacion" data-sortable="true">Imputación</th>
                                                         <th data-field="obs" data-sortable="true">Obs/Metas</th>
                                                         <!-- <th data-field="Editar">Editar</th> -->
@@ -228,7 +228,7 @@ $tipo = 2; // si es 0 es de actividad //1 si es proyectos
                                                             <td><?php echo $fila['usuariosNombre'] . " " . $fila['apellido'] ?></td>
                                                             <td><?php echo $fila['anio'] ?></td>
                                                             <td><?php echo $fila['mes'] ?></td>
-                                                            <td class="centrarRegistros"><?php echo $fila['horas'] ?></td>
+                                                            <!-- <td class="centrarRegistros"><?php echo $fila['horas'] ?></td> -->
                                                             <td><?php echo $fila['horas_relevadas'] ?></td>
                                                             <td><?php echo $aux_p['nombre'] ?></td>
                                                             <td><a href="detalle_dedicacion.php?Id=<?php echo $fila['id_dedicacion'] ?>" class="btn btn-secondary btn-sm"><i class="fas fa-search-plus" style="color:white"></i></a></td>
@@ -271,7 +271,7 @@ $tipo = 2; // si es 0 es de actividad //1 si es proyectos
                         <div class="tab-pane fade show " id="faltantes" role="tabpanel" aria-labelledby="faltantes-tab">
                             <div class="card-body">
                                 <div class="alert alert-info alert-dismissible fade show" role="alert">
-                                    <strong>Info: </strong> Esta información muestra quien no cargo ninguna hora planificada. No contempla si el agente no completó las horas relevadas.
+                                    <strong>Info: </strong> Esta información muestra quien no cargo ninguna hora relevada para el mes seleccionado.
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -376,7 +376,7 @@ $tipo = 2; // si es 0 es de actividad //1 si es proyectos
 
                                                             for (var i in data) {
                                                                 name.push(data[i].nombre);
-                                                                marks.push(data[i].horas);
+                                                                marks.push(data[i].horas_relevadas);
                                                                 color.push(data[i].color_act);
                                                             }
 
@@ -454,7 +454,7 @@ $tipo = 2; // si es 0 es de actividad //1 si es proyectos
                 sectorId: <?php echo $row["sector_id"]?>,
             })
             .done(function(data) {
-                console.log(data);
+                
                 $("#tablaFaltantes").html(data);
             });
     }

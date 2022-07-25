@@ -23,7 +23,7 @@ $row = $user->detalle($sql);
 $id_proy = $_GET["detalleid"];
 $fila_proy = $proyecto->mostrarFilaPorId($id_proy, $tipo);
 $aux_u = $user->mostrarFilaPorId($fila_proy['responsable']);
-
+$cantidadHorasProyecto= $proyecto->cantidadHorasRelevadasPorProyecto($id_proy);
 $temasProyecto=$temas->mostrarDatos_id($fila_proy['tema']);
 $sectorProyecto=$proyecto-> mostrarNombreSector($id_proy);
 
@@ -142,14 +142,14 @@ if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
                                                                     <p><?php echo $fila_proy["horas_dedicadas"] ?></p>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-3">
+                                                            <!-- <div class="col-md-3">
                                                                 <div class="form-group"><label for="horasP"><strong>Horas Planificadas</strong><br></label>
                                                                     <p><?php echo $fila_proy["horas_acumuladas"] ?></p>
                                                                 </div>
-                                                            </div>
+                                                            </div> -->
                                                             <div class="col-md-3">
                                                                 <div class="form-group"><label for="horasR" ><strong>Horas Relevadas</strong><br></label>
-                                                                    <p><?php echo $fila_proy["horas_totales_relevadas"] ?></p>
+                                                                    <p><?php echo $cantidadHorasProyecto ?></p>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-3">
@@ -269,7 +269,7 @@ if (isset($_GET['borrarid']) && !empty($_GET['borrarid'])) {
                                                                         ?>
                                                                             <tr>
                                                                                 <td><?php echo $fila['usuariosNombre']." ". $fila['usuariosApellido']?></td>
-                                                                                <td><?php echo $fila['horas'] ?></td>
+                                                                                <td><?php echo $fila['horas_relevadas'] ?></td>
                                                                                 <td><?php echo $fila['mes'] ?></td>
                                                                                 <td><?php echo $fila['anio'] ?></td>
 

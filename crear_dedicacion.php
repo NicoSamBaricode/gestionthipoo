@@ -50,13 +50,18 @@ if (isset($_POST['submit'])) {
         <?php include('navbar.php'); ?>
         <div class="d-flex flex-column" id="content-wrapper">
             <div id="content">
-            <?php include('navbar_superior.php'); ?>
+                <?php include('navbar_superior.php'); ?>
                 <div class="container-fluid">
 
                     <div class="row mb-3">
 
                         <div class="col-lg-12">
-
+                            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                <strong>Info: </strong> Al cargar las horas se considera como "una declaración jurada" y por lo tanto solo podrá modificarlas el jefe de división.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
                             <div class="row">
                                 <div class="col">
                                     <div class="card shadow mb-3">
@@ -119,7 +124,7 @@ if (isset($_POST['submit'])) {
                                                 <div class="form-row">
 
                                                     <div class="col">
-                                                        <div class="form-group"><label for="horas"><strong>Horas Planificadas Mes</strong><br></label><input class="form-control" type="number" min="1" placeholder="Ingrese cantidad de horas" name="horas" id="planificadas"></input></div>
+                                                        <div class="form-group"><label for="horas"><strong>Horas Relevadas Mes</strong><br></label><input class="form-control" type="number" min="1" placeholder="Ingrese cantidad de horas" name="horas" id="planificadas"></input></div>
                                                     </div>
                                                     <div class="col">
                                                         <div class="form-group"><label for="restantes"><strong>Horas Restantes Mes</strong><br></label><input class="form-control" type="restantes" name="restante" id="restantes" readonly></input></div>
@@ -157,7 +162,7 @@ if (isset($_POST['submit'])) {
                                                     </div>
                                                     <div class="col" style="max-width:fit-content">
 
-                                                        <input type="submit" name="submit" class="btn btn-primary " id="guardarDedicacion" value="Asignar Horas" />
+                                                        <input type="submit" name="submit" class="btn btn-primary " onclick="return  confirmarAsignar()" id="guardarDedicacion" value="Asignar Horas" />
                                                     </div>
                                                 </div>
                                             </form>
@@ -179,7 +184,7 @@ if (isset($_POST['submit'])) {
                                         <tr>
                                             <th data-field="anio" data-sortable="true">Año</th>
                                             <th data-field="Mes" data-sortable="true">Mes</th>
-                                            <th data-field="Horas P">Horas planificadas</th>
+                                            <th data-field="Horas P">Horas Cargadas</th>
                                             <th data-field="Imputacion" data-sortable="true">Imputación</th>
 
                                             <th data-field="obse" data-sortable="true">Obs/Metas</th>
@@ -200,11 +205,11 @@ if (isset($_POST['submit'])) {
                                                 ?>
                                                 <td><?php echo $fila['anio'] ?></td>
                                                 <td><?php echo $fila['mes'] ?></td>
-                                                <td class="centrarRegistros"><?php echo $fila['horas'] ?></td>
-                                                
+                                                <td class="centrarRegistros"><?php echo $fila['horas_relevadas'] ?></td>
+
                                                 <td><?php echo $aux_p['nombre'] ?></td>
                                                 <!-- falta poner el indice a detalle -->
-                                                <td><?php echo $fila['obs'] ?><a href="detalle_dedicacion.php?Id=<?php echo $fila['id_dedicacion'] ?>"class="btn btn-secondary btn-sm"><i class="fas fa-search-plus" style="color:white"></i></a></td>
+                                                <td><?php echo $fila['obs'] ?><a href="detalle_dedicacion.php?Id=<?php echo $fila['id_dedicacion'] ?>" class="btn btn-secondary btn-sm"><i class="fas fa-search-plus" style="color:white"></i></a></td>
                                                 <td style="display: none;"><?php echo $fila['id_dedicacion'] ?></td>
                                                 <script src="cartel.js"> </script>
                                                 <!-- <td><a class="btn btn-primary mx-auto btn-circle ml-1"  role="button" href="crear_tarea.php?tareaId=<?php //echo $fila["id_proyectos"]; 
@@ -230,6 +235,26 @@ if (isset($_POST['submit'])) {
 </body>
 <?php include('footer.php'); ?>
 <script>
+    function horasRestantes() {
+        $.post("ajaxHorasRestantes.php", {
+                mes: $("#mes").val(),
+                planificadas: $("#planificadas").val(),
+                anio: $("#anio").val(),
+                agente: $("#id_agente").val(),
+                totales: $("#totales").val(),
+            })
+            .done(function(data) {
+                // alert("Data Loaded: " + data);
+                $("#restantes").val(data);
+                if (data<1){
+                    alert( "Ya se encuentra completado el relevado para este mes/año. Te estas pasando en: "+ (data *-1) +" horas.");
+
+                }
+            });
+            
+    }
+
+ 
     $("#planificadas").val(1);
     $(document).ready(function() {
         $(".ocultar").hide();
@@ -243,41 +268,29 @@ if (isset($_POST['submit'])) {
 
         $.post("ajaxHorasMes.php", {
                 mes: $("#mes").val(),
-
             })
             .done(function(data) {
                 // alert("Data Loaded: " + data);
                 $("#totales").val(data);
-                $.post("ajaxHorasRestantes.php", {
-                mes: $("#mes").val(),
-                planificadas: $("#planificadas").val(),
-                anio: $("#anio").val(),
-                agente: $("#id_agente").val(),
-                totales: $("#totales").val(),
-            })
-            .done(function(data) {
-                // alert("Data Loaded: " + data);
-                $("#restantes").val(data);
+                horasRestantes();
+                
             });
-            });
-
+      
+        
 
 
     });
+
+
 
     $("#planificadas").on("change", function() {
-        $.post("ajaxHorasRestantes.php", {
-                mes: $("#mes").val(),
-                planificadas: $("#planificadas").val(),
-                anio: $("#anio").val(),
-                agente: $("#id_agente").val(),
-                totales: $("#totales").val(),
-            })
-            .done(function(data) {
-                // alert("Data Loaded: " + data);
-                $("#restantes").val(data);
-            });
+        horasRestantes();
     });
+
+    $("#planificadas").keyup(function() {
+        horasRestantes();
+    });
+
 
     $("#mes").on("change", function() {
         $.post("ajaxHorasMes.php", {
@@ -288,31 +301,29 @@ if (isset($_POST['submit'])) {
                 // alert("Data Loaded: " + data);
                 $("#totales").val(data);
                 $.post("ajaxHorasRestantes.php", {
-                mes: $("#mes").val(),
-                planificadas: $("#planificadas").val(),
-                anio: $("#anio").val(),
-                agente: $("#id_agente").val(),
-                totales: $("#totales").val(),
-            })
-            .done(function(data) {
-                // alert("Data Loaded: " + data);
-                $("#restantes").val(data);
-            });
+                        mes: $("#mes").val(),
+                        planificadas: $("#planificadas").val(),
+                        anio: $("#anio").val(),
+                        agente: $("#id_agente").val(),
+                        totales: $("#totales").val(),
+                    })
+                    .done(function(data) {
+                        // alert("Data Loaded: " + data);
+                        $("#restantes").val(data);
+                    });
             });
     });
 
-    $("#guardarDedicacion").on("click", function() {
+    function confirmarAsignar() {
+        var respuesta = confirm("¿Estás seguro que querés asignar estas horas?");
 
-        $.post("ajaxCalculoHorasProyecto.php", {
-                proyecto: $("#proyectoID").val(),
-            })
-            .done(function(data) {
-                console.log(data);
-                // alert("Calculo horas por proyecto: " + data);
-
-            });
-
-    });
+        if (respuesta) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+   
 </script>
 
 </html>

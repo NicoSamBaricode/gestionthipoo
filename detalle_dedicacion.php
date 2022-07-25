@@ -88,11 +88,11 @@ if (isset($_GET['Id']) && !empty($_GET['Id'])) {
                                                                         <p><?php echo $dedicacion["nombreProyecto"] ?></p>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md-3">
+                                                                <!-- <div class="col-md-3">
                                                                     <div class="form-group"><label for="fecha"><strong>Horas Planificadas</strong></label>
                                                                         <p><?php echo $dedicacion["horas"] ?></p>
                                                                     </div>
-                                                                </div>
+                                                                </div> -->
                                                                 <div class="col-md-3">
                                                                     <div class="form-group"><label for="fecha"><strong>Horas Relevadas</strong></label>
                                                                         <p><?php echo $dedicacion["horas_relevadas"] ?></p>
