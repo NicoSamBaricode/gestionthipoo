@@ -81,7 +81,7 @@ if (isset($_POST['submit'])) {
                                                                     foreach ($filas as $fila) {
                                                                     ?>
                                                                         <option value="<?php echo $fila['id_usuario']; ?>">
-                                                                            <?php echo $fila['nombre'] ?>
+                                                                            <?php echo $fila['nombre']." ".$fila['apellido'] ?>
                                                                         </option>
                                                                     <?php }  ?>
                                                                 </select>

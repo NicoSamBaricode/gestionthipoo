@@ -105,7 +105,7 @@ class Dedicacion_class extends conexionDb
 		$query = "DELETE FROM dedicacion WHERE id_dedicacion = '$id'";
 		$sql = $this->conexion->query($query);
 		if ($sql == true) {
-			echo "<script> confirmBorrar();alert('Se borraron los datos con exito'); window.location='/GestionThi/gestionthipoo/Lista_dedicacion.php'</script> ";
+			echo "<script>alert('Se borraron los datos con exito'); window.location='/GestionThi/gestionthipoo/Lista_dedicacion.php'</script> ";
 		} else {
 			echo "<script> alert('Fallo al borrar datos'); </script>";
 		}
