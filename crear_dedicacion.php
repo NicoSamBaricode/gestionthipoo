@@ -261,9 +261,16 @@ if (isset($_POST['submit'])) {
         const d = new Date();
         let year = d.getFullYear();
         let month = d.getMonth();
+        let day =d.getDay();
         $("#id_agente").val(<?= $usuario ?>);
         $("#mes").focus();
-        $("#mes").val(month + 1);
+        
+        if (day<5){
+            $("#mes").val(month );
+        }else{
+            $("#mes").val(month+1);
+        }//esto es para que los primeros dias del mes se ponga todavia por defecto el mes anterior, y luego cambie al mes actual
+        
         $("#anio").val(year);
 
         $.post("ajaxHorasMes.php", {
