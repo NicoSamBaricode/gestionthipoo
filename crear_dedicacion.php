@@ -246,9 +246,11 @@ if (isset($_POST['submit'])) {
             .done(function(data) {
                 // alert("Data Loaded: " + data);
                 $("#restantes").val(data);
-                if (data<1){
-                    alert( "Ya se encuentra completado el relevado para este mes/año. Te estas pasando en: "+ (data *-1) +" horas.");
-
+                valor= data;
+                  
+                if((data!=0)&&(data<0)){
+                    alert( "Ya se encuentra completado el relevado para este mes/año. Si asignas mas te estarias pasando en: "+ (data *-1) +" horas.");
+                    
                 }
             });
             
@@ -283,8 +285,6 @@ if (isset($_POST['submit'])) {
                 
             });
       
-        
-
 
     });
 
